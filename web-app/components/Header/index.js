@@ -1,26 +1,38 @@
 import React from 'react'
 import styles from './Header.module.scss'
+import Link from 'next/link'
 
 export const Header = () => {
     return (
         <header className={styles.header}>
 
         <div className={styles.logo}>
-        <a href='/' > logo </a> </div>
+        <Link href="/">
+        <a> logo </a> 
+        </Link>
+        </div>
 
         <ul className={styles.btns}>
             <li> 
-            <a href='app' >make ur animation</a> 
+            <Link href="app">
+            <a>make ur animation</a> 
+            </Link>
             </li>
             <li> 
-            <a href='library' >library</a> 
+            <Link href='library'>
+            <a  >library</a> 
+            </Link>
             </li>
             <li>
+            <Link href='guide'>
             <a href='guide' >how to use</a>  
+            </Link>
             </li>
             <li> 
+            <Link href='about'>
             <a href='about' >about</a> 
-            </li>
+            </Link>
+            </li> 
         </ul>
 
         </header>

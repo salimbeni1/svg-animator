@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import styles from '../styles/Home.module.scss'
 
@@ -9,7 +10,9 @@ export default function Home() {
 
     <div className={styles.mainPagediv}>
 
-      <a href='app' className={styles.btn}> START ANIMATE NOW </a>
+      <Link href='app'>
+      <a className={styles.btn}> START ANIMATE NOW </a>
+      </Link>
 
     </div>
     
