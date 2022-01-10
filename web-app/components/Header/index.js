@@ -1,24 +1,25 @@
 import React from 'react'
-import styles from './Header.module.css'
+import styles from './Header.module.scss'
 
 export const Header = () => {
     return (
-        <header>
+        <header className={styles.header}>
 
-        <div>logo</div>
+        <div className={styles.logo}>
+        <a href='/' > logo </a> </div>
 
-        <ul>
+        <ul className={styles.btns}>
             <li> 
-            <a>make ur animation</a> 
+            <a href='app' >make ur animation</a> 
             </li>
             <li> 
-            <a>library</a> 
+            <a href='library' >library</a> 
             </li>
             <li>
-            <a>how to use</a>  
+            <a href='guide' >how to use</a>  
             </li>
             <li> 
-            <a>about</a> 
+            <a href='about' >about</a> 
             </li>
         </ul>
 
