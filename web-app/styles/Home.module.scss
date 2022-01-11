@@ -31,43 +31,4 @@
     
 }
 
-.snakectn{
 
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    z-index: -10;
-    width: 100vw;
-    height: 100vh;
-    
-    overflow: hidden;
-
-    //display: grid;
-    //place-items: center;
-
-    //background-color: brown;
-
-    .snakeHead{
-
-        //background-color: brown;
-        //height: 200px;
-        width: 300px;
-
-        offset-path: path('M900,190  L993,245 V201  A11,11 0 0,1 1004,190  H1075  A11,11 0 0,1 1086,201  V300  L1294,423 H1216  A11,11 0 0,0 1205,434  V789  A11,11 0 0,1 1194,800  H606  A11,11 0 0,1 595,789  V434  A11,11 0 0,0 584,423  H506 L900,190');
-
-        transform: rotate(90deg); 
-
-        //offset-rotate: 131deg;
-
-        animation: move 7000ms infinite alternate ease-in-out;
-    }
-
-    @keyframes move {
-        0% {
-          offset-distance: 0%;
-        }
-        100% {
-          offset-distance: 100%;
-        }
-      }
-}

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import styles from '../styles/Home.module.scss'
-import { getSnakeHead } from '../svgs/snake/snakeHead'
+import { Snake } from '../svgs/Snake'
 
 export default function Home() {
   return (
@@ -18,14 +18,9 @@ export default function Home() {
     </div>
 
 
-    <div className={styles.snakectn}>
-
-      <div className={styles.snakeHead} >{getSnakeHead() }</div>
-
-     
-
-    </div>
     
+    <Snake/>
+
     </>
   )
 }
