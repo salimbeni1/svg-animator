@@ -123,7 +123,7 @@ const get_all_scales = (nb_scales = 1) => {
   <div className={styles.snakectn}>
 
 
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1957 1191">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1957 1813">
   <defs>
     <style>
     {`
