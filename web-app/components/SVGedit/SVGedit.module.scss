@@ -1,0 +1,63 @@
+
+
+
+.ctn{
+
+    display: flex;
+
+
+    .btnPannel{
+
+        display: flex;
+        flex-direction: column;
+
+        button {
+            background-color: white;
+            color: black;
+
+            border: solid 4px black;
+            border-radius: 3px;
+            margin : 5px 0px;
+            padding: 10px 5px;
+        }
+
+        button:hover {
+            background-color: black;
+            color: white;
+        }
+
+    
+    }
+
+
+    .editor{
+        
+    }
+
+    .result{
+
+        background-color: white;
+
+        margin-left: 15px;
+
+        border: solid 4px black;
+        border-radius: 3px;
+
+    }
+
+
+
+}
+
+
+.subtitle{
+
+    display: grid;
+    place-items: center;
+
+    color: black;
+
+    font-family: 'Exo 2', sans-serif;
+    font-size: 25px;
+    font-weight:900;
+}

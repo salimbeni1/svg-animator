@@ -1,16 +1,21 @@
 import React from 'react'
 
-import { useEffect } from 'react'
+import { useEffect , useState } from 'react'
+import styles from './SVGedit.module.scss'
 
 import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
 
 export const SVGedit = () => {
 
+    const { width, height } = { width: 500, height: 500 }
+
+
+    const [result, setResult] = useState(<></>)
+
 
     useEffect(() => {
         
         const container = document.querySelector('#editorContainer')
-        const { width, height } = { width: 500, height: 300 }
         window.width = width
         window.height = height
 
@@ -51,24 +56,42 @@ export const SVGedit = () => {
 
 
     return (
-        <>
+        
+            <>
+            <div className={styles.ctn}>
 
+                
 
-                <div id="editorContainer"></div>
-
-                <div>
+                <div className={styles.btnPannel}>
                 <button onClick={() => canvas.setMode('select')}>Select</button>
                 <button onClick={() => canvas.setMode('circle')}>Circle</button>
                 <button onClick={ () => canvas.setMode('rect')}>Rect</button>
                 <button onClick={ () => canvas.setMode('text')}>Text</button>
+                <button onClick={ () => canvas.setMode('path')}>Path</button>
                 <button onClick={ () => fill('#ff0000')}>Fill Red</button>
                 <button onClick={ () => canvas.deleteSelectedElements()}>Delete Selected</button>
                 <button onClick={() => {canvas.clear(); canvas.updateCanvas(width, height);}}>Clear All</button>
-                <button onClick={() => alert(canvas.getSvgString())}>Get SVG</button>
+                <button onClick={() => setResult(<div dangerouslySetInnerHTML={{__html: canvas.getSvgString()}} />)}>RESULT</button>
                 </div>
+
                 
-                <input id="text" style={{width:0,height:0,opacity: 0}}/>        
-                </>
+                <input id="text" style={{width:0,height:0,opacity: 0}}/>
+
+
+                <div>
+                    <div id="editorContainer" className={styles.editor}></div> 
+                    <div className={styles.subtitle}> EDITOR </div>
+                </div>
+
+                <div>
+                    <div style={{width: width, height: height}} className={styles.result}>
+                        {result}
+                    </div>
+                    <div className={styles.subtitle}>RESULT ANIMATION</div>
+                </div>
+
+            </div>       
+            </>
 
     )
 }

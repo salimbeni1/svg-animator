@@ -14,7 +14,6 @@ const app = () => {
 
                 <SVGedit/>      
 
-
             </div>
            
         </div>
