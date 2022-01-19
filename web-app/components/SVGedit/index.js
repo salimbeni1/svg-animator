@@ -5,6 +5,8 @@ import styles from './SVGedit.module.scss'
 
 import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
 
+import { IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
+
 export const SVGedit = () => {
 
     const { width, height } = { width: 500, height: 500 }
@@ -58,20 +60,49 @@ export const SVGedit = () => {
     return (
         
             <>
-            <div className={styles.ctn}>
+            <div className={styles.ctn} >
 
                 
 
-                <div className={styles.btnPannel}>
-                <button onClick={() => canvas.setMode('select')}>Select</button>
-                <button onClick={() => canvas.setMode('circle')}>Circle</button>
-                <button onClick={ () => canvas.setMode('rect')}>Rect</button>
-                <button onClick={ () => canvas.setMode('text')}>Text</button>
-                <button onClick={ () => canvas.setMode('path')}>Path</button>
-                <button onClick={ () => fill('#ff0000')}>Fill Red</button>
-                <button onClick={ () => canvas.deleteSelectedElements()}>Delete Selected</button>
-                <button onClick={() => {canvas.clear(); canvas.updateCanvas(width, height);}}>Clear All</button>
-                <button onClick={() => setResult(<div dangerouslySetInnerHTML={{__html: canvas.getSvgString()}} />)}>RESULT</button>
+                <div className={styles.btnPannel} style={{height: height}}>
+                <button onClick={() => canvas.setMode('select')}> 
+                    <IoScanSharp/>
+                    <div> Select </div>
+                </button>
+                <button onClick={() => canvas.setMode('circle')}>
+                     <IoEllipseOutline/>
+                    <div> Circle </div> 
+                    </button>
+                <button onClick={ () => canvas.setMode('rect')}> 
+                    <IoStopOutline/>
+                    <div>Rect </div> 
+                </button>
+                <button onClick={ () => canvas.setMode('text')}> 
+                    <IoTextSharp/>
+                    <div>Text</div>
+                </button>
+
+                <button onClick={ () => canvas.setMode('path')}> 
+                    <IoAnalyticsOutline/> 
+                    <div>Path</div> 
+                </button>
+                <button onClick={ () => fill('#ff0000')}>
+                     <IoEyedropOutline/> 
+                     <div>Fill</div>
+                </button>
+
+                <button onClick={ () => canvas.deleteSelectedElements()}>  
+                    <IoTrashBinOutline/>
+                    <div>Del</div>
+                </button>
+                <button onClick={() => {canvas.clear(); canvas.updateCanvas(width, height);}}>
+                    <IoSparklesOutline/>
+                     <div> Clear</div>
+                </button>
+                <button onClick={() => setResult(<div dangerouslySetInnerHTML={{__html: canvas.getSvgString()}} />)}> 
+                    <IoEnterOutline/> 
+                    <div>Result</div>
+                </button>
                 </div>
 
                 
