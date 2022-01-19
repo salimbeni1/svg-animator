@@ -14,23 +14,23 @@ export const Header = () => {
 
         <ul className={styles.btns}>
             <li> 
-            <Link href="app">
+            <Link href="/app">
             <a>make ur animation</a> 
             </Link>
             </li>
             <li> 
-            <Link href='library'>
+            <Link href='/library'>
             <a  >library</a> 
             </Link>
             </li>
             <li>
-            <Link href='guide'>
-            <a href='guide' >how to use</a>  
+            <Link href='/guide'>
+            <a>how to use</a>  
             </Link>
             </li>
             <li> 
-            <Link href='about'>
-            <a href='about' >about</a> 
+            <Link href='/about'>
+            <a >about</a> 
             </Link>
             </li> 
         </ul>
