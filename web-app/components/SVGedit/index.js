@@ -14,6 +14,8 @@ export const SVGedit = () => {
 
     const [result, setResult] = useState(<></>)
 
+    const [rerenderres, setRerenderres] = useState(0)
+
 
     useEffect(() => {
         
@@ -87,7 +89,21 @@ export const SVGedit = () => {
                     <div>Path</div> 
                 </button>
 
-                <button onClick={() => {}}> 
+                <button onClick={() => { canvas.getSelectedElements().forEach( (elem) => {
+                    
+
+                    let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
+                    myAni.setAttribute('attributeName', 'fill')
+                    //myAni.setAttribute('begin', 0)
+                    myAni.setAttribute('from', 'red')
+                    myAni.setAttribute('to', 'green')
+                    myAni.setAttribute('dur', 1)
+                    myAni.setAttribute('repeatCount', '1')
+                    elem.appendChild(myAni)
+
+                    console.log(elem);
+
+                } ) }}> 
                     <IoPulseSharp/> 
                     <div>Anime</div>
                 </button>
@@ -124,14 +140,16 @@ export const SVGedit = () => {
                 </div>
 
                 <div>
-                    <div style={{width: width, height: height}} className={styles.result}>
-                        {result}
+                    <div key={rerenderres} style={{width: width, height: height}} className={styles.result}>
+                        { result }
                     </div>
                     <div className={styles.subtitle}>RESULT ANIMATION</div>
                 </div>
 
                 <div className={styles.btnPannel} style={{height: height ,  width: 75}}>
-                <button onClick={() => {} }> 
+                <button onClick={() => {
+                    setRerenderres(i=> i+1)
+                    } }> 
                     <IoFlashOutline/>
                     <div> Run </div>
                 </button>
@@ -139,7 +157,7 @@ export const SVGedit = () => {
                     <IoCodeDownload/>
                     <div> Export </div>
                 </button>
-                <button onClick={() => {}}> 
+                <button onClick={() => {navigator.clipboard.writeText(canvas.getSvgString())}}> 
                     <IoCopyOutline/>
                     <div> Copy </div>
                 </button>
