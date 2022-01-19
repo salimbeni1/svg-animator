@@ -5,7 +5,7 @@ import styles from './SVGedit.module.scss'
 
 import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
 
-import { IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
+import { IoPulseSharp , IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
 
 export const SVGedit = () => {
 
@@ -64,7 +64,7 @@ export const SVGedit = () => {
 
                 
 
-                <div className={styles.btnPannel} style={{height: height}}>
+                <div className={styles.btnPannel} style={{height: height , width: 150}}>
                 <button onClick={() => canvas.setMode('select')}> 
                     <IoScanSharp/>
                     <div> Select </div>
@@ -86,8 +86,14 @@ export const SVGedit = () => {
                     <IoAnalyticsOutline/> 
                     <div>Path</div> 
                 </button>
+
+                <button onClick={() => {}}> 
+                    <IoPulseSharp/> 
+                    <div>Anime</div>
+                </button>
+
                 <button onClick={ () => fill('#ff0000')}>
-                     <IoEyedropOutline/> 
+                     <IoColorFillOutline/> 
                      <div>Fill</div>
                 </button>
 
@@ -103,6 +109,9 @@ export const SVGedit = () => {
                     <IoEnterOutline/> 
                     <div>Result</div>
                 </button>
+
+                
+
                 </div>
 
                 
@@ -119,6 +128,22 @@ export const SVGedit = () => {
                         {result}
                     </div>
                     <div className={styles.subtitle}>RESULT ANIMATION</div>
+                </div>
+
+                <div className={styles.btnPannel} style={{height: height ,  width: 75}}>
+                <button onClick={() => {} }> 
+                    <IoFlashOutline/>
+                    <div> Run </div>
+                </button>
+                <button onClick={() => {alert(canvas.getSvgString())} }> 
+                    <IoCodeDownload/>
+                    <div> Export </div>
+                </button>
+                <button onClick={() => {}}> 
+                    <IoCopyOutline/>
+                    <div> Copy </div>
+                </button>
+                
                 </div>
 
             </div>       

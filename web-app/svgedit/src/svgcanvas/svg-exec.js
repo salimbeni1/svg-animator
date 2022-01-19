@@ -45,6 +45,66 @@ export const init = (canvas) => {
   svgCanvas = canvas
 }
 
+
+/**
+* OUR Main function to set up the SVG content for output.
+* @function module:svgcanvas.SvgCanvas#OURsvgCanvasToString
+* @returns {string} The SVG image for output
+*/
+export const OURsvgCanvasToString = () => {
+  // keep calling it until there are none to remove
+  while (svgCanvas.removeUnusedDefElems() > 0) { } // eslint-disable-line no-empty
+
+  svgCanvas.pathActions.clear(true)
+
+  // Keep SVG-Edit comment on top
+  const childNodesElems = svgCanvas.getSvgContent().childNodes
+  childNodesElems.forEach(function (node, i) {
+    if (i && node.nodeType === 8 && node.data.includes('Created with')) {
+      svgCanvas.getSvgContent().firstChild.before(node)
+    }
+  })
+
+  // Move out of in-group editing mode
+  if (svgCanvas.getCurrentGroup()) {
+    draw.leaveContext()
+    svgCanvas.selectOnly([svgCanvas.getCurrentGroup()])
+  }
+
+  const nakedSvgs = []
+
+  // Unwrap gsvg if it has no special attributes (only id and style)
+  const gsvgElems = svgCanvas.getSvgContent().querySelectorAll('g[data-gsvg]')
+  Array.prototype.forEach.call(gsvgElems, function (element) {
+    const attrs = element.attributes
+    let len = attrs.length
+    for (let i = 0; i < len; i++) {
+      if (attrs[i].nodeName === 'id' || attrs[i].nodeName === 'style') {
+        len--
+      }
+    }
+    // No significant attributes, so ungroup
+    if (len <= 0) {
+      const svg = element.firstChild
+      nakedSvgs.push(svg)
+      element.replaceWith(svg)
+    }
+  })
+  const output = svgCanvas.svgToString(svgCanvas.getSvgContent(), 0)
+
+  // Rewrap gsvg
+  if (nakedSvgs.length) {
+    Array.prototype.forEach.call(nakedSvgs, function (el) {
+      svgCanvas.groupSvgElem(el)
+    })
+  }
+
+  return output
+}
+
+
+
+
 /**
 * Main function to set up the SVG content for output.
 * @function module:svgcanvas.SvgCanvas#svgCanvasToString
