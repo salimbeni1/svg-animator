@@ -18,8 +18,11 @@ export default function Home() {
     </div>
 
 
+    <div className={styles.snakectn}>
+
+      <Snake/>
+    </div>
     
-    <Snake/>
 
     </>
   )

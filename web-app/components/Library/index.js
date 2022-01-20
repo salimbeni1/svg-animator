@@ -1,16 +1,23 @@
 import React from 'react'
 import styles from './Library.module.scss'
 
+import ReactDOMServer from 'react-dom/server';
+
+import { useState } from 'react';
+
 import { IoSearch ,IoFlashOutline , IoShareOutline,  IoGridOutline} from "react-icons/io5";
+
+import { Snake } from '../../svgs/Snake'
 
 export const Library = () => {
 
 
-    const svgs = [
+    const _svgs = [
         {
+            _renderID: 0,
             svg: <>
                 <svg  width="100%" height={'100%'} preserveAspectRatio="xMidYMid meet"  viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-                    <g class="layer">
+                    <g className="layer">
                     <title>Layer 1</title>
                     <circle cx="118.4" cy="123" fill="#FFFFFF" id="svg_1" r="68.62215" stroke="#000000">
                     <animate attributeName="fill" dur="1" from="red" repeatCount="1" to="green"/>
@@ -35,14 +42,15 @@ export const Library = () => {
                     </g>
                 </svg>
             </>,
-            tags: ["cerchi" , "animazione di mXXXa"],
+            tags: ["cerchi"],
         },
 
         {
+            _renderID: 0,
             svg: <>
             <svg width="100%" height={'100%'} preserveAspectRatio="xMidYMid meet" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
                 
-                <g class="layer">
+                <g className="layer">
                 <title>Layer 1</title>
                 <rect fill="#FFFFFF" height="35" id="svg_1" stroke="#000000" width="361" x="45.4" y="59">
                 <animate attributeName="fill" dur="1" from="red" repeatCount="1" to="green"/>
@@ -63,34 +71,43 @@ export const Library = () => {
             tags: ["rettangoli"],
         },
         {
+            _renderID: 0,
+            svg: <Snake/>,
+            tags:["snake" , "path follow"]
+        },
+        {
+            _renderID: 0,
             svg:<>aa</>,
             tags:[]
         },
         {
+            _renderID: 0,
             svg:<>aa</>,
             tags:[]
         },
         {
+            _renderID: 0,
             svg:<>aa</>,
             tags:[]
         },
         {
+            _renderID: 0,
             svg:<>aa</>,
             tags:[]
         },
         {
+            _renderID: 0,
             svg:<>aa</>,
             tags:[]
         },
         {
-            svg:<>aa</>,
-            tags:[]
-        },
-        {
+            _renderID: 0,
             svg:<>aa</>,
             tags:[]
         },
     ]
+
+    const [svgs, setSvgs] = useState(_svgs)
 
 
     return (
@@ -102,14 +119,27 @@ export const Library = () => {
         <div className={styles.ctn} >
 
             {
-                svgs.map( (el) => {
+                svgs.map( (el , i) => {
 
 
-                    return <div className={styles.card}>
+                    return <div key={i+"-"+el._renderID} className={styles.card}>
                     
                         <div className={styles.svg}>{el.svg}</div>
                         <div className={styles.tags}>{el.tags.map((t) => {return <div className={styles.tag}> {t} </div>})}</div>
-                        <div className={styles.btns}> <button> <IoFlashOutline/> </button> <button> <IoShareOutline/> </button> </div>
+                        <div className={styles.btns}> 
+                            <button onClick={() => {
+                                
+                                const myNewArray = Object.assign([...svgs], {
+                                    [i]: {
+                                        ...svgs[i],
+                                        _renderID: svgs[i]._renderID + 1
+                                    }
+                                });
+                                setSvgs( myNewArray );                            
+                                 
+                                 } }> <IoFlashOutline/> </button> 
+                            <button onClick={() => { alert(ReactDOMServer.renderToStaticMarkup(el.svg)) } }> <IoShareOutline/> </button> 
+                        </div>
 
                     </div>
                 

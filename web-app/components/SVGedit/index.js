@@ -65,7 +65,7 @@ export const SVGedit = () => {
             <div className={styles.ctn} >
 
                 
-
+                <div className={styles.editor}>
                 <div className={styles.btnPannel} style={{height: height , width: 150}}>
                 <button onClick={() => canvas.setMode('select')}> 
                     <IoScanSharp/>
@@ -139,6 +139,11 @@ export const SVGedit = () => {
                     <div className={styles.subtitle}> EDITOR </div>
                 </div>
 
+                </div>
+
+
+                <div className={styles.resultAnimation}>
+
                 <div>
                     <div key={rerenderres} style={{width: width, height: height}} className={styles.result}>
                         { result }
@@ -162,6 +167,8 @@ export const SVGedit = () => {
                     <div> Copy </div>
                 </button>
                 
+                </div>
+
                 </div>
 
             </div>       

@@ -6,6 +6,16 @@
     display: flex;
 
 
+    .resultAnimation{
+        display: flex;
+        flex-direction: row;
+    }
+    .editor{
+        display: flex;
+        flex-direction: row;
+    }
+
+
     .btnPannel{
 
         display: flex;
@@ -27,6 +37,8 @@
 
             font-family: 'Exo 2', sans-serif;
             font-weight:600;
+
+            cursor: pointer;
 
             svg{
                 width: 30px;
@@ -73,4 +85,45 @@
     font-family: 'Exo 2', sans-serif;
     font-size: 25px;
     font-weight:900;
+}
+
+
+@media screen and (max-width: 1245px) {
+    .ctn{
+
+        flex-direction: column;
+
+        .resultAnimation{
+            margin: 50px 0px;
+        }
+    }
+
+}
+
+
+@media screen and (max-width: 660px) {
+    .ctn{
+
+        .resultAnimation{
+            flex-direction: column;
+        }
+
+        .editor{
+            flex-direction: column;
+        }
+
+        .btnPannel{
+
+            flex-direction: row;
+            width: 100vw !important;
+            height: auto !important;
+
+            button{
+                div{
+                    display: none;
+                }
+            }
+        }
+    }
+
 }
