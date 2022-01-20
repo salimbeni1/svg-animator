@@ -1,0 +1,141 @@
+
+
+.header{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    margin: 40px 0px;
+
+    h2{
+        font-family: 'Exo 2', sans-serif;
+        font-size: 25px;
+        font-weight:900;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        svg{
+            margin: 10px;
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .search{
+        border: solid 4px black;
+        border-radius: 3px;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        padding: 0px 5px;
+        input{
+            border: none;
+            height: 50px;
+            width: 50vw;  
+            font-size: 24px;  
+        }
+        input:focus{
+            outline: none;
+        }
+        svg{
+            width: 50px;
+            height: 50px;
+        }
+    }
+}
+
+.svg {
+width: 100%;
+height: 100%;
+}
+
+.ctn{
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .card{
+
+        position: relative;
+
+        width: 300px;
+        height: 300px;
+
+        border: solid 4px black;
+        border-radius: 5px;
+        margin : 10px;
+
+
+        .svg{
+            
+        }
+
+        .tags{
+            visibility: hidden;
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            flex-direction: row;
+
+            cursor: default;
+            .tag{
+
+                margin: 5px;
+                padding: 2px 5px;
+                border: solid 2px black;
+                border-radius: 3px;
+                background-color: rgb(240, 240, 240);
+
+            }
+            .tag:hover{
+                background-color: rgb(197, 197, 197);
+            }
+        }
+
+        .btns{
+
+            visibility: hidden;
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+
+            button{
+                color: black;
+                border: solid 2px black;
+                border-radius: 3px;
+                background-color: white;
+                margin: 2px;
+                svg{
+                    margin: 1px;
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            button:hover{
+                color: white;
+                background-color: black;
+                cursor: pointer;
+            }
+
+        }
+    }
+
+    .card:hover{
+        .tags{
+            visibility: visible;
+        }
+        .btns{
+            visibility: visible;
+        }
+    }
+}
