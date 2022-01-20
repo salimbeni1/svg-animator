@@ -7,7 +7,7 @@
     justify-content: space-around;
     align-items: center;
 
-    margin: 40px 0px;
+    margin: 40px 10px;
 
     h2{
         font-family: 'Exo 2', sans-serif;
@@ -138,4 +138,15 @@ height: 100%;
             visibility: visible;
         }
     }
+}
+
+@media screen and (max-width: 740px) {
+
+    .header{
+
+        flex-direction: column;
+
+    }
+
+
 }

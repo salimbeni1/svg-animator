@@ -29,6 +29,9 @@
 
     }
 
+    .menu{
+        display: none;
+    }
 
     .btns{
 
@@ -46,7 +49,68 @@
         
     }
 
+    
 
 
+
+
+}
+
+.btnsSmallH{
+    display: none;
+}
+
+@media screen and (max-width: 850px) {
+    .header {
+
+        justify-content: space-between;
+
+        .menu{
+            display: block;
+
+            svg{
+            width: 50px;
+            height: 50px;
+            }
+        }
+
+        .btns{
+            display: none;
+        }
+
+
+        
+
+    }
+
+    .btnsSmallV{
+
+        display: flex;
+        flex-direction: column;
+        place-items: center;
+        list-style-type: none;
+
+        font-family: 'Exo 2', sans-serif;
+        font-size: 25px;
+        font-weight:900;
+
+        margin: 0px 5vw;
+        margin-bottom: 10px;
+        padding: 0px 5vw;
+
+        border-bottom: 4px solid black;
+        background-color: white;
+
+
+        li{
+            padding: 0px 0px;
+        }
+
+        li:hover{
+            color: blue;
+            cursor: pointer;
+        }
+        
+    }
 
 }

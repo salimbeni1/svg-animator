@@ -9,7 +9,12 @@ import { IoPulseSharp , IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoC
 
 export const SVGedit = () => {
 
-    const { width, height } = { width: 500, height: 500 }
+    
+
+    const [width, setWidth] = useState(500)
+    const [height, setHeight] = useState(500)
+
+    
 
 
     const [result, setResult] = useState(<></>)
@@ -20,8 +25,23 @@ export const SVGedit = () => {
     useEffect(() => {
         
         const container = document.querySelector('#editorContainer')
-        window.width = width
-        window.height = height
+
+        console.log(window.innerWidth)
+
+        let width_ = width
+        let height_ = height
+
+        if (window.innerWidth < 660){
+            setWidth(e => window.innerWidth - 10);
+            setHeight(e => window.innerWidth - 10);
+            width_ = window.innerWidth - 10
+            height_ = window.innerWidth - 10
+        }
+
+        console.log(height_ , height_);
+
+        window.width = width_
+        window.height = height_
 
         const hiddenTextTagId = 'text'
 
@@ -31,12 +51,12 @@ export const SVGedit = () => {
             text: { stroke_width: 0, font_size: 24, font_family: 'serif' },
             initOpacity: 1,
             imgPath: '../svgedit/images',
-            dimensions: [ width, height ],
+            dimensions: [ width_, height_ ],
             baseUnit: 'px'
         }
 
         window.canvas = new SvgCanvas(container, config)
-        canvas.updateCanvas(width, height)
+        canvas.updateCanvas(width_, height_)
 
         window.fill = function (colour) {
         canvas.getSelectedElements().forEach((el) => {
