@@ -125,7 +125,7 @@ export const Library = () => {
                     return <div key={i+"-"+el._renderID} className={styles.card}>
                     
                         <div className={styles.svg}>{el.svg}</div>
-                        <div className={styles.tags}>{el.tags.map((t) => {return <div className={styles.tag}> {t} </div>})}</div>
+                        <div className={styles.tags}>{el.tags.map((t , i) => {return <div key={t+"-"+i} className={styles.tag}> {t} </div>})}</div>
                         <div className={styles.btns}> 
                             <button onClick={() => {
                                 
