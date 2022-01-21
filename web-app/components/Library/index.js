@@ -78,7 +78,7 @@ export const Library = () => {
         {
             _renderID: 0,
             svg:<>
-            <svg version="1.1" width="100%"  viewBox="0 0 320 320" fill="none" stroke="#000" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" >
+            <svg version="1.1" width="100%"  viewBox="0 0 320 320" fill="none" stroke="#000" strokeLinecap="round" xmlns="http://www.w3.org/2000/svg" >
             <defs>
                 <path id="r1">
                 <animate id="p1" attributeName="d" values="m160,160l0,0 0,0;m130,110l30,-17 30,17;m130,60l30,-17 30,17;m160,20l0,0 0,0" dur="6s" repeatCount="indefinite"></animate>
