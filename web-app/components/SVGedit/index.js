@@ -7,7 +7,7 @@ import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
 
 
 
-import { IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
+import { IoImageOutline , IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
 
 export const SVGedit = () => {
 
@@ -78,6 +78,27 @@ export const SVGedit = () => {
         addListenerMulti(hiddenTextTag, 'keyup input', (evt) => {
         window.canvas.setTextContent(evt.currentTarget.value)
         })
+
+        document.addEventListener( "keydown" , 
+
+            (e) => {
+                // Ctrl+C or Cmd+C pressed?
+                if ((e.ctrlKey || e.metaKey) && e.keyCode == 67) {
+                    canvas.copySelectedElements()
+                 }
+           
+                 // Ctrl+V or Cmd+V pressed?
+                 if ((e.ctrlKey || e.metaKey) && e.keyCode == 86) {
+                    canvas.pasteElements()
+                 }
+           
+                 // Ctrl+X or Cmd+X pressed?
+                 if ((e.ctrlKey || e.metaKey) && e.keyCode == 88) {
+                    // Do stuff.
+                 } 
+            }
+        );
+
     }, [])
 
 
@@ -421,7 +442,24 @@ export const SVGedit = () => {
                     <li>
                         <button onClick={() => {alert(canvas.getSvgString())} }> 
                         <IoCodeDownload/>
-                        <div> Export </div>
+                        <div> Raw </div>
+                    </button>
+                    </li>
+
+                    <li>
+                        <button onClick={() => {
+                            //alert(canvas.getSvgString())
+
+                            const a = document.createElement('a') // Create "a" element
+                            const blob = new Blob([canvas.getSvgString()], {type: 'image/svg+xml'}) // Create a blob (file-like object)
+                            const url = URL.createObjectURL(blob) // Create an object URL from blob
+                            a.setAttribute('href', url) // Set "a" element link
+                            a.setAttribute('download', "SVG-editor.svg") // Set download filename
+                            a.click() // Start downloading
+                            
+                            } }> 
+                        <IoImageOutline/>
+                        <div> SVG </div>
                     </button>
                     </li>
 
