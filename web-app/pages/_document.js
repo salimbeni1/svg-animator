@@ -11,7 +11,7 @@ export default class MyDocument extends Document {
           <meta name="description" content="web app to create svg animations"/>
 
           <meta name="keywords" content="svg , svg animation"/>
-          <meta name="author" content="Etienne Salimbeni , Samuel Liebana"/>
+          <meta name="author" content="Etienne Salimbeni"/>
 
           <link rel="shortcut icon" href="/favicon_io/favicon.ico" />
           <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png" />

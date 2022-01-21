@@ -5,7 +5,7 @@ import styles from './SVGedit.module.scss'
 
 import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
 
-import { IoPulseSharp , IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
+import { IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
 
 export const SVGedit = () => {
 
@@ -13,6 +13,8 @@ export const SVGedit = () => {
 
     const [width, setWidth] = useState(500)
     const [height, setHeight] = useState(500)
+
+    const [fillColor, setFillColor] = useState("red")
 
     
 
@@ -86,69 +88,205 @@ export const SVGedit = () => {
 
                 
                 <div className={styles.editor}>
-                <div className={styles.btnPannel} style={{height: height , width: 150}}>
-                <button onClick={() => canvas.setMode('select')}> 
-                    <IoScanSharp/>
-                    <div> Select </div>
-                </button>
-                <button onClick={() => canvas.setMode('circle')}>
-                     <IoEllipseOutline/>
-                    <div> Circle </div> 
-                    </button>
-                <button onClick={ () => canvas.setMode('rect')}> 
-                    <IoStopOutline/>
-                    <div>Rect </div> 
-                </button>
-                <button onClick={ () => canvas.setMode('text')}> 
-                    <IoTextSharp/>
-                    <div>Text</div>
-                </button>
+                <ul className={styles.btnPannel} style={{height: height}}>
 
-                <button onClick={ () => canvas.setMode('path')}> 
-                    <IoAnalyticsOutline/> 
-                    <div>Path</div> 
-                </button>
+                    <li>
+                        <button onClick={() => canvas.setMode('select')}> 
+                        
+                        <IoMoveOutline/>
+                        <div> Select </div>
+                        </button>
+                    </li>
 
-                <button onClick={() => { canvas.getSelectedElements().forEach( (elem) => {
+                    <li>
+                        <button > 
+                        <IoShapesOutline/>
+                        <div> Shapes </div>
+                        </button>
+
+                        <ul>
+
+                            <li>
+                                <button onClick={() => canvas.setMode('circle')}>
+                                    <div> Circle </div> 
+                                    <IoEllipseOutline/>
+                                </button>
+                            </li>
+                        
+                            <li>
+                                <button onClick={ () => canvas.setMode('rect')}> 
+                                    <div>Recta </div> 
+                                    <IoStopOutline/>
+                                </button>
+                            </li>
+
+                            <li>
+                                <button onClick={ () => canvas.setMode('text')}> 
+                                    
+                                    <div>Text</div>
+                                    <IoTextSharp/>
+                                </button>
+                            </li>
+                        
+                            <li>
+                                <button onClick={ () => canvas.setMode('path')}> 
+                                
+                                <div>Path</div> 
+                                <IoAnalyticsOutline/> 
+                                </button>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li>
+                        <button onClick={() => {}}> 
+                        <IoArrowDownCircleOutline/>
+                        <div> Import </div>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button onClick={() => {}}> 
+                        <IoLayersOutline/>
+                        <div> Layer </div>
+                        </button>
+
+                        <ul>
+                            <li>
+                                <button onClick={() => {}}> 
+                                    <div> Push Front </div>
+                                </button>
+                            </li>
+
+                            <li>
+                                <button onClick={() => {}}> 
+                                    <div> Push Back </div>
+                                </button>
+                            </li>
+                        
+                        </ul>
+                    </li>
+
+                    <li>
+                        <button onClick={() => {}}> 
+                        <IoScanSharp/>
+                        <div> Group </div>
+                        </button>
+                    </li>
+
                     
 
-                    let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
-                    myAni.setAttribute('attributeName', 'fill')
-                    //myAni.setAttribute('begin', 0)
-                    myAni.setAttribute('from', 'red')
-                    myAni.setAttribute('to', 'green')
-                    myAni.setAttribute('dur', 1)
-                    myAni.setAttribute('repeatCount', '1')
-                    elem.appendChild(myAni)
+                    
+                
+                    
 
-                    console.log(elem);
+                
+                    <li>
+                        <button onClick={() => { }}> 
+                        <IoPulseSharp/> 
+                        <div>Anime</div>
+                        </button>
 
-                } ) }}> 
-                    <IoPulseSharp/> 
-                    <div>Anime</div>
-                </button>
+                        <ul className={styles.btnExt}>
+                            <li>
+                                <button onClick={ () => {canvas.getSelectedElements().forEach( (elem) => {
 
-                <button onClick={ () => fill('#ff0000')}>
-                     <IoColorFillOutline/> 
-                     <div>Fill</div>
-                </button>
+                                let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
+                                myAni.setAttribute('attributeName', 'fill')
+                                //myAni.setAttribute('begin', 0)
+                                myAni.setAttribute('from', 'red')
+                                myAni.setAttribute('to', 'green')
+                                myAni.setAttribute('dur', 1)
+                                myAni.setAttribute('repeatCount', '1')
+                                elem.appendChild(myAni)
+                                //console.log(elem);
 
-                <button onClick={ () => canvas.deleteSelectedElements()}>  
-                    <IoTrashBinOutline/>
-                    <div>Del</div>
-                </button>
-                <button onClick={() => {canvas.clear(); canvas.updateCanvas(width, height);}}>
-                    <IoSparklesOutline/>
-                     <div> Clear</div>
-                </button>
-                <button onClick={() => setResult(<div dangerouslySetInnerHTML={{__html: canvas.getSvgString()}} />)}> 
-                    <IoEnterOutline/> 
-                    <div>Result</div>
-                </button>
+                                } ) } }> 
+
+                                <div>Color Animation</div> 
+                                </button>
+                            </li>
+
+                            <li>
+                                <button onClick={ () => {} }> 
+
+                                <div>Dash Array</div> 
+                                </button>
+                            </li>
+
+                            <li>
+                                <button onClick={ () => {} }> 
+
+                                <div>Follow Path</div> 
+                                </button>
+                            </li>
+
+                            <li>
+                                <button onClick={ () => { } }> 
+
+                                <div>Morph Animation</div> 
+                                </button>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                
+
+                
+                    <li>
+                        <button onClick={ () => fill(fillColor)}>
+                        <IoColorFillOutline/> 
+                        <div>Fill</div>
+                        </button>
+
+                        <ul className={styles.btnExt}>
+                            <li>
+                                <div style={{display:"flex",cursor:"pointer"}}>
+                                <div onClick={() => {setFillColor("red")}} style={{backgroundColor: "red", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("green")}} style={{backgroundColor: "green", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("blue")}} style={{backgroundColor: "blue", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("white")}} style={{backgroundColor: "white", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("black")}} style={{backgroundColor: "black", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("yellow")}} style={{backgroundColor: "yellow", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("orange")}} style={{backgroundColor: "orange", width:"20px" , height: "20px"}}></div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div className={styles.colorInput}>
+                                Color
+                                <input onChange={(event) => {setFillColor(event.target.value)}} value={fillColor}/>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                
+                    <li>
+                        <button onClick={ () => canvas.deleteSelectedElements()}>  
+                            <IoTrashBinOutline/>
+                            <div>Del</div>
+                        </button>
+                    </li>
+
+                    <li>
+                        <button onClick={() => {canvas.clear(); canvas.updateCanvas(width, height);}}>
+                            <IoSparklesOutline/>
+                            <div> Clear</div>
+                        </button>
+                    </li>
+                
+                    <li>
+                        <button onClick={() => setResult(<div dangerouslySetInnerHTML={{__html: canvas.getSvgString()}} />)}> 
+                            <IoEnterOutline/> 
+                            <div>Result</div>
+                        </button>
+                    </li>
+                
 
                 
 
-                </div>
+                </ul>
 
                 
                 <input id="text" style={{width:0,height:0,opacity: 0}}/>
@@ -169,25 +307,36 @@ export const SVGedit = () => {
                         { result }
                     </div>
                     <div className={styles.subtitle}>RESULT ANIMATION</div>
+
                 </div>
 
-                <div className={styles.btnPannel} style={{height: height ,  width: 75}}>
-                <button onClick={() => {
-                    setRerenderres(i=> i+1)
-                    } }> 
-                    <IoFlashOutline/>
-                    <div> Run </div>
-                </button>
-                <button onClick={() => {alert(canvas.getSvgString())} }> 
-                    <IoCodeDownload/>
-                    <div> Export </div>
-                </button>
-                <button onClick={() => {navigator.clipboard.writeText(canvas.getSvgString())}}> 
-                    <IoCopyOutline/>
-                    <div> Copy </div>
-                </button>
+                <ul className={styles.btnPannel} style={{height: height ,  width: 75}}>
+                    
+                    <li>
+                        <button onClick={() => {
+                        setRerenderres(i=> i+1)
+                        } }> 
+                        <IoFlashOutline/>
+                        <div> Run </div>
+                    </button>
+                    </li>
+                    
+                    <li>
+                        <button onClick={() => {alert(canvas.getSvgString())} }> 
+                        <IoCodeDownload/>
+                        <div> Export </div>
+                    </button>
+                    </li>
+
+                    <li>
+                        <button onClick={() => {navigator.clipboard.writeText(canvas.getSvgString())}}> 
+                        <IoCopyOutline/>
+                        <div> Copy </div>
+                    </button>
+                    </li>
+                    
                 
-                </div>
+                </ul>
 
                 </div>
 
