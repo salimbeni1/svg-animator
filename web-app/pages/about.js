@@ -98,6 +98,7 @@ const about = () => {
                         simply want to contribute to this :) 
                     </p>
 
+
                     <h1>About Me</h1>
 
                     <p>

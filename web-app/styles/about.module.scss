@@ -4,22 +4,16 @@
 
     display: flex;
     flex-direction: column;
-
     align-items: center;
-
     margin-bottom: 20px;
-
     font-family: 'Exo 2', sans-serif;
     //font-weight:900;
-
 
     .cnt1{
 
         display: flex;
         flex-direction: row;
-
         align-items: center;
-        
 
         .cnt2{
 
@@ -27,10 +21,8 @@
             border-radius: 3px;
             width: 50vw;
             padding: 20px;
-
             margin: 30px;
-
-
+            
             .contact{
                 display: flex;
                 flex-direction: row;
@@ -67,32 +59,18 @@
 
     .pagediv{
 
-
         .cnt1{
-
-            //background-color: blue;
 
             flex-direction: column;
 
-
-
             .cnt2{
-
                 width: 90vw;
-
-
             }
 
             .im2{
-
                 width: 90vw;
                 height: 90vw;
-
-
-
             }
-
-
 
         }
 
