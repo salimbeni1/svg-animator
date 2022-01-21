@@ -61,3 +61,42 @@
 
 
 }
+
+
+@media screen and (max-width: 620px) {
+
+    .pagediv{
+
+
+        .cnt1{
+
+            //background-color: blue;
+
+            flex-direction: column;
+
+
+
+            .cnt2{
+
+                width: 90vw;
+
+
+            }
+
+            .im2{
+
+                width: 90vw;
+                height: 90vw;
+
+
+
+            }
+
+
+
+        }
+
+    }
+
+
+}
