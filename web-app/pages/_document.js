@@ -5,8 +5,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-
-          <title> SVG animation generator </title>
           
           <meta name="description" content="web app to create svg animations"/>
 

@@ -5,6 +5,8 @@ import styles from './SVGedit.module.scss'
 
 import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
 
+
+
 import { IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
 
 export const SVGedit = () => {
@@ -78,6 +80,82 @@ export const SVGedit = () => {
         })
     }, [])
 
+
+    const importImage = (e) => {
+        //$id('se-prompt-dialog').title = this.i18next.t('notification.loadingImage')
+        //$id('se-prompt-dialog').setAttribute('close', false)
+        e.stopPropagation()
+        e.preventDefault()
+        const file = (e.type === 'drop') ? e.dataTransfer.files[0] : e.currentTarget.files[0]
+        if (!file) {
+          //$id('se-prompt-dialog').setAttribute('close', true)
+          return
+        }
+  
+        if (!file.type.includes('image')) {
+          return
+        }
+        // Detected an image
+        // svg handling
+        let reader
+        if (file.type.includes('svg')) {
+          reader = new FileReader()
+          reader.onloadend = (ev) => {
+            const newElement = canvas.importSvgString(ev.target.result, true)
+            newElement.setAttribute("transform","")
+            console.log(newElement);
+            canvas.alignSelectedElements('m', 'page')
+            canvas.alignSelectedElements('c', 'page')
+            // highlight imported element, otherwise we get strange empty selectbox
+            canvas.selectOnly([newElement])
+            //$id('se-prompt-dialog').setAttribute('close', true)
+          }
+          reader.readAsText(file)
+        } else {
+          // bitmap handling
+          reader = new FileReader()
+          reader.onloadend = function ({ target: { result } }) {
+            /**
+                * Insert the new image until we know its dimensions.
+                * @param {Float} imageWidth
+                * @param {Float} imageHeight
+                * @returns {void}
+                */
+            const insertNewImage = (imageWidth, imageHeight) => {
+              const newImage = canvas.addSVGElementsFromJson({
+                element: 'image',
+                attr: {
+                  x: 0,
+                  y: 0,
+                  width: imageWidth,
+                  height: imageHeight,
+                  id: canvas.getNextId(),
+                  style: 'pointer-events:inherit'
+                }
+              })
+              canvas.setHref(newImage, result)
+              canvas.selectOnly([newImage])
+              canvas.alignSelectedElements('m', 'page')
+              canvas.alignSelectedElements('c', 'page')
+              this.topPanel.updateContextPanel()
+              //$id('se-prompt-dialog').setAttribute('close', true)
+            }
+            // create dummy img so we know the default dimensions
+            let imgWidth = 100
+            let imgHeight = 100
+            const img = new Image()
+            img.style.opacity = 0
+            img.addEventListener('load', () => {
+              imgWidth = img.offsetWidth || img.naturalWidth || img.width
+              imgHeight = img.offsetHeight || img.naturalHeight || img.height
+              insertNewImage(imgWidth, imgHeight)
+            })
+            img.src = result
+          }
+          reader.readAsDataURL(file)
+        }
+      }
+
     
 
 
@@ -140,9 +218,12 @@ export const SVGedit = () => {
                     </li>
 
                     <li>
-                        <button onClick={() => {}}> 
-                        <IoArrowDownCircleOutline/>
-                        <div> Import </div>
+                        <button onClick={() => {
+                            document.getElementById('file-import-input').click();
+                        }}> 
+                            <input id="file-import-input" type="file" onChange={ (e) => {importImage(e)}} style={{display:"none"}} />
+                            <IoArrowDownCircleOutline/>
+                            <div> Import </div>
                         </button>
                     </li>
 
@@ -154,13 +235,13 @@ export const SVGedit = () => {
 
                         <ul>
                             <li>
-                                <button onClick={() => {}}> 
+                                <button onClick={() => {canvas.moveToTopSelectedElement()}}> 
                                     <div> Push Front </div>
                                 </button>
                             </li>
 
                             <li>
-                                <button onClick={() => {}}> 
+                                <button onClick={() => {canvas.moveToBottomSelectedElement()}}> 
                                     <div> Push Back </div>
                                 </button>
                             </li>
@@ -173,6 +254,22 @@ export const SVGedit = () => {
                         <IoScanSharp/>
                         <div> Group </div>
                         </button>
+
+                        <ul>
+                            <li>
+                                <button onClick={() => {canvas.groupSelectedElements()}}> 
+                                    <div> group  </div>
+                                </button>
+                            </li>
+
+                            <li>
+                                <button onClick={() => {canvas.ungroupSelectedElement()}}> 
+                                    <div> ungroup </div>
+                                </button>
+                            </li>
+                        
+                        </ul>
+
                     </li>
 
                     
@@ -243,20 +340,20 @@ export const SVGedit = () => {
                         <ul className={styles.btnExt}>
                             <li>
                                 <div style={{display:"flex",cursor:"pointer"}}>
-                                <div onClick={() => {setFillColor("red")}} style={{backgroundColor: "red", width:"20px" , height: "20px"}}></div>
-                                <div onClick={() => {setFillColor("green")}} style={{backgroundColor: "green", width:"20px" , height: "20px"}}></div>
-                                <div onClick={() => {setFillColor("blue")}} style={{backgroundColor: "blue", width:"20px" , height: "20px"}}></div>
-                                <div onClick={() => {setFillColor("white")}} style={{backgroundColor: "white", width:"20px" , height: "20px"}}></div>
-                                <div onClick={() => {setFillColor("black")}} style={{backgroundColor: "black", width:"20px" , height: "20px"}}></div>
-                                <div onClick={() => {setFillColor("yellow")}} style={{backgroundColor: "yellow", width:"20px" , height: "20px"}}></div>
-                                <div onClick={() => {setFillColor("orange")}} style={{backgroundColor: "orange", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("red") ; fill("red")}} style={{backgroundColor: "red", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("green"); fill("green")}} style={{backgroundColor: "green", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("blue"); fill("blue")}} style={{backgroundColor: "blue", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("white"); fill("white")}} style={{backgroundColor: "white", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("black"); fill("black")}} style={{backgroundColor: "black", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("yellow"); fill("yellow")}} style={{backgroundColor: "yellow", width:"20px" , height: "20px"}}></div>
+                                <div onClick={() => {setFillColor("orange"); fill("orange")}} style={{backgroundColor: "orange", width:"20px" , height: "20px"}}></div>
                                 </div>
                             </li>
 
                             <li>
                                 <div className={styles.colorInput}>
                                 Color
-                                <input onChange={(event) => {setFillColor(event.target.value)}} value={fillColor}/>
+                                <input onChange={(event) => {setFillColor(event.target.value); fill(event.target.value)}} value={fillColor}/>
                                 </div>
                             </li>
                         </ul>
