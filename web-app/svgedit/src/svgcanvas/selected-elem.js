@@ -433,8 +433,8 @@ const copySelectedElements = () => {
   svgCanvas.flashStorage()
 
   // Context menu might not exist (it is provided by editor.js).
-  //const canvMenu = document.getElementById('se-cmenu_canvas')
-  //canvMenu.setAttribute('enablemenuitems', '#paste,#paste_in_place')
+  // WARNING ETIENNE const canvMenu = document.getElementById('se-cmenu_canvas')
+  // WARNING ETIENNE canvMenu.setAttribute('enablemenuitems', '#paste,#paste_in_place')
 }
 
 /**
