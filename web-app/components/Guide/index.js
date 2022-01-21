@@ -1,6 +1,6 @@
 import React from 'react'
 
-import styles from './guide.module.scss'
+import styles from './Guide.module.scss'
 import { IoAddOutline , IoCloseOutline } from "react-icons/io5";
 
 import { useState } from 'react';
