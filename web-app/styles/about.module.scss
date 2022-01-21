@@ -2,13 +2,62 @@
 
 .pagediv{
 
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
 
-    height: 50vh;
+    align-items: center;
 
-    font-size: 50px;
-    color: blue;
+    margin-bottom: 20px;
+
+    font-family: 'Exo 2', sans-serif;
+    //font-weight:900;
+
+
+    .cnt1{
+
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+        
+
+        .cnt2{
+
+            border: 4px solid black;
+            border-radius: 3px;
+            width: 50vw;
+            padding: 20px;
+
+            margin: 30px;
+
+
+            .contact{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                justify-content: space-around;
+
+                svg{
+                    width: 30px;
+                    height: 30px;
+
+                    cursor: pointer;
+                }
+            }
+
+
+
+        }
+
+        .im2{
+
+            background-color: yellow;
+            width: 30vw;
+            height: 30vw;
+            padding: 20px;
+        }
+    }
 
 
 }
