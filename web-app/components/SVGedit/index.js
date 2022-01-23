@@ -9,6 +9,9 @@ import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
 
 import { IoImageOutline , IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
 
+
+
+
 export const SVGedit = () => {
 
     // Editor window size
@@ -29,6 +32,11 @@ export const SVGedit = () => {
     const [morphInitialShape, setMorphInitialShape] = useState(undefined);
     const [morphIntermediateShapes, setMorphIntermediateShapes] = useState([]);
     const [morphFinalShape, setMorphFinalShape] = useState(undefined);
+
+    // -> Color
+    const [initalColor, setInitalColor] = useState("green");
+    const [intermediateColors, setIntermediateColors] = useState([]);
+    const [finalColor, setFinalColor] = useState("red");
 
 
     
@@ -321,22 +329,75 @@ export const SVGedit = () => {
 
                         <ul className={styles.ul2}>
                             <li className={styles.li2}>
-                                <button onClick={ () => {canvas.getSelectedElements().forEach( (elem) => {
-
-                                let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
-                                myAni.setAttribute('attributeName', 'fill')
-                                //myAni.setAttribute('begin', 0)
-                                myAni.setAttribute('from', 'red')
-                                myAni.setAttribute('to', 'green')
-                                myAni.setAttribute('dur', 1)
-                                myAni.setAttribute('repeatCount', '1')
-                                elem.appendChild(myAni)
-                                //console.log(elem);
-
-                                } ) } }> 
-
+                                
+                                <button>
                                 <div>Color Animation</div> 
                                 </button>
+
+                                <ul className={styles.ul3}>
+
+                                    <li className={styles.li3}> 
+                                    <div className={styles.divcolor2}>
+                                        <p>Initial Color</p>
+                                        <div className={styles.divcolor3input}>
+                                            <input value={initalColor} onChange={(e) => setInitalColor(e.target.value)}/>
+                                            <div className={styles.anmColor} style={{backgroundColor: initalColor}} ></div>
+                                        </div>
+                                    </div>
+                                    </li>
+                                    { intermediateColors.map((e,i) => {
+                                        return <li className={styles.li3}>
+                                        <div className={styles.divcolor2}>
+                                        <p>Inter {i} Color</p>
+                                        <div className={styles.divcolor3input}>
+                                            <input value={intermediateColors[i]} onChange={(e) => {
+                                                let temp = intermediateColors
+                                                temp[i] = e.target.value
+                                                setIntermediateColors([...temp])}
+                                                }/>
+                                            <div className={styles.anmColor} style={{backgroundColor: intermediateColors[i]}} ></div>
+                                        </div>
+                                        
+                                        </div>
+                                        </li>
+                                    }) }
+                                    <li className={styles.li3}> 
+                                    <button onClick={() => {
+                                        let temp = intermediateColors
+                                        const arr = ["#0f0" ,"#ff0" , "#0fd" ]
+                                        temp.push( arr[(Math.random() * arr.length) | 0] )
+                                        setIntermediateColors([...temp])
+                                    }}>Add intermediate color</button>
+                                     </li>
+                                    <li className={styles.li3}> 
+                                    <div className={styles.divcolor2}>
+                                        <p>Final Color</p>
+                                        <div className={styles.divcolor3input}>
+                                            <input value={finalColor} onChange={(e) => setFinalColor(e.target.value)}/>
+                                            <div className={styles.anmColor} style={{backgroundColor: finalColor}}></div>
+                                        </div>
+                                        
+                                    </div>
+                                    </li>
+                                    <li className={styles.li3}> 
+                                        <button onClick={ () => {canvas.getSelectedElements().forEach( (elem) => {
+
+                                        let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
+                                        myAni.setAttribute('attributeName', 'fill')
+                                        myAni.setAttribute('values',
+                                        [initalColor,...intermediateColors,finalColor].reduce((p,c)=>p+";"+c) )
+                                        myAni.setAttribute('dur', 1)
+                                        myAni.setAttribute('repeatCount', '1')
+                                        elem.appendChild(myAni)
+                                        //console.log(elem);
+
+                                        } ) } }> Animate Selected
+                                        </button>
+                                    
+                                    </li>
+
+
+                                </ul>
                             </li>
 
                             <li className={styles.li2}>
