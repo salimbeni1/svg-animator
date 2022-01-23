@@ -11,18 +11,30 @@ import { IoImageOutline , IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShap
 
 export const SVGedit = () => {
 
-    
-
+    // Editor window size
     const [width, setWidth] = useState(500)
     const [height, setHeight] = useState(500)
 
+
+    // Fill color
     const [fillColor, setFillColor] = useState("red")
+
+
+    // Animation 
+    // -> Path follow
+    const [pathFollowEl, setPathFollowEl] = useState([]);
+    const [pathFollowPath, setPathFollowPath] = useState(undefined);
+
+    // -> Morph
+    const [morphInitialShape, setMorphInitialShape] = useState(undefined);
+    const [morphFinalShape, setMorphFinalShape] = useState(undefined);
+
 
     
 
 
+    // Result window states
     const [result, setResult] = useState(<></>)
-
     const [rerenderres, setRerenderres] = useState(0)
 
 
@@ -189,7 +201,7 @@ export const SVGedit = () => {
                 <div className={styles.editor}>
                 <ul className={styles.btnPannel} style={{height: height}}>
 
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={() => canvas.setMode('select')}> 
                         
                         <IoMoveOutline/>
@@ -197,29 +209,29 @@ export const SVGedit = () => {
                         </button>
                     </li>
 
-                    <li>
+                    <li className={styles.li1}>
                         <button > 
                         <IoShapesOutline/>
                         <div> Shapes </div>
                         </button>
 
-                        <ul>
+                        <ul className={styles.ul2}>
 
-                            <li>
+                            <li className={styles.li2}>
                                 <button onClick={() => canvas.setMode('circle')}>
                                     <div> Circle </div> 
                                     <IoEllipseOutline/>
                                 </button>
                             </li>
                         
-                            <li>
+                            <li className={styles.li2}>
                                 <button onClick={ () => canvas.setMode('rect')}> 
                                     <div>Recta </div> 
                                     <IoStopOutline/>
                                 </button>
                             </li>
 
-                            <li>
+                            <li className={styles.li2}>
                                 <button onClick={ () => canvas.setMode('text')}> 
                                     
                                     <div>Text</div>
@@ -227,7 +239,7 @@ export const SVGedit = () => {
                                 </button>
                             </li>
                         
-                            <li>
+                            <li className={styles.li2}>
                                 <button onClick={ () => canvas.setMode('path')}> 
                                 
                                 <div>Path</div> 
@@ -238,7 +250,7 @@ export const SVGedit = () => {
                         </ul>
                     </li>
 
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={() => {
                             document.getElementById('file-import-input').click();
                         }}> 
@@ -248,20 +260,20 @@ export const SVGedit = () => {
                         </button>
                     </li>
 
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={() => {}}> 
                         <IoLayersOutline/>
                         <div> Layer </div>
                         </button>
 
-                        <ul>
-                            <li>
+                        <ul className={styles.ul2}>
+                            <li className={styles.li2}>
                                 <button onClick={() => {canvas.moveToTopSelectedElement()}}> 
                                     <div> Push Front </div>
                                 </button>
                             </li>
 
-                            <li>
+                            <li className={styles.li2}>
                                 <button onClick={() => {canvas.moveToBottomSelectedElement()}}> 
                                     <div> Push Back </div>
                                 </button>
@@ -270,20 +282,20 @@ export const SVGedit = () => {
                         </ul>
                     </li>
 
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={() => {}}> 
                         <IoScanSharp/>
                         <div> Group </div>
                         </button>
 
-                        <ul>
-                            <li>
+                        <ul className={styles.ul2}>
+                            <li className={styles.li2}>
                                 <button onClick={() => {canvas.groupSelectedElements()}}> 
                                     <div> group  </div>
                                 </button>
                             </li>
 
-                            <li>
+                            <li className={styles.li2}>
                                 <button onClick={() => {canvas.ungroupSelectedElement()}}> 
                                     <div> ungroup </div>
                                 </button>
@@ -300,14 +312,14 @@ export const SVGedit = () => {
                     
 
                 
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={() => { }}> 
                         <IoPulseSharp/> 
                         <div>Anime</div>
                         </button>
 
-                        <ul className={styles.btnExt}>
-                            <li>
+                        <ul className={styles.ul2}>
+                            <li className={styles.li2}>
                                 <button onClick={ () => {canvas.getSelectedElements().forEach( (elem) => {
 
                                 let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
@@ -326,25 +338,172 @@ export const SVGedit = () => {
                                 </button>
                             </li>
 
-                            <li>
-                                <button onClick={ () => {} }> 
+                            <li className={styles.li2}>
+                                <button onClick={ () => { 
+
+                                    canvas.getSelectedElements().forEach( (elem) => {
+
+                                        let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
+                                        myAni.setAttribute('attributeName', 'stroke-dashoffset')
+                                        myAni.setAttribute('from', '0')
+                                        myAni.setAttribute('to', '1000')
+                                        myAni.setAttribute('dur', 10)
+                                        myAni.setAttribute('repeatCount', '1')
+                                        elem.appendChild(myAni)
+
+                                        elem.setAttribute("stroke-dasharray" , "20")
+                                        elem.setAttribute("stroke-dashoffset" , "100")
+
+                                        //console.log(elem);
+
+                                        //alert("been here")
+                                    })
+
+
+                                 } 
+                                }> 
 
                                 <div>Dash Array</div> 
                                 </button>
                             </li>
 
-                            <li>
-                                <button onClick={ () => {} }> 
+                            <li className={styles.li2}>
+                                <button onClick={ () => { } }> 
 
                                 <div>Follow Path</div> 
                                 </button>
+
+                                <ul className={styles.ul3}>
+
+                                    <li className={styles.li3}> 
+                                        <div className={styles.divPathFollow2}>
+                                            <p>Elements  </p>
+                                            <p> : {pathFollowEl.length} selected </p>
+                                        </div> 
+                                            <button onClick={ () => { setPathFollowEl( canvas.getSelectedElements() ) } } > pick selected </button>
+                                    </li>
+
+                                    <li className={styles.li3}> 
+                                        <div className={styles.divPathFollow2}>
+                                            <p>Path  </p>
+                                            <p> : {pathFollowPath?1:0} selected </p>
+
+                                        </div> 
+                                            <button onClick={ () => { 
+                                                const path = canvas.getSelectedElements()[0]
+                                                if(pathFollowEl.includes(path)){
+                                                    alert("cannot animate on same path")
+                                                    return;
+                                                }
+                                                setPathFollowPath( path ) 
+                                                } } > pick selected  </button>
+                                    </li>
+
+                                    <li className={styles.li3}>
+                                        <button onClick={() => {
+
+                                            let myAni = document.createElement('animateMotion')
+                                            myAni.setAttribute('dur', '10s')
+                                            myAni.setAttribute('fill', 'freeze')
+                                            myAni.setAttribute('rotate', 'auto')
+                                            myAni.setAttribute("repeatCount","1")
+
+                                            //myAni.setAttribute("path", "M-25,-12.5 L25,-12.5 L 0,-87.5 z" )
+
+                                            let pathIdEl = document.createElement("mpath")
+                                            pathIdEl.setAttribute("href" ,"#"+pathFollowPath.id )
+                                            myAni.appendChild(pathIdEl)
+
+                                            pathFollowEl.forEach(
+                                                (el) => {
+                                                    el.appendChild(myAni)
+                                                    
+                                                    console.log(el);   
+                                                }
+                                                
+                                                );
+
+                                            setPathFollowEl([])
+
+                                        }}>Animate</button>
+                                    </li>
+
+                                </ul>
                             </li>
 
-                            <li>
+                            <li className={styles.li2}>
                                 <button onClick={ () => { } }> 
 
                                 <div>Morph Animation</div> 
                                 </button>
+
+                                <ul className={styles.ul3}>
+                                    <li className={styles.li3}>
+                                        <div className={styles.divMorpth2}>
+                                            <p>Initial Path</p>
+                                            <p> : {morphInitialShape?1:0} path </p>
+
+                                        </div>
+
+                                        <button onClick={ () => { 
+
+                                            const pathEl = canvas.getSelectedElements()[0] 
+                                            
+                                            const path = pathEl?.getAttribute("d");
+
+                                            if(!path){
+                                                alert("you can only morph a PATH")
+                                            }
+
+                                            setMorphInitialShape( pathEl ) 
+
+                                        }
+                                        } >pick selected</button>
+                                        
+                                    </li>
+
+                                    <li className={styles.li3}>
+                                        <div className={styles.divMorpth2}>
+                                            <p>Final Path</p>
+                                            <p> : {morphFinalShape?1:0} path </p>
+
+                                        </div>
+
+                                        <button onClick={ () => { 
+
+                                            const pathEl = canvas.getSelectedElements()[0] 
+
+                                            const path = pathEl?.getAttribute("d");
+
+                                            if(!path){
+                                                alert("you can only morph a PATH")
+                                            }
+
+                                            setMorphFinalShape( pathEl ) 
+
+                                            }}
+                                             >pick selected</button>
+                                    </li>
+
+                                    <li className={styles.li3}>
+                                        <button onClick={ () => {
+
+                                            let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
+                                            myAni.setAttribute('attributeName', 'd')
+                                            myAni.setAttribute('from', morphInitialShape.getAttribute("d"))
+                                            myAni.setAttribute('to', morphFinalShape.getAttribute("d"))
+                                            myAni.setAttribute('dur', 10)
+                                            myAni.setAttribute('repeatCount', '1')
+
+                                            morphInitialShape.appendChild(myAni)
+
+
+                                         }}>Create Animation</button>
+                                    </li>
+                                    
+                                
+                                </ul>
+
                             </li>
                             
                         </ul>
@@ -352,14 +511,14 @@ export const SVGedit = () => {
                 
 
                 
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={ () => fill(fillColor)}>
                         <IoColorFillOutline/> 
                         <div>Fill</div>
                         </button>
 
-                        <ul className={styles.btnExt}>
-                            <li>
+                        <ul className={styles.ul2}>
+                            <li className={styles.li2}>
                                 <div style={{display:"flex",cursor:"pointer"}}>
                                 <div onClick={() => {setFillColor("red") ; fill("red")}} style={{backgroundColor: "red", width:"20px" , height: "20px"}}></div>
                                 <div onClick={() => {setFillColor("green"); fill("green")}} style={{backgroundColor: "green", width:"20px" , height: "20px"}}></div>
@@ -371,7 +530,7 @@ export const SVGedit = () => {
                                 </div>
                             </li>
 
-                            <li>
+                            <li className={styles.li2}>
                                 <div className={styles.colorInput}>
                                 Color
                                 <input onChange={(event) => {setFillColor(event.target.value); fill(event.target.value)}} value={fillColor}/>
@@ -380,21 +539,21 @@ export const SVGedit = () => {
                         </ul>
                     </li>
                 
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={ () => canvas.deleteSelectedElements()}>  
                             <IoTrashBinOutline/>
                             <div>Del</div>
                         </button>
                     </li>
 
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={() => {canvas.clear(); canvas.updateCanvas(width, height);}}>
                             <IoSparklesOutline/>
                             <div> Clear</div>
                         </button>
                     </li>
                 
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={() => setResult(<div dangerouslySetInnerHTML={{__html: canvas.getSvgString()}} />)}> 
                             <IoEnterOutline/> 
                             <div>Result</div>
@@ -430,7 +589,7 @@ export const SVGedit = () => {
 
                 <ul className={styles.btnPannel} style={{height: height ,  width: 75}}>
                     
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={() => {
                         setRerenderres(i=> i+1)
                         } }> 
@@ -439,14 +598,14 @@ export const SVGedit = () => {
                     </button>
                     </li>
                     
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={() => {alert(canvas.getSvgString())} }> 
                         <IoCodeDownload/>
                         <div> Raw </div>
                     </button>
                     </li>
 
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={() => {
                             //alert(canvas.getSvgString())
 
@@ -463,7 +622,7 @@ export const SVGedit = () => {
                     </button>
                     </li>
 
-                    <li>
+                    <li className={styles.li1}>
                         <button onClick={() => {navigator.clipboard.writeText(canvas.getSvgString())}}> 
                         <IoCopyOutline/>
                         <div> Copy </div>

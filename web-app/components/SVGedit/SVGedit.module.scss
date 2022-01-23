@@ -41,37 +41,110 @@
 
         width: 150px;
 
-        li:hover{
-            ul{
+        .li1:hover{
+            .ul2{
                 display: block;
             }
         }
 
-        li {
+        .li1 { // Main buttons
 
             position: relative;
 
-            ul{
+            .ul2{ // secondary buttons group
 
                 display: none;
 
                 list-style-type: none;
                 padding: 0;
-
-                //display: none;
                 position: absolute;
                 left: 60px;
                 top: 10px;
-
                 border: 4px solid black;
                 border-radius: 2px;
-
                 background-color: white;
 
-                z-index: 10;
+                z-index: 12;
+
+                .li2:hover{
+                    .ul3{
+                        display: block;
+                    }
+                }
                 
-                li{
+                .li2{ // secondary buttons
                     display: block;
+                    position: relative;
+
+
+                    .ul3{ // terzary buttons group
+
+                        display: none;
+
+                        list-style-type: none;
+                        padding: 0;
+                        position: absolute;
+                        left: 60px;
+                        top: 10px;
+                        border: 4px solid black;
+                        border-radius: 2px;
+                        background-color: white;
+
+                        z-index: 13;
+                        
+
+                        .li3{ // terzary buttons
+
+                            background-color: white;
+
+                            display: flex;
+                            flex-direction: row;
+                            place-items: center;
+                            justify-content: space-between;
+
+                            width: 250px;
+
+                            .divPathFollow2{
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+
+                                //background-color: yellow;
+                                margin: 0px 2px;
+                                
+
+                                width: 400px;
+                                p{
+                                margin: 1px 0px;
+                                }
+
+                            }
+
+                            .divMorpth2{
+
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+
+                                //background-color: yellow;
+                                margin: 0px 2px;
+                                
+
+                                width: 400px;
+                                p{
+                                margin: 1px 0px;
+                                }
+
+                            }
+
+                            button{
+                                width: 100%;
+                            }
+
+                        }
+
+                    }
+
 
                     button {
                         margin: 1px 0px;
@@ -87,7 +160,7 @@
 
                         
                     }
-                    
+    
                 }
             }
 
@@ -114,13 +187,6 @@
                     height: 30px;
                 }
 
-
-                .btnExt{
-                    display: none;
-                    button{
-                        background-color: blue;
-                    }
-                }
             }
 
             button:hover {
@@ -128,8 +194,6 @@
                 color: white;
             }
         }
-
-    
     }
 
 
