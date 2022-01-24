@@ -29,6 +29,35 @@ export const SVGedit = () => {
 
 
     // Animation 
+    // -> Timing Globals
+    const [animationDur, setAnimationDur] = useState(10);
+    const [animationBegin, setanimationBegin] = useState(0);
+    const [animationEnd, setAnimationEnd] = useState(10);
+    const [animationReplay, setAnimationReplay] = useState(1);
+
+    const animationTimingGlobals = () => {
+        return <>
+            <li className={styles.li3}>
+
+                <div className={styles.divAnimationTimingGlobals}>
+
+                    <p className={styles.title} >Animation Timing</p>
+
+                    <div className={styles.options}> 
+                    <p> Duration </p>
+                    <input value={animationDur} onChange={ (e) => setAnimationDur(e.target.value)}/>
+
+                    <p> Replay </p>
+                    <input value={animationReplay} onChange={ (e) => setAnimationReplay(e.target.value)}/>
+                    </div>
+
+                </div>
+                
+
+            </li>
+        </>
+    }
+
     // -> Path follow
     const [pathFollowEl, setPathFollowEl] = useState([]);
     const [pathFollowPath, setPathFollowPath] = useState(undefined);
@@ -405,8 +434,8 @@ export const SVGedit = () => {
                                         myAni.setAttribute('attributeName', 'fill')
                                         myAni.setAttribute('values',
                                         [initalColor,...intermediateColors,finalColor].reduce((p,c)=>p+";"+c) )
-                                        myAni.setAttribute('dur', 10)
-                                        myAni.setAttribute('repeatCount', '1')
+                                        myAni.setAttribute('dur', animationDur)
+                                        myAni.setAttribute('repeatCount', animationReplay)
                                         elem.appendChild(myAni)
                                         //console.log(elem);
 
@@ -414,6 +443,8 @@ export const SVGedit = () => {
                                         </button>
                                     
                                     </li>
+
+                                    {animationTimingGlobals()}
 
 
                                 </ul>
@@ -464,8 +495,8 @@ export const SVGedit = () => {
                                             myAni.setAttribute('attributeName', 'stroke-dashoffset')
                                             myAni.setAttribute('from', strokeOfsetStart)
                                             myAni.setAttribute('to', strokeOfsetEnd) 
-                                            myAni.setAttribute('dur', 10)
-                                            myAni.setAttribute('repeatCount', '1')
+                                            myAni.setAttribute('dur', animationDur)
+                                            myAni.setAttribute('repeatCount', animationReplay)
                                             elem.appendChild(myAni)
 
                                             elem.setAttribute("stroke-dasharray" , strokeDashAnim)
@@ -480,6 +511,7 @@ export const SVGedit = () => {
 
                                     </li>
 
+                                    {animationTimingGlobals()}
 
                                 </ul>
                             </li>
@@ -523,10 +555,10 @@ export const SVGedit = () => {
                                         <button onClick={() => {
 
                                             let myAni = document.createElement('animateMotion')
-                                            myAni.setAttribute('dur', '10s')
+                                            myAni.setAttribute('dur', animationDur)
                                             myAni.setAttribute('fill', 'freeze')
                                             myAni.setAttribute('rotate', 'auto')
-                                            myAni.setAttribute("repeatCount","1")
+                                            myAni.setAttribute("repeatCount",animationReplay)
 
                                             //myAni.setAttribute("path", "M-25,-12.5 L25,-12.5 L 0,-87.5 z" )
 
@@ -547,6 +579,9 @@ export const SVGedit = () => {
 
                                         }}>Animate</button>
                                     </li>
+
+
+                                    {animationTimingGlobals()}
 
                                 </ul>
                             </li>
@@ -666,14 +701,16 @@ export const SVGedit = () => {
                                                 morphFinalShape.getAttribute("d") 
                                                 
                                                 )
-                                            myAni.setAttribute('dur', 10)
-                                            myAni.setAttribute('repeatCount', '1')
+                                            myAni.setAttribute('dur', animationDur)
+                                            myAni.setAttribute('repeatCount', animationReplay)
 
                                             morphInitialShape.appendChild(myAni)
 
 
                                          }}>Create Animation</button>
                                     </li>
+
+                                    {animationTimingGlobals()}
                                     
                                 
                                 </ul>
@@ -700,8 +737,8 @@ export const SVGedit = () => {
 
                                                 myAni.setAttribute('from', pathLenght )
                                                 myAni.setAttribute('to', 0 ) 
-                                                myAni.setAttribute('dur', 10)
-                                                myAni.setAttribute('repeatCount', '1')
+                                                myAni.setAttribute('dur', animationDur)
+                                                myAni.setAttribute('repeatCount', animationReplay)
                                                 elem.appendChild(myAni)
 
                                                 elem.setAttribute("stroke-dasharray" , pathLenght)
@@ -715,6 +752,8 @@ export const SVGedit = () => {
 
                                         }}>Animate</button>
                                     </li>
+
+                                    {animationTimingGlobals()}
 
                                 </ul>
                             </li>
@@ -731,6 +770,8 @@ export const SVGedit = () => {
                                         <button onClick={() => {}}>Animate</button>
                                     </li>
 
+                                    {animationTimingGlobals()}
+
                                 </ul>
 
                             </li>
@@ -746,6 +787,8 @@ export const SVGedit = () => {
                                     <li className={styles.li3}>
                                         <button onClick={() => {}}>Animate</button>
                                     </li>
+
+                                    {animationTimingGlobals()}
 
                                 </ul>
 
@@ -821,19 +864,14 @@ export const SVGedit = () => {
                                 <div className={styles.strokeStyle}>
                                     <p>color</p>
                                     <div className={styles.strokeStyleColor}>
+
                                         <input  value={strokeColor} onChange={ (e) => {
-
                                             setStrokeColor(e.target.value)
-
                                             canvas.getSelectedElements().forEach( (elem) => {
-
                                                 elem.setAttribute('stroke' , strokeColor)
-
                                             })
-
-
-
                                         }}/>
+
                                         <div style={{backgroundColor:strokeColor}}></div>
                                     </div>
                                 </div>
