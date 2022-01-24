@@ -7,7 +7,7 @@ import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
 
 
 
-import { IoImageOutline , IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
+import { IoImageOutline , IoReorderFourOutline, IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
 
 
 
@@ -21,6 +21,11 @@ export const SVGedit = () => {
 
     // Fill color
     const [fillColor, setFillColor] = useState("red")
+
+    // Stroke Style
+    const [strokeWidth, setStrokeWidth] = useState(1);
+    const [strokeColor, setStrokeColor] = useState("black");
+    const [strokeEnd, setStrokeEnd] = useState("");
 
 
     // Animation 
@@ -109,18 +114,27 @@ export const SVGedit = () => {
 
             (e) => {
                 // Ctrl+C or Cmd+C pressed?
-                if ((e.ctrlKey || e.metaKey) && e.keyCode == 67) {
+                if ((e.ctrlKey || e.metaKey) && e.key == "c") {
                     canvas.copySelectedElements()
                  }
            
                  // Ctrl+V or Cmd+V pressed?
-                 if ((e.ctrlKey || e.metaKey) && e.keyCode == 86) {
+                 if ((e.ctrlKey || e.metaKey) && e.key === "v") {
                     canvas.pasteElements()
                  }
            
                  // Ctrl+X or Cmd+X pressed?
-                 if ((e.ctrlKey || e.metaKey) && e.keyCode == 88) {
+                 if ((e.ctrlKey || e.metaKey) && e.key === "x" ) {
                     // Do stuff.
+                 } 
+
+                 //console.log(e.key);
+
+                 // Delete key
+                 if ((e.key === "Backspace")) {
+
+                    canvas.deleteSelectedElements()
+                    
                  } 
             }
         );
@@ -771,10 +785,109 @@ export const SVGedit = () => {
                     </li>
                 
                     <li className={styles.li1}>
-                        <button onClick={ () => canvas.deleteSelectedElements()}>  
-                            <IoTrashBinOutline/>
-                            <div>Del</div>
+                        <button onClick={ () => {}}>  
+                            <IoReorderFourOutline/>
+                            <div>Stroke</div>
                         </button>
+
+                        <ul className={styles.ul2}>
+                            
+                            <li className={styles.li2}>
+                                <div className={styles.strokeStyle}>
+                                   <p>size</p> 
+                                   <input value={ strokeWidth } onChange={ (e) => {
+
+                                       setStrokeWidth(w => e.target.value)
+
+                                       //console.log(strokeWidth);
+
+                                        canvas.getSelectedElements().forEach( (elem) => {
+
+                                            //console.log(elem);
+
+                                            elem.setAttribute('stroke-width' , strokeWidth)
+
+                                            //console.log(elem);
+
+                                        })
+                                       
+                                   }
+                                   }/>
+                                </div>
+                                
+                            </li>
+
+                            <li className={styles.li2}>
+                                <div className={styles.strokeStyle}>
+                                    <p>color</p>
+                                    <div className={styles.strokeStyleColor}>
+                                        <input  value={strokeColor} onChange={ (e) => {
+
+                                            setStrokeColor(e.target.value)
+
+                                            canvas.getSelectedElements().forEach( (elem) => {
+
+                                                elem.setAttribute('stroke' , strokeColor)
+
+                                            })
+
+
+
+                                        }}/>
+                                        <div style={{backgroundColor:strokeColor}}></div>
+                                    </div>
+                                </div>
+                                 
+                            </li>
+
+                            <li className={styles.li2}>
+                                <div className={styles.strokeStyle}>
+                                    <p> ending</p>
+                                    <select onChange={ (e) => {
+
+                                        
+
+                                        canvas.getSelectedElements().forEach( (elem) => {
+
+                                            elem.setAttribute('stroke-linecap' , e.target.value)
+
+                                        })
+
+
+
+                                        } }>
+                                        <option value="butt">butt</option>
+                                        <option value="square">square</option>
+                                        <option value="round">round</option>
+                                    </select>
+                                </div>
+                                
+                            </li>
+
+                            <li className={styles.li2}>
+                                <div className={styles.strokeStyle}>
+                                    <p> angles</p>
+                                    <select onChange={ (e) => {
+
+                                       
+
+                                        canvas.getSelectedElements().forEach( (elem) => {
+
+                                            elem.setAttribute('stroke-linejoin' , e.target.value)
+
+                                        })
+
+
+                                    } }>
+                                        <option value="miter">miter</option>
+                                        <option value="round">round</option>
+                                        <option value="bevel">bevel</option>
+                                    </select>
+                                </div>
+                                
+                            </li>
+
+                        </ul>
                     </li>
 
                     <li className={styles.li1}>

@@ -222,6 +222,37 @@
 
                     }
 
+                    .strokeStyle{
+
+                        display: grid;
+
+                        grid-template-columns: 60px 110px;
+
+                        margin: 2px 2px ;
+
+                        p{
+                            margin: 1px 0px;
+                            width: max-content;
+                        }
+
+                        input{
+                            width: 80px;
+                        }
+
+                        .strokeStyleColor{
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            div{
+                                width: 25px;
+                                height: 25px;
+                                //background-color: yellow;
+                            }
+                        }
+
+
+                    }
+
 
                     button {
                         margin: 1px 0px;
