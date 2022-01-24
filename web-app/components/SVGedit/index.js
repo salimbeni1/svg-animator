@@ -35,6 +35,8 @@ export const SVGedit = () => {
     const [animationEnd, setAnimationEnd] = useState(10);
     const [animationReplay, setAnimationReplay] = useState(1);
 
+
+
     const animationTimingGlobals = () => {
         return <>
             <li className={styles.li3}>
@@ -123,21 +125,59 @@ export const SVGedit = () => {
         canvas.updateCanvas(width_, height_)
 
         window.fill = function (colour) {
-        canvas.getSelectedElements().forEach((el) => {
-        el.setAttribute('fill', colour)
-        })
+                canvas.getSelectedElements().forEach((el) => {
+                el.setAttribute('fill', colour)
+            })
         }
 
         const hiddenTextTag = window.canvas.$id(hiddenTextTagId)
         window.canvas.textActions.setInputElem(hiddenTextTag)
 
         const addListenerMulti = (element, eventNames, listener) => {
-        eventNames.split(' ').forEach((eventName) => element.addEventListener(eventName, listener, false))
+            eventNames.split(' ').forEach((eventName) => element.addEventListener(eventName, listener, false))
         }
 
         addListenerMulti(hiddenTextTag, 'keyup input', (evt) => {
-        window.canvas.setTextContent(evt.currentTarget.value)
+            window.canvas.setTextContent(evt.currentTarget.value)
         })
+
+        document.onclick = function(e) {
+            document.getElementById("contextMenu").style.display = 'none';
+        }
+
+        const contectMenu = (event) => {
+
+                //console.log(document.querySelector('#editorContainer'))
+    
+    
+                event.preventDefault();
+    
+                
+                var menu = document.getElementById("contextMenu")      
+                menu.style.display = 'block'; 
+                menu.style.left = event.pageX + "px"; 
+                menu.style.top = event.pageY + "px"; 
+                
+            
+            }
+
+        
+
+        //document.addEventListener('contextmenu', contectMenu)
+
+
+
+        document.querySelector('#editorContainer').addEventListener("mouseover",function() {
+            document.addEventListener('contextmenu', contectMenu)
+        });
+        
+        document.querySelector('#editorContainer').addEventListener("mouseout",function() {
+            document.removeEventListener("contextmenu", contectMenu, false);
+        });
+
+        
+        
+
 
         document.addEventListener( "keydown" , 
 
@@ -162,7 +202,7 @@ export const SVGedit = () => {
                  // Delete key
                  if ((e.key === "Backspace")) {
 
-                    canvas.deleteSelectedElements()
+                    //canvas.deleteSelectedElements()
                     
                  } 
             }
@@ -252,6 +292,36 @@ export const SVGedit = () => {
     return (
         
             <>
+
+            <div id="contextMenu" className={styles.contextMenu}>
+                
+                <ul>
+                    <li>
+                        <button onClick={() => {canvas.deleteSelectedElements()} }>Delete</button>
+                    </li>
+                    <hr/>
+                    <li>
+                        <button onClick={() => {canvas.groupSelectedElements()} } >Group</button>
+                    </li>
+                    <li>
+                        <button onClick={() => {canvas.ungroupSelectedElement()} } >Ungroup</button>
+                    </li>
+                    <hr/>
+                    <li>
+                        <button onClick={() => {canvas.copySelectedElements()} } >Copy</button>
+                    </li>
+                    <li>
+                        <button onClick={() => {canvas.cutSelectedElements()} } >Cut</button>
+                    </li>
+                    <li>
+                        <button onClick={() => {canvas.pasteElements()} } >Paste</button>
+                    </li>
+                </ul>
+                
+                
+            </div>
+
+
             <div className={styles.ctn} >
 
                 
@@ -394,7 +464,7 @@ export const SVGedit = () => {
                                     </div>
                                     </li>
                                     { intermediateColors.map((e,i) => {
-                                        return <li className={styles.li3}>
+                                        return <li className={styles.li3} key={"intermediateColor-"+i}>
                                         <div className={styles.divcolor2}>
                                         <p>Inter {i} Color</p>
                                         <div className={styles.divcolor3input}>
@@ -848,7 +918,7 @@ export const SVGedit = () => {
 
                                             //console.log(elem);
 
-                                            elem.setAttribute('stroke-width' , strokeWidth)
+                                            elem.setAttribute('stroke-width' , e.target.value)
 
                                             //console.log(elem);
 
@@ -868,7 +938,7 @@ export const SVGedit = () => {
                                         <input  value={strokeColor} onChange={ (e) => {
                                             setStrokeColor(e.target.value)
                                             canvas.getSelectedElements().forEach( (elem) => {
-                                                elem.setAttribute('stroke' , strokeColor)
+                                                elem.setAttribute('stroke' , e.target.value)
                                             })
                                         }}/>
 
