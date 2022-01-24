@@ -480,18 +480,17 @@ export const SVGedit = () => {
 
                                     <li className={styles.li3}> 
                                         <div className={styles.divPathFollow2}>
+                                            
+                                            <button onClick={ () => { setPathFollowEl( canvas.getSelectedElements() ) } } > pick selected </button>
                                             <p>Elements  </p>
                                             <p> : {pathFollowEl.length} selected </p>
                                         </div> 
-                                            <button onClick={ () => { setPathFollowEl( canvas.getSelectedElements() ) } } > pick selected </button>
-                                    </li>
+                                        
+                                         </li>
 
                                     <li className={styles.li3}> 
                                         <div className={styles.divPathFollow2}>
-                                            <p>Path  </p>
-                                            <p> : {pathFollowPath?1:0} selected </p>
-
-                                        </div> 
+                                            
                                             <button onClick={ () => { 
                                                 const path = canvas.getSelectedElements()[0]
                                                 if(pathFollowEl.includes(path)){
@@ -500,6 +499,10 @@ export const SVGedit = () => {
                                                 }
                                                 setPathFollowPath( path ) 
                                                 } } > pick selected  </button>
+                                            <p>Path  </p>
+                                            <p> : {pathFollowPath?1:0} selected </p>
+                                        </div> 
+                                            
                                     </li>
 
                                     <li className={styles.li3}>
@@ -543,25 +546,26 @@ export const SVGedit = () => {
                                 <ul className={styles.ul3} >
                                     <li className={styles.li3}>
                                         <div className={styles.divMorpth2}>
+                                            
+                                            <button onClick={ () => { 
+
+                                                const pathEl = canvas.getSelectedElements()[0] 
+                                                
+                                                const path = pathEl?.getAttribute("d");
+
+                                                if(!path){
+                                                    alert("you can only morph a PATH")
+                                                }
+
+                                                setMorphInitialShape( pathEl ) 
+
+                                            }
+                                            } >pick selected</button>
                                             <p>Initial Path</p>
                                             <p> : {morphInitialShape?1:0} path </p>
-
                                         </div>
 
-                                        <button onClick={ () => { 
-
-                                            const pathEl = canvas.getSelectedElements()[0] 
-                                            
-                                            const path = pathEl?.getAttribute("d");
-
-                                            if(!path){
-                                                alert("you can only morph a PATH")
-                                            }
-
-                                            setMorphInitialShape( pathEl ) 
-
-                                        }
-                                        } >pick selected</button>
+                                        
                                         
                                     </li>
 
@@ -569,12 +573,8 @@ export const SVGedit = () => {
 
                                         return <li key={"mip"+i} className={styles.li3}>
                                             <div className={styles.divMorpth2}>
-                                                <p>Inter Path {i}</p>
-                                                <p> : {morphIntermediateShapes[i]?1:0} path </p>
-
-                                            </div>
-
-                                            <button onClick={ () => { 
+                                                
+                                                <button onClick={ () => { 
 
                                                 const pathEl = canvas.getSelectedElements()[0] 
 
@@ -592,6 +592,12 @@ export const SVGedit = () => {
 
                                                 }}
                                                 >pick selected</button>
+
+                                                <p>Inter Path{i}</p>
+                                                <p> : {morphIntermediateShapes[i]?1:0} path </p>
+                                            </div>
+
+                                            
                                             
 
 
@@ -610,12 +616,9 @@ export const SVGedit = () => {
 
                                     <li className={styles.li3}>
                                         <div className={styles.divMorpth2}>
-                                            <p>Final Path</p>
-                                            <p> : {morphFinalShape?1:0} path </p>
+                                            
 
-                                        </div>
-
-                                        <button onClick={ () => { 
+                                            <button onClick={ () => { 
 
                                             const pathEl = canvas.getSelectedElements()[0] 
 
@@ -628,7 +631,14 @@ export const SVGedit = () => {
                                             setMorphFinalShape( pathEl ) 
 
                                             }}
-                                             >pick selected</button>
+                                            >pick selected</button>
+
+                                            <p>Final Path</p>
+                                            <p> : {morphFinalShape?1:0} path </p>
+
+                                        </div>
+
+                                        
                                     </li>
 
                                     <li className={styles.li3}>
@@ -652,6 +662,77 @@ export const SVGedit = () => {
                                     </li>
                                     
                                 
+                                </ul>
+
+                            </li>
+
+                            <li className={styles.li2}>
+                                <button onClick={ () => { } }> 
+
+                                <div>Line fill</div> 
+                                </button>
+
+                                <ul className={styles.ul3} >
+
+                                    <li className={styles.li3}>
+                                        <button onClick={() => {
+
+                                            canvas.getSelectedElements().forEach( (elem) => {
+
+                                                let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
+                                                myAni.setAttribute('attributeName', 'stroke-dashoffset')
+                                                
+                                                const pathLenght = elem.getTotalLength()
+
+                                                myAni.setAttribute('from', pathLenght )
+                                                myAni.setAttribute('to', 0 ) 
+                                                myAni.setAttribute('dur', 10)
+                                                myAni.setAttribute('repeatCount', '1')
+                                                elem.appendChild(myAni)
+
+                                                elem.setAttribute("stroke-dasharray" , pathLenght)
+                                                //elem.setAttribute("stroke-dashoffset" , "100")
+
+                                                //console.log(elem);
+
+                                                //alert("been here")
+                                            })
+
+
+                                        }}>Animate</button>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+                            <li className={styles.li2}>
+                                <button onClick={ () => { } }> 
+
+                                <div>TODO : Rotation</div> 
+                                </button>
+
+                                <ul className={styles.ul3} >
+
+                                    <li className={styles.li3}>
+                                        <button onClick={() => {}}>Animate</button>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+
+                            <li className={styles.li2}>
+                                <button onClick={ () => { } }> 
+
+                                <div>TODO : Zoom</div> 
+                                </button>
+
+                                <ul className={styles.ul3} >
+
+                                    <li className={styles.li3}>
+                                        <button onClick={() => {}}>Animate</button>
+                                    </li>
+
                                 </ul>
 
                             </li>

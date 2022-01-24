@@ -165,34 +165,51 @@
                             }
 
                             .divPathFollow2{
-                                display: flex;
-                                flex-direction: row;
-                                justify-content: space-between;
+                                
+                                display: grid;
+                                //flex-direction: row;
+                                //justify-content: space-between;
+
+                                grid-template-columns:  1fr 1fr 1fr;
+                                gap: 5px;
 
                                 //background-color: yellow;
                                 margin: 0px 2px;
                                 
 
-                                width: 300px;
+                                width: 100%;
+
                                 p{
                                 margin: 1px 0px;
+                                width: max-content;
+                                }
+                                button{
+                                    width: max-content;
                                 }
 
                             }
 
                             .divMorpth2{
 
-                                display: flex;
-                                flex-direction: row;
-                                justify-content: space-between;
+                                display: grid;
+                                //flex-direction: row;
+                                //justify-content: space-between;
 
                                 //background-color: yellow;
+                                grid-template-columns: 1fr 1fr 1fr;
                                 margin: 0px 2px;
+
+                                gap: 5px;
+
                                 
 
-                                width: 250px;
+                                width: 100%;
                                 p{
                                 margin: 1px 0px;
+                                width: max-content;
+                                }
+                                button{
+                                    width: max-content;
                                 }
 
                             }
