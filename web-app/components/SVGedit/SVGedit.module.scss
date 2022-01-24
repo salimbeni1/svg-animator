@@ -104,6 +104,29 @@
 
                             //width: 250px;
 
+                            .divDashAnim{
+
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+
+                                width: 100%;
+                                padding: 2px 5px;
+
+                                p{
+                                    margin: 1px 0px;
+                                    margin-right: 5px;
+                                    width: max-content;
+                                    }
+
+                                input{
+                                    
+                                    width: 80px;
+                                }
+
+
+                            }
+
                             .divcolor2{
 
                                 display: flex;
@@ -301,7 +324,7 @@
 
             button{
                 div{
-                    display: none;
+                    //display: none;
                 }
             }
         }

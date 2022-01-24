@@ -38,6 +38,11 @@ export const SVGedit = () => {
     const [intermediateColors, setIntermediateColors] = useState([]);
     const [finalColor, setFinalColor] = useState("red");
 
+    // -> Dash
+    const [strokeDashAnim, setStrokeDashAnim] = useState(20);
+    const [strokeOfsetStart, setStrokeOfsetStart] = useState(0);
+    const [strokeOfsetEnd, setStrokeOfsetEnd] = useState(2000);
+
 
     
 
@@ -386,7 +391,7 @@ export const SVGedit = () => {
                                         myAni.setAttribute('attributeName', 'fill')
                                         myAni.setAttribute('values',
                                         [initalColor,...intermediateColors,finalColor].reduce((p,c)=>p+";"+c) )
-                                        myAni.setAttribute('dur', 1)
+                                        myAni.setAttribute('dur', 10)
                                         myAni.setAttribute('repeatCount', '1')
                                         elem.appendChild(myAni)
                                         //console.log(elem);
@@ -402,31 +407,67 @@ export const SVGedit = () => {
 
                             <li className={styles.li2}>
                                 <button onClick={ () => { 
-
-                                    canvas.getSelectedElements().forEach( (elem) => {
-
-                                        let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
-                                        myAni.setAttribute('attributeName', 'stroke-dashoffset')
-                                        myAni.setAttribute('from', '0')
-                                        myAni.setAttribute('to', '1000')
-                                        myAni.setAttribute('dur', 10)
-                                        myAni.setAttribute('repeatCount', '1')
-                                        elem.appendChild(myAni)
-
-                                        elem.setAttribute("stroke-dasharray" , "20")
-                                        elem.setAttribute("stroke-dashoffset" , "100")
-
-                                        //console.log(elem);
-
-                                        //alert("been here")
-                                    })
-
-
                                  } 
                                 }> 
 
                                 <div>Dash Array</div> 
                                 </button>
+
+                                <ul className={styles.ul3}>
+
+                                    <li className={styles.li3}>
+                                        <div className={styles.divDashAnim}>
+                                            <p>dash lenght  </p>
+
+                                            <input value={strokeDashAnim} onChange={(e)=>{setStrokeDashAnim(e.target.value)}}/>
+                                        </div>
+                                        
+                                        </li>
+
+                                    <li className={styles.li3}>
+                                        <div className={styles.divDashAnim}>
+                                        <p>offset start  </p>
+
+                                        <input value={strokeOfsetStart} onChange={(e)=>{setStrokeOfsetStart(e.target.value)}}/>
+                                        </div>
+                                    </li >
+
+                                    <li className={styles.li3}>
+                                        <div className={styles.divDashAnim}>
+                                        <p>offset end  </p>
+
+                                        <input value={strokeOfsetEnd} onChange={(e)=>{setStrokeOfsetEnd(e.target.value)}}/>
+                                        </div>
+                                    </li>
+
+                                    <li className={styles.li3}>
+
+                                        <button onClick={ () => 
+
+                                        canvas.getSelectedElements().forEach( (elem) => {
+
+                                            let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
+                                            myAni.setAttribute('attributeName', 'stroke-dashoffset')
+                                            myAni.setAttribute('from', strokeOfsetStart)
+                                            myAni.setAttribute('to', strokeOfsetEnd) 
+                                            myAni.setAttribute('dur', 10)
+                                            myAni.setAttribute('repeatCount', '1')
+                                            elem.appendChild(myAni)
+
+                                            elem.setAttribute("stroke-dasharray" , strokeDashAnim)
+                                            //elem.setAttribute("stroke-dashoffset" , "100")
+
+                                            //console.log(elem);
+
+                                            //alert("been here")
+                                        })}>
+                                            Animate
+                                        </button>
+
+                                    </li>
+
+
+                                </ul>
                             </li>
 
                             <li className={styles.li2}>
