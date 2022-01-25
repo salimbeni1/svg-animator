@@ -1,4 +1,29 @@
 
+.editorOut{
+    //display: none;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top:0;left:0;
+
+    isolation: isolate;
+
+    z-index: 5;
+
+    pointer-events: none;
+
+    div{
+        background-color: rgba(255, 255, 255, 0.63);
+
+       // border: 2px solid black;
+
+        position: absolute;
+
+        min-width: 50px;
+        min-height: 50px;
+    }
+}
+
 .contextMenu{
 
     position: absolute;
@@ -8,6 +33,8 @@
 
     border : 4px solid black;
     border-radius: 3px;
+
+    z-index: 10;
 
 
     ul{
@@ -80,6 +107,8 @@
 
 
     .btnPannel{
+
+        z-index: 10;
 
         display: flex;
         flex-direction: column;
@@ -161,6 +190,8 @@
                                 flex-direction: column;
                                 place-items: center;
 
+                                width: 100%;
+
 
 
                                 .title{
@@ -168,6 +199,14 @@
                                     margin: 0;
                                     border-top: 1px solid black;
                                     margin-top: 15px;
+
+                                    display: flex;
+                                    flex-direction: row;
+                                    align-items: center;
+
+                                    width:max-content;
+
+                                    cursor: pointer;
 
 
 
@@ -401,6 +440,12 @@
         
     }
 
+    .resultAnimation{
+
+        z-index: 10;
+
+    }
+
     .result{
 
         background-color: white;
@@ -423,6 +468,8 @@
     place-items: center;
 
     color: black;
+
+    z-index: 10;
 
     font-family: 'Exo 2', sans-serif;
     font-size: 25px;

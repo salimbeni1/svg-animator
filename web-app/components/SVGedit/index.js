@@ -7,7 +7,7 @@ import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
 
 
 
-import { IoImageOutline , IoReorderFourOutline, IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
+import { IoChevronUp , IoChevronDown , IoImageOutline , IoReorderFourOutline, IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
 
 
 
@@ -34,6 +34,7 @@ export const SVGedit = () => {
     const [animationBegin, setanimationBegin] = useState(0);
     const [animationEnd, setAnimationEnd] = useState(10);
     const [animationReplay, setAnimationReplay] = useState(1);
+    const [animationToggleStatus, setAnimationToggleStatus] = useState(true);
 
 
 
@@ -43,9 +44,9 @@ export const SVGedit = () => {
 
                 <div className={styles.divAnimationTimingGlobals}>
 
-                    <p className={styles.title} >Animation Timing</p>
+                    <p className={styles.title} onClick={() => setAnimationToggleStatus(e => !e)} >Animation Timing  {!animationToggleStatus?<IoChevronUp/>:<IoChevronDown/>} </p>
 
-                    <div className={styles.options}> 
+                    <div className={styles.options} style={ {display:animationToggleStatus?"none":"block"} }> 
                     <p> Duration </p>
                     <input value={animationDur} onChange={ (e) => setAnimationDur(e.target.value)}/>
 
@@ -176,8 +177,6 @@ export const SVGedit = () => {
         });
 
         
-        
-
 
         document.addEventListener( "keydown" , 
 
@@ -207,6 +206,38 @@ export const SVGedit = () => {
                  } 
             }
         );
+
+        const editorContainerRect =  document.querySelector('#editorContainer').getBoundingClientRect()
+
+        let editorOutCanvas1 = document.querySelector('#editorOutCanvas1')
+        let editorOutCanvas2 = document.querySelector('#editorOutCanvas2')
+        let editorOutCanvas3 = document.querySelector('#editorOutCanvas3')
+        let editorOutCanvas4 = document.querySelector('#editorOutCanvas4')
+
+        editorOutCanvas1.style.width = "100vw"
+        editorOutCanvas1.style.height = editorContainerRect.top+"px"
+        
+        editorOutCanvas2.style.height = editorContainerRect.height+"px"
+        editorOutCanvas2.style.width = editorContainerRect.left+"px"
+        editorOutCanvas2.style.top = editorContainerRect.top+"px"
+
+        editorOutCanvas3.style.top = editorContainerRect.top+"px"
+        editorOutCanvas3.style.left = (editorContainerRect.left + editorContainerRect.width)+"px"
+        editorOutCanvas3.style.height = editorContainerRect.height+"px"
+        editorOutCanvas3.style.width = (document.body.clientWidth - (editorContainerRect.left + editorContainerRect.width) ) +"px"
+
+        editorOutCanvas4.style.top = (editorContainerRect.top + editorContainerRect.height)+"px"
+        editorOutCanvas4.style.width = "100vw"
+        editorOutCanvas4.style.height = (window.innerHeight - (editorContainerRect.top + editorContainerRect.height)) + "px"
+
+
+
+
+
+        console.log( editorContainerRect)
+
+
+
 
     }, [])
 
@@ -292,6 +323,19 @@ export const SVGedit = () => {
     return (
         
             <>
+
+            <div 
+
+            id="editorOutCanvas"
+
+            className={styles.editorOut}
+            
+            >
+                <div id="editorOutCanvas1"></div>
+                <div id="editorOutCanvas2"></div>
+                <div id="editorOutCanvas3"></div>
+                <div id="editorOutCanvas4"></div>
+            </div>
 
             <div id="contextMenu" className={styles.contextMenu}>
                 
