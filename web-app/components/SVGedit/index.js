@@ -143,7 +143,11 @@ export const SVGedit = () => {
         })
 
         document.onclick = function(e) {
-            document.getElementById("contextMenu").style.display = 'none';
+            const el = document.getElementById("contextMenu")
+            //console.log(el);
+            if(el){
+                document.getElementById("contextMenu").style.display = 'none';
+            }
         }
 
         const contectMenu = (event) => {
@@ -214,6 +218,8 @@ export const SVGedit = () => {
         let editorOutCanvas3 = document.querySelector('#editorOutCanvas3')
         let editorOutCanvas4 = document.querySelector('#editorOutCanvas4')
 
+        
+
         editorOutCanvas1.style.width = "100vw"
         editorOutCanvas1.style.height = editorContainerRect.top+"px"
         
@@ -232,9 +238,20 @@ export const SVGedit = () => {
 
 
 
+        let editorINCanvas1 = document.querySelector('#editorINCanvas1')
+
+        editorINCanvas1.style.backgroundColor = "transparent"
+        editorINCanvas1.style.border = "1px solid black"
+        editorINCanvas1.style.top = editorContainerRect.top+"px"
+        editorINCanvas1.style.left = editorContainerRect.left+"px"
+        editorINCanvas1.style.height = editorContainerRect.height+"px"
+        editorINCanvas1.style.width = editorContainerRect.width+"px"
 
 
-        console.log( editorContainerRect)
+
+
+
+       // console.log( editorContainerRect)
 
 
 
@@ -335,6 +352,8 @@ export const SVGedit = () => {
                 <div id="editorOutCanvas2"></div>
                 <div id="editorOutCanvas3"></div>
                 <div id="editorOutCanvas4"></div>
+
+                <div id="editorINCanvas1"></div>
             </div>
 
             <div id="contextMenu" className={styles.contextMenu}>

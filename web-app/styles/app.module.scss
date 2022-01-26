@@ -3,12 +3,20 @@
 
 .pagectn{
 
-    display: grid;
+    display: flex;
+    flex-direction: column;
     place-items: center;
+    min-height: 100vh;
+    min-width: 100vw;
 
     .app{
 
         margin-top: 25px;
+
+        
+
+        display: grid;
+        place-items:  center;
 
 
 

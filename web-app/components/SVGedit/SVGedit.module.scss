@@ -94,6 +94,7 @@
 .ctn{
 
     display: flex;
+    
 
 
     .resultAnimation{
@@ -463,6 +464,8 @@
 
 
 .subtitle{
+
+    position: relative;
 
     display: grid;
     place-items: center;
