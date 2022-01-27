@@ -159,16 +159,34 @@
 
 
                     .timingMainDiv{
-                        background-color: yellow;
+                        //background-color: yellow;
 
                         min-width: 200px;
                         display: flex;
                         flex-direction: column;
                         align-items: center;
 
+                        position: inherit;
+
+                        //z-index: 50;
+
                         .timeline{
-                            background-color: yellowgreen;
+                            //background-color: yellowgreen;
                             align-self:flex-start;
+                            width: 100%;
+                            max-width: 600px;
+                            overflow-y: scroll;
+                            overflow-x: none;
+
+                            div{
+                                div{
+                                    opacity: 0.5;
+                                    cursor: pointer;
+                                }
+                                div:hover{
+                                    opacity: 1;
+                                }
+                            }
                         }
                     }
 

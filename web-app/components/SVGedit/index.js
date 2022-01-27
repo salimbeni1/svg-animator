@@ -70,23 +70,41 @@ export const SVGedit = () => {
 
             {animatedElements.map((el, i) => {
 
-                const dur = 10
-                const start = 3
-                const end = 5
+                const color = ["red","blue","orange"][i%3]
 
-                return <>
-                <div style={{
-                    position:'relative',
-                    }}>
-                    <div style={{
-                        position:'absolute',
-                        left: start,
-                        width: dur,
-                        height:1,
-                        border: '2px solid black'
-                    }} >sjsjsjjsjsjsj</div>
-                </div>
-                </>
+                console.log( el.childNodes) 
+
+                return Array.from(el.childNodes).map( (cn , cni) => {
+
+                    console.log(cn);
+                    console.log(cn.getAttribute('dur'));
+
+                    if(cn.getAttribute('dur')){
+                        const dur = cn.getAttribute('dur')
+                        
+                        const start = cn.getAttribute('begin')? cn.getAttribute('begin'): 0
+                        const end = cn.getAttribute('end')? cn.getAttribute('end'): start + dur
+
+
+                        return <>
+                        <div style={{margin:"3px"}} key={"el"+i+"-"+cni}>
+                            <div style={{
+                                position:'relative',
+                                left: start*10,
+                                width: dur*10,
+                                height:1,
+                                border: '5px solid '+color,
+                                borderRadius:3,
+                                backgroundColor:color
+                            }} ></div>
+                        </div>
+                        </>
+                    }
+
+                    
+                } )
+
+                
                 
             })}
 
@@ -395,6 +413,13 @@ export const SVGedit = () => {
                 <ul>
                     <li>
                         <button onClick={() => {canvas.deleteSelectedElements()} }>Delete</button>
+                    </li>
+                    <li>
+                        <button onClick={() => {
+                            canvas.getSelectedElements().forEach((el , i) =>{
+                                el.replaceChildren();
+                            })
+                        } }>Del Animations</button>
                     </li>
                     <hr/>
                     <li>
