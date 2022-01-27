@@ -158,6 +158,21 @@
                     position: relative;
 
 
+                    .timingMainDiv{
+                        background-color: yellow;
+
+                        min-width: 200px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+
+                        .timeline{
+                            background-color: yellowgreen;
+                            align-self:flex-start;
+                        }
+                    }
+
+
                     .ul3{ // terzary buttons group
 
                         display: none;

@@ -7,7 +7,7 @@ import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
 
 
 
-import { IoChevronUp , IoChevronDown , IoImageOutline , IoReorderFourOutline, IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
+import { IoChevronUp ,IoAlarmOutline, IoChevronDown , IoImageOutline , IoReorderFourOutline, IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
 
 
 
@@ -37,7 +37,6 @@ export const SVGedit = () => {
     const [animationToggleStatus, setAnimationToggleStatus] = useState(true);
 
 
-
     const animationTimingGlobals = () => {
         return <>
             <li className={styles.li3}>
@@ -59,6 +58,41 @@ export const SVGedit = () => {
 
             </li>
         </>
+    }
+
+    const [animatedElements , setanimatedElements] = useState([]);
+    const getTimeline = () => {
+
+        console.log(animatedElements);
+
+        return animatedElements.length === 0? <>No elements selected</>:
+        <>
+
+            {animatedElements.map((el, i) => {
+
+                const dur = 10
+                const start = 3
+                const end = 5
+
+                return <>
+                <div style={{
+                    position:'relative',
+                    }}>
+                    <div style={{
+                        position:'absolute',
+                        left: start,
+                        width: dur,
+                        height:1,
+                        border: '2px solid black'
+                    }} >sjsjsjjsjsjsj</div>
+                </div>
+                </>
+                
+            })}
+
+
+        </>
+
     }
 
     // -> Path follow
@@ -473,24 +507,28 @@ export const SVGedit = () => {
                     </li>
 
                     <li className={styles.li1}>
-                        <button onClick={() => {}}> 
-                        <IoScanSharp/>
-                        <div> Group </div>
+                        <button
+                        onMouseEnter={() => {
+                            setanimatedElements([...canvas.getSelectedElements()])
+                            console.log("kekeke");
+                        }}
+                        > 
+                        <IoAlarmOutline/>
+                        <div> Timing </div>
                         </button>
 
                         <ul className={styles.ul2}>
                             <li className={styles.li2}>
-                                <button onClick={() => {canvas.groupSelectedElements()}}> 
-                                    <div> group  </div>
-                                </button>
-                            </li>
+                                <div className={styles.timingMainDiv} >
+                                   <p>Animation Timeline</p>
 
-                            <li className={styles.li2}>
-                                <button onClick={() => {canvas.ungroupSelectedElement()}}> 
-                                    <div> ungroup </div>
-                                </button>
+                                   <div className={styles.timeline}>
+                                        {
+                                            getTimeline()
+                                        }
+                                   </div>
+                                </div>
                             </li>
-                        
                         </ul>
 
                     </li>
