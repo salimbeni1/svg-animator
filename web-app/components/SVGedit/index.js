@@ -416,9 +416,21 @@ export const SVGedit = () => {
                     </li>
                     <li>
                         <button onClick={() => {
-                            canvas.getSelectedElements().forEach((el , i) =>{
-                                el.replaceChildren();
-                            })
+                            
+                            const delete_animation = (arr) => {
+                                if(arr === undefined) return;
+                                //console.log(arr);
+                                arr.forEach((el , i) =>{
+                                    //console.log(el);
+                                    if(el.tagName === "g"){
+                                        delete_animation(arr.childNodes)
+                                    }
+                                    // TODO ; may delete group
+                                    else el.replaceChildren();
+                            })}
+
+                            delete_animation(canvas.getSelectedElements())
+
                         } }>Del Animations</button>
                     </li>
                     <hr/>
