@@ -1,3 +1,294 @@
+.divAnimationTimingGlobals{
+
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    width: 100%;
+    .title{
+        margin: 0;
+        border-top: 1px solid black;
+        margin-top: 15px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width:max-content;
+        cursor: pointer;
+    }
+
+    .options{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+        margin: 5px;
+        p{
+            margin: 0;
+        }
+        input{
+            width: 80px;
+        }
+    }
+}
+
+.animationBoard{
+
+    background-color: white;
+    border: 4px solid black;
+    border-radius: 3px;
+
+    position: absolute;
+    z-index: 50;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    display: none;
+
+    .animationBoardTitle{
+
+        position: relative;
+        top: 0px;
+        right: -15px;
+
+        min-width: 200px;
+
+        cursor: move;
+
+    }
+
+    .animationBoardClose{
+        //color: red;
+        position: absolute;
+        background-color: white;
+        top: 0;
+        right: 0;
+        padding: 10px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        border-bottom: 4px solid black;
+        border-left: 4px solid black;
+        border-bottom-left-radius: 3px ;
+    }
+
+    .divAnimLineFill{
+        .ul3{
+            list-style-type: none;
+            padding: 0;
+            .li3{ 
+                background-color: white;
+                display: flex;
+                flex-direction: row;
+                place-items: center;
+                justify-content: space-between;
+                button{
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .divAnimMorph{
+        .ul3{
+            list-style-type: none;
+            padding: 0;
+            .li3{ 
+                background-color: white;
+                display: flex;
+                flex-direction: row;
+                place-items: center;
+                justify-content: space-between;
+                button{
+                    width: 100%;
+                }
+                .divMorpth2{
+
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    margin: 0px 2px;
+                    gap: 5px;
+                    width: 100%;
+                    p{
+                    margin: 1px 0px;
+                    width: max-content;
+                    }
+                    button{
+                        width: max-content;
+                    }
+                }
+            }
+        }
+    }
+
+    .divAnimPathFollow{
+
+        .ul3{
+            list-style-type: none;
+            padding: 0;
+            .li3{ 
+                background-color: white;
+                display: flex;
+                flex-direction: row;
+                place-items: center;
+                justify-content: space-between;
+                button{
+                    width: 100%;
+                }
+                .divPathFollow2{
+                                
+                    display: grid;
+                    grid-template-columns:  1fr 1fr 1fr;
+                    gap: 5px;
+                    margin: 0px 2px;
+                    width: 100%;
+                    p{
+                    margin: 1px 0px;
+                    width: max-content;
+                    }
+                    button{
+                        width: max-content;
+                    }
+                }
+            }
+        }
+    }
+
+    .divAnimDashArray{
+
+        .ul3{
+            list-style-type: none;
+            padding: 0;
+            .li3{ 
+                background-color: white;
+                display: flex;
+                flex-direction: row;
+                place-items: center;
+                justify-content: space-between;
+                button{
+                    width: 100%;
+                }
+                .divDashAnim{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    width: 100%;
+                    padding: 2px 5px;
+                    p{
+                        margin: 1px 0px;
+                        margin-right: 5px;
+                        width: max-content;
+                        }
+                    input{
+                        
+                        width: 80px;
+                    }
+                }
+            }
+        }
+    }
+
+    .divAnimColor{
+
+        .ul3{
+            list-style-type: none;
+            padding: 0;
+            .li3{ // terzary buttons
+                background-color: white;
+                display: flex;
+                flex-direction: row;
+                place-items: center;
+                justify-content: space-between;
+                button{
+                    width: 100%;
+                }
+                .divcolor2{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    width: 100%;
+                    padding: 2px 5px;
+                    p{
+                        margin: 1px 0px;
+                        width: max-content;
+                        }
+                    input{
+                        width: 80px;
+                    }
+                    .divcolor3input{
+
+                        display: flex;
+                        flex-direction: row;
+                        padding-left: 5px;
+
+                        .anmColor{
+                            //background-color: yellow;
+                            width: 25px;
+                            height: 25px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+.timingMainDiv{
+    min-width: 70vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: white;
+    border: 4px solid black;
+    border-radius: 3px;
+
+    position: absolute;
+    z-index: 50;
+    bottom: 30px ;
+    left: 30px;
+
+    display: none;
+
+    .timingMainDivClose{
+        position: absolute;
+        background-color: white;
+        top: 0;
+        right: 0;
+        padding: 10px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        border-bottom: 4px solid black;
+        border-left: 4px solid black;
+        border-bottom-left-radius: 3px ;
+    }
+
+
+    .timeline{
+        //background-color: yellowgreen;
+        align-self:flex-start;
+        width: 100%;
+        //max-width: 600px;
+        overflow-y: scroll;
+        overflow-x: none;
+
+        div{
+            div{
+                opacity: 0.5;
+                cursor: pointer;
+            }
+            div:hover{
+                opacity: 1;
+            }
+        }
+    }
+}
+
+
 
 .editorOut{
     //display: none;
@@ -158,38 +449,6 @@
                     position: relative;
 
 
-                    .timingMainDiv{
-                        //background-color: yellow;
-
-                        min-width: 200px;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-
-                        position: inherit;
-
-                        //z-index: 50;
-
-                        .timeline{
-                            //background-color: yellowgreen;
-                            align-self:flex-start;
-                            width: 100%;
-                            max-width: 600px;
-                            overflow-y: scroll;
-                            overflow-x: none;
-
-                            div{
-                                div{
-                                    opacity: 0.5;
-                                    cursor: pointer;
-                                }
-                                div:hover{
-                                    opacity: 1;
-                                }
-                            }
-                        }
-                    }
-
 
                     .ul3{ // terzary buttons group
 
@@ -214,83 +473,7 @@
                             display: flex;
                             flex-direction: row;
                             place-items: center;
-                            justify-content: space-between;
-
-                            //width: 250px;
-
-                            .divAnimationTimingGlobals{
-
-                                display: flex;
-                                flex-direction: column;
-                                place-items: center;
-
-                                width: 100%;
-
-
-
-                                .title{
-
-                                    margin: 0;
-                                    border-top: 1px solid black;
-                                    margin-top: 15px;
-
-                                    display: flex;
-                                    flex-direction: row;
-                                    align-items: center;
-
-                                    width:max-content;
-
-                                    cursor: pointer;
-
-
-
-                                }
-
-                                .options{
-
-                                    display: grid;
-                                    grid-template-columns: 1fr 1fr;
-                                    gap: 5px;
-                                    margin: 5px;
-
-                                    p{
-                                        margin: 0;
-                                    }
-
-                                    input{
-                                        width: 80px;
-                                    }
-
-                                }
-
-                                
-
-
-
-                            }
-
-                            .divDashAnim{
-
-                                display: flex;
-                                flex-direction: row;
-                                justify-content: space-between;
-
-                                width: 100%;
-                                padding: 2px 5px;
-
-                                p{
-                                    margin: 1px 0px;
-                                    margin-right: 5px;
-                                    width: max-content;
-                                    }
-
-                                input{
-                                    
-                                    width: 80px;
-                                }
-
-
-                            }
+                            justify-content: space-between;                        
 
                             .divcolor2{
 
@@ -329,55 +512,7 @@
 
                             }
 
-                            .divPathFollow2{
-                                
-                                display: grid;
-                                //flex-direction: row;
-                                //justify-content: space-between;
-
-                                grid-template-columns:  1fr 1fr 1fr;
-                                gap: 5px;
-
-                                //background-color: yellow;
-                                margin: 0px 2px;
-                                
-
-                                width: 100%;
-
-                                p{
-                                margin: 1px 0px;
-                                width: max-content;
-                                }
-                                button{
-                                    width: max-content;
-                                }
-
-                            }
-
-                            .divMorpth2{
-
-                                display: grid;
-                                //flex-direction: row;
-                                //justify-content: space-between;
-
-                                //background-color: yellow;
-                                grid-template-columns: 1fr 1fr 1fr;
-                                margin: 0px 2px;
-
-                                gap: 5px;
-
-                                
-
-                                width: 100%;
-                                p{
-                                margin: 1px 0px;
-                                width: max-content;
-                                }
-                                button{
-                                    width: max-content;
-                                }
-
-                            }
+                        
 
                             button{
                                 width: 100%;

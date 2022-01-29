@@ -2,12 +2,23 @@ import React from 'react'
 
 import { useEffect , useState } from 'react'
 import styles from './SVGedit.module.scss'
+import Draggable from "react-draggable";
+
 
 import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
 
+import { deleteSelectedElementAnimation , importImage } from './utils';
 
 
-import { IoChevronUp ,IoAlarmOutline, IoChevronDown , IoImageOutline , IoReorderFourOutline, IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
+
+import { IoChevronUp ,IoAlarmOutline, IoCloseSharp,  IoChevronDown , IoImageOutline , IoReorderFourOutline, IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
+import { AnimColor } from './animations/AnimColor';
+import { AnimeMorph } from './animations/AnimeMorph';
+import { AnimDashArray } from './animations/AnimDashArray';
+import { AnimPathFollow } from './animations/AnimPathFollow';
+import { AnimLineFill } from './animations/AnimLineFill';
+import { AnimZoom } from './animations/AnimZoom';
+import { AnimRotation } from './animations/AnimRotation';
 
 
 
@@ -29,13 +40,31 @@ export const SVGedit = () => {
 
 
     // Animation 
+    // -> Animation Block focus
+    const [animationBoardSet, setAnimationBoardSet] = useState([]);
+
+    const clickOnAnimBtn = ( nameOption ) => {
+
+        const b = document.getElementById("animationBoard")
+        if(b.style.display === "flex"){
+            if(animationBoardSet.includes(nameOption))
+                b.style.display = "none"
+            else
+                ;
+        }else{
+            b.style.display = "flex"
+        }
+
+        setAnimationBoardSet([nameOption])
+    }
+
     // -> Timing Globals
     const [animationDur, setAnimationDur] = useState(10);
     const [animationBegin, setanimationBegin] = useState(0);
     const [animationEnd, setAnimationEnd] = useState(10);
     const [animationReplay, setAnimationReplay] = useState(1);
     const [animationToggleStatus, setAnimationToggleStatus] = useState(true);
-
+    
 
     const animationTimingGlobals = () => {
         return <>
@@ -60,32 +89,29 @@ export const SVGedit = () => {
         </>
     }
 
+    const animationTiming = {
+        animationDur: animationDur,
+        animationBegin: animationBegin,
+        animationEnd: animationEnd,
+        animationReplay: animationReplay,
+        animationToggleStatus: animationToggleStatus,
+        animationTimingGlobals: animationTimingGlobals,
+    }
+
+
+    // -> Timeline
     const [animatedElements , setanimatedElements] = useState([]);
     const getTimeline = () => {
-
-        console.log(animatedElements);
-
         return animatedElements.length === 0? <>No elements selected</>:
         <>
-
             {animatedElements.map((el, i) => {
 
                 const color = ["red","blue","orange"][i%3]
-
-                console.log( el.childNodes) 
-
                 return Array.from(el.childNodes).map( (cn , cni) => {
-
-                    console.log(cn);
-                    console.log(cn.getAttribute('dur'));
-
                     if(cn.getAttribute('dur')){
-                        const dur = cn.getAttribute('dur')
-                        
+                        const dur = cn.getAttribute('dur')         
                         const start = cn.getAttribute('begin')? cn.getAttribute('begin'): 0
                         const end = cn.getAttribute('end')? cn.getAttribute('end'): start + dur
-
-
                         return <>
                         <div style={{margin:"3px"}} key={"el"+i+"-"+cni}>
                             <div style={{
@@ -99,41 +125,11 @@ export const SVGedit = () => {
                             }} ></div>
                         </div>
                         </>
-                    }
-
-                    
+                    } 
                 } )
-
-                
-                
             })}
-
-
         </>
-
     }
-
-    // -> Path follow
-    const [pathFollowEl, setPathFollowEl] = useState([]);
-    const [pathFollowPath, setPathFollowPath] = useState(undefined);
-
-    // -> Morph
-    const [morphInitialShape, setMorphInitialShape] = useState(undefined);
-    const [morphIntermediateShapes, setMorphIntermediateShapes] = useState([]);
-    const [morphFinalShape, setMorphFinalShape] = useState(undefined);
-
-    // -> Color
-    const [initalColor, setInitalColor] = useState("green");
-    const [intermediateColors, setIntermediateColors] = useState([]);
-    const [finalColor, setFinalColor] = useState("red");
-
-    // -> Dash
-    const [strokeDashAnim, setStrokeDashAnim] = useState(20);
-    const [strokeOfsetStart, setStrokeOfsetStart] = useState(0);
-    const [strokeOfsetEnd, setStrokeOfsetEnd] = useState(2000);
-
-
-    
 
 
     // Result window states
@@ -145,8 +141,6 @@ export const SVGedit = () => {
         
         const container = document.querySelector('#editorContainer')
 
-        console.log(window.innerWidth)
-
         let width_ = width
         let height_ = height
 
@@ -156,8 +150,6 @@ export const SVGedit = () => {
             width_ = window.innerWidth - 10
             height_ = window.innerWidth - 10
         }
-
-        console.log(height_ , height_);
 
         window.width = width_
         window.height = height_
@@ -204,24 +196,12 @@ export const SVGedit = () => {
 
         const contectMenu = (event) => {
 
-                //console.log(document.querySelector('#editorContainer'))
-    
-    
                 event.preventDefault();
-    
-                
                 var menu = document.getElementById("contextMenu")      
                 menu.style.display = 'block'; 
                 menu.style.left = event.pageX + "px"; 
                 menu.style.top = event.pageY + "px"; 
-                
-            
             }
-
-        
-
-        //document.addEventListener('contextmenu', contectMenu)
-
 
 
         document.querySelector('#editorContainer').addEventListener("mouseover",function() {
@@ -263,14 +243,13 @@ export const SVGedit = () => {
             }
         );
 
-        const editorContainerRect =  document.querySelector('#editorContainer').getBoundingClientRect()
 
+        // white layer around editor
+        const editorContainerRect =  document.querySelector('#editorContainer').getBoundingClientRect()
         let editorOutCanvas1 = document.querySelector('#editorOutCanvas1')
         let editorOutCanvas2 = document.querySelector('#editorOutCanvas2')
         let editorOutCanvas3 = document.querySelector('#editorOutCanvas3')
         let editorOutCanvas4 = document.querySelector('#editorOutCanvas4')
-
-        
 
         editorOutCanvas1.style.width = "100vw"
         editorOutCanvas1.style.height = editorContainerRect.top+"px"
@@ -288,10 +267,7 @@ export const SVGedit = () => {
         editorOutCanvas4.style.width = "100vw"
         editorOutCanvas4.style.height = (window.innerHeight - (editorContainerRect.top + editorContainerRect.height)) + "px"
 
-
-
         let editorINCanvas1 = document.querySelector('#editorINCanvas1')
-
         editorINCanvas1.style.backgroundColor = "transparent"
         editorINCanvas1.style.border = "1px solid black"
         editorINCanvas1.style.top = editorContainerRect.top+"px"
@@ -299,107 +275,15 @@ export const SVGedit = () => {
         editorINCanvas1.style.height = editorContainerRect.height+"px"
         editorINCanvas1.style.width = editorContainerRect.width+"px"
 
-
-
-
-
-       // console.log( editorContainerRect)
-
-
-
-
     }, [])
 
-
-    const importImage = (e) => {
-        //$id('se-prompt-dialog').title = this.i18next.t('notification.loadingImage')
-        //$id('se-prompt-dialog').setAttribute('close', false)
-        e.stopPropagation()
-        e.preventDefault()
-        const file = (e.type === 'drop') ? e.dataTransfer.files[0] : e.currentTarget.files[0]
-        if (!file) {
-          //$id('se-prompt-dialog').setAttribute('close', true)
-          return
-        }
-  
-        if (!file.type.includes('image')) {
-          return
-        }
-        // Detected an image
-        // svg handling
-        let reader
-        if (file.type.includes('svg')) {
-          reader = new FileReader()
-          reader.onloadend = (ev) => {
-            const newElement = canvas.importSvgString(ev.target.result, true)
-            newElement.setAttribute("transform","")
-            console.log(newElement);
-            canvas.alignSelectedElements('m', 'page')
-            canvas.alignSelectedElements('c', 'page')
-            // highlight imported element, otherwise we get strange empty selectbox
-            canvas.selectOnly([newElement])
-            //$id('se-prompt-dialog').setAttribute('close', true)
-          }
-          reader.readAsText(file)
-        } else {
-          // bitmap handling
-          reader = new FileReader()
-          reader.onloadend = function ({ target: { result } }) {
-            /**
-                * Insert the new image until we know its dimensions.
-                * @param {Float} imageWidth
-                * @param {Float} imageHeight
-                * @returns {void}
-                */
-            const insertNewImage = (imageWidth, imageHeight) => {
-              const newImage = canvas.addSVGElementsFromJson({
-                element: 'image',
-                attr: {
-                  x: 0,
-                  y: 0,
-                  width: imageWidth,
-                  height: imageHeight,
-                  id: canvas.getNextId(),
-                  style: 'pointer-events:inherit'
-                }
-              })
-              canvas.setHref(newImage, result)
-              canvas.selectOnly([newImage])
-              canvas.alignSelectedElements('m', 'page')
-              canvas.alignSelectedElements('c', 'page')
-              this.topPanel.updateContextPanel()
-              //$id('se-prompt-dialog').setAttribute('close', true)
-            }
-            // create dummy img so we know the default dimensions
-            let imgWidth = 100
-            let imgHeight = 100
-            const img = new Image()
-            img.style.opacity = 0
-            img.addEventListener('load', () => {
-              imgWidth = img.offsetWidth || img.naturalWidth || img.width
-              imgHeight = img.offsetHeight || img.naturalHeight || img.height
-              insertNewImage(imgWidth, imgHeight)
-            })
-            img.src = result
-          }
-          reader.readAsDataURL(file)
-        }
-      }
-
-    
 
 
     return (
         
             <>
 
-            <div 
-
-            id="editorOutCanvas"
-
-            className={styles.editorOut}
-            
-            >
+            <div id="editorOutCanvas" className={styles.editorOut} >
                 <div id="editorOutCanvas1"></div>
                 <div id="editorOutCanvas2"></div>
                 <div id="editorOutCanvas3"></div>
@@ -408,6 +292,8 @@ export const SVGedit = () => {
                 <div id="editorINCanvas1"></div>
             </div>
 
+
+
             <div id="contextMenu" className={styles.contextMenu}>
                 
                 <ul>
@@ -415,23 +301,7 @@ export const SVGedit = () => {
                         <button onClick={() => {canvas.deleteSelectedElements()} }>Delete</button>
                     </li>
                     <li>
-                        <button onClick={() => {
-                            
-                            const delete_animation = (arr) => {
-                                if(arr === undefined) return;
-                                //console.log(arr);
-                                arr.forEach((el , i) =>{
-                                    //console.log(el);
-                                    if(el.tagName === "g"){
-                                        delete_animation(arr.childNodes)
-                                    }
-                                    // TODO ; may delete group
-                                    else el.replaceChildren();
-                            })}
-
-                            delete_animation(canvas.getSelectedElements())
-
-                        } }>Del Animations</button>
+                        <button onClick={() => {deleteSelectedElementAnimation()} }>Del Animations</button>
                     </li>
                     <hr/>
                     <li>
@@ -452,8 +322,54 @@ export const SVGedit = () => {
                     </li>
                 </ul>
                 
-                
             </div>
+
+
+
+            <Draggable>
+                <div id="timingMainDiv" className={styles.timingMainDiv} >
+                    <p>Animation Timeline</p>
+
+                    < IoCloseSharp className={styles.timingMainDivClose} onClick={() => {
+                            document.getElementById("timingMainDiv").style.display = "none"
+                    }}/>
+
+                    
+                    <div className={styles.timeline}>
+                        {
+                            getTimeline()
+                        }
+                    </div>
+                </div>
+            </Draggable>
+
+
+            <Draggable>
+                <div id="animationBoard" className={styles.animationBoard} >
+
+                        
+                        <p className={styles.animationBoardTitle} >Animation Board</p> 
+                        < IoCloseSharp className={styles.animationBoardClose} onClick={() => {
+                            document.getElementById("animationBoard").style.display = "none"
+                        }}/>
+                        
+
+                        {animationBoardSet.includes("AnimColor")? <AnimColor animationTiming={animationTiming} /> :<></>}
+
+                        {animationBoardSet.includes("AnimDashArray")?<AnimDashArray animationTiming={animationTiming} />:<></>}
+
+                        {animationBoardSet.includes("AnimPathFollow")?<AnimPathFollow animationTiming={animationTiming} />:<></>}
+
+                        {animationBoardSet.includes("AnimMorph")?<AnimeMorph animationTiming={animationTiming} />:<></>}
+
+                        {animationBoardSet.includes("AnimLineFill")?<AnimLineFill animationTiming={animationTiming}/>:<></>}
+
+                        {animationBoardSet.includes("AnimZoom")?<AnimZoom animationTiming={animationTiming}/>:<></>}
+
+                        {animationBoardSet.includes("AnimRotation")?<AnimRotation animationTiming={animationTiming}/>:<></>}
+
+                </div>
+            </Draggable>
 
 
             <div className={styles.ctn} >
@@ -494,7 +410,6 @@ export const SVGedit = () => {
 
                             <li className={styles.li2}>
                                 <button onClick={ () => canvas.setMode('text')}> 
-                                    
                                     <div>Text</div>
                                     <IoTextSharp/>
                                 </button>
@@ -502,9 +417,8 @@ export const SVGedit = () => {
                         
                             <li className={styles.li2}>
                                 <button onClick={ () => canvas.setMode('path')}> 
-                                
-                                <div>Path</div> 
-                                <IoAnalyticsOutline/> 
+                                    <div>Path</div> 
+                                    <IoAnalyticsOutline/> 
                                 </button>
                             </li>
 
@@ -545,38 +459,27 @@ export const SVGedit = () => {
 
                     <li className={styles.li1}>
                         <button
-                        onMouseEnter={() => {
+                        onClick={ () => {
+
                             setanimatedElements([...canvas.getSelectedElements()])
-                            console.log("kekeke");
-                        }}
+                            const timingDiv = document.getElementsByClassName(styles.timingMainDiv)
+                            for (let item of timingDiv){
+
+                                if(item.style.display === "flex"){
+                                    item.style.display = "none"
+                                }else{
+                                    item.style.display = "flex"
+                                }
+                            }
+                        }
+                        }
                         > 
                         <IoAlarmOutline/>
                         <div> Timing </div>
-                        </button>
-
-                        <ul className={styles.ul2}>
-                            <li className={styles.li2}>
-                                <div className={styles.timingMainDiv} >
-                                   <p>Animation Timeline</p>
-
-                                   <div className={styles.timeline}>
-                                        {
-                                            getTimeline()
-                                        }
-                                   </div>
-                                </div>
-                            </li>
-                        </ul>
-
+                        </button>    
                     </li>
 
-                    
-
-                    
-                
-                    
-
-                
+                        
                     <li className={styles.li1}>
                         <button onClick={() => { }}> 
                         <IoPulseSharp/> 
@@ -585,421 +488,46 @@ export const SVGedit = () => {
 
                         <ul className={styles.ul2}>
                             <li className={styles.li2}>
-                                
-                                <button>
+                                <button onClick={() => {clickOnAnimBtn("AnimColor")}}>
                                 <div>Color Animation</div> 
                                 </button>
-
-                                <ul className={styles.ul3}>
-
-                                    <li className={styles.li3}> 
-                                    <div className={styles.divcolor2}>
-                                        <p>Initial Color</p>
-                                        <div className={styles.divcolor3input}>
-                                            <input value={initalColor} onChange={(e) => setInitalColor(e.target.value)}/>
-                                            <div className={styles.anmColor} style={{backgroundColor: initalColor}} ></div>
-                                        </div>
-                                    </div>
-                                    </li>
-                                    { intermediateColors.map((e,i) => {
-                                        return <li className={styles.li3} key={"intermediateColor-"+i}>
-                                        <div className={styles.divcolor2}>
-                                        <p>Inter {i} Color</p>
-                                        <div className={styles.divcolor3input}>
-                                            <input value={intermediateColors[i]} onChange={(e) => {
-                                                let temp = intermediateColors
-                                                temp[i] = e.target.value
-                                                setIntermediateColors([...temp])}
-                                                }/>
-                                            <div className={styles.anmColor} style={{backgroundColor: intermediateColors[i]}} ></div>
-                                        </div>
-                                        
-                                        </div>
-                                        </li>
-                                    }) }
-                                    <li className={styles.li3}> 
-                                    <button onClick={() => {
-                                        let temp = intermediateColors
-                                        const arr = ["#0f0" ,"#ff0" , "#0fd" ]
-                                        temp.push( arr[(Math.random() * arr.length) | 0] )
-                                        setIntermediateColors([...temp])
-                                    }}>Add intermediate color</button>
-                                     </li>
-                                    <li className={styles.li3}> 
-                                    <div className={styles.divcolor2}>
-                                        <p>Final Color</p>
-                                        <div className={styles.divcolor3input}>
-                                            <input value={finalColor} onChange={(e) => setFinalColor(e.target.value)}/>
-                                            <div className={styles.anmColor} style={{backgroundColor: finalColor}}></div>
-                                        </div>
-                                        
-                                    </div>
-                                    </li>
-                                    <li className={styles.li3}> 
-                                        <button onClick={ () => {canvas.getSelectedElements().forEach( (elem) => {
-
-                                        let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
-                                        myAni.setAttribute('attributeName', 'fill')
-                                        myAni.setAttribute('values',
-                                        [initalColor,...intermediateColors,finalColor].reduce((p,c)=>p+";"+c) )
-                                        myAni.setAttribute('dur', animationDur)
-                                        myAni.setAttribute('repeatCount', animationReplay)
-                                        elem.appendChild(myAni)
-                                        //console.log(elem);
-
-                                        } ) } }> Animate Selected
-                                        </button>
-                                    
-                                    </li>
-
-                                    {animationTimingGlobals()}
-
-
-                                </ul>
                             </li>
 
                             <li className={styles.li2}>
-                                <button onClick={ () => { 
-                                 } 
-                                }> 
-
+                                <button onClick={() => {clickOnAnimBtn("AnimDashArray")}} > 
                                 <div>Dash Array</div> 
                                 </button>
-
-                                <ul className={styles.ul3}>
-
-                                    <li className={styles.li3}>
-                                        <div className={styles.divDashAnim}>
-                                            <p>dash lenght  </p>
-
-                                            <input value={strokeDashAnim} onChange={(e)=>{setStrokeDashAnim(e.target.value)}}/>
-                                        </div>
-                                        
-                                        </li>
-
-                                    <li className={styles.li3}>
-                                        <div className={styles.divDashAnim}>
-                                        <p>offset start  </p>
-
-                                        <input value={strokeOfsetStart} onChange={(e)=>{setStrokeOfsetStart(e.target.value)}}/>
-                                        </div>
-                                    </li >
-
-                                    <li className={styles.li3}>
-                                        <div className={styles.divDashAnim}>
-                                        <p>offset end  </p>
-
-                                        <input value={strokeOfsetEnd} onChange={(e)=>{setStrokeOfsetEnd(e.target.value)}}/>
-                                        </div>
-                                    </li>
-
-                                    <li className={styles.li3}>
-
-                                        <button onClick={ () => 
-
-                                        canvas.getSelectedElements().forEach( (elem) => {
-
-                                            let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
-                                            myAni.setAttribute('attributeName', 'stroke-dashoffset')
-                                            myAni.setAttribute('from', strokeOfsetStart)
-                                            myAni.setAttribute('to', strokeOfsetEnd) 
-                                            myAni.setAttribute('dur', animationDur)
-                                            myAni.setAttribute('repeatCount', animationReplay)
-                                            elem.appendChild(myAni)
-
-                                            elem.setAttribute("stroke-dasharray" , strokeDashAnim)
-                                            //elem.setAttribute("stroke-dashoffset" , "100")
-
-                                            //console.log(elem);
-
-                                            //alert("been here")
-                                        })}>
-                                            Animate
-                                        </button>
-
-                                    </li>
-
-                                    {animationTimingGlobals()}
-
-                                </ul>
                             </li>
 
                             <li className={styles.li2}>
-                                <button onClick={ () => { } }> 
-
+                                <button onClick={() => {clickOnAnimBtn("AnimPathFollow")}}> 
                                 <div>Follow Path</div> 
                                 </button>
-
-                                <ul className={styles.ul3}>
-
-                                    <li className={styles.li3}> 
-                                        <div className={styles.divPathFollow2}>
-                                            
-                                            <button onClick={ () => { setPathFollowEl( canvas.getSelectedElements() ) } } > pick selected </button>
-                                            <p>Elements  </p>
-                                            <p> : {pathFollowEl.length} selected </p>
-                                        </div> 
-                                        
-                                         </li>
-
-                                    <li className={styles.li3}> 
-                                        <div className={styles.divPathFollow2}>
-                                            
-                                            <button onClick={ () => { 
-                                                const path = canvas.getSelectedElements()[0]
-                                                if(pathFollowEl.includes(path)){
-                                                    alert("cannot animate on same path")
-                                                    return;
-                                                }
-                                                setPathFollowPath( path ) 
-                                                } } > pick selected  </button>
-                                            <p>Path  </p>
-                                            <p> : {pathFollowPath?1:0} selected </p>
-                                        </div> 
-                                            
-                                    </li>
-
-                                    <li className={styles.li3}>
-                                        <button onClick={() => {
-
-                                            let myAni = document.createElement('animateMotion')
-                                            myAni.setAttribute('dur', animationDur)
-                                            myAni.setAttribute('fill', 'freeze')
-                                            myAni.setAttribute('rotate', 'auto')
-                                            myAni.setAttribute("repeatCount",animationReplay)
-
-                                            //myAni.setAttribute("path", "M-25,-12.5 L25,-12.5 L 0,-87.5 z" )
-
-                                            let pathIdEl = document.createElement("mpath")
-                                            pathIdEl.setAttribute("href" ,"#"+pathFollowPath.id )
-                                            myAni.appendChild(pathIdEl)
-
-                                            pathFollowEl.forEach(
-                                                (el) => {
-                                                    el.appendChild(myAni)
-                                                    
-                                                    console.log(el);   
-                                                }
-                                                
-                                                );
-
-                                            setPathFollowEl([])
-
-                                        }}>Animate</button>
-                                    </li>
-
-
-                                    {animationTimingGlobals()}
-
-                                </ul>
                             </li>
 
                             <li className={styles.li2}>
-                                <button onClick={ () => { } }> 
-
+                                <button onClick={() => {clickOnAnimBtn("AnimMorph")}}> 
                                 <div>Morph Animation</div> 
                                 </button>
-
-                                <ul className={styles.ul3} >
-                                    <li className={styles.li3}>
-                                        <div className={styles.divMorpth2}>
-                                            
-                                            <button onClick={ () => { 
-
-                                                const pathEl = canvas.getSelectedElements()[0] 
-                                                
-                                                const path = pathEl?.getAttribute("d");
-
-                                                if(!path){
-                                                    alert("you can only morph a PATH")
-                                                }
-
-                                                setMorphInitialShape( pathEl ) 
-
-                                            }
-                                            } >pick selected</button>
-                                            <p>Initial Path</p>
-                                            <p> : {morphInitialShape?1:0} path </p>
-                                        </div>
-
-                                        
-                                        
-                                    </li>
-
-                                    {morphIntermediateShapes.map((el , i) => {
-
-                                        return <li key={"mip"+i} className={styles.li3}>
-                                            <div className={styles.divMorpth2}>
-                                                
-                                                <button onClick={ () => { 
-
-                                                const pathEl = canvas.getSelectedElements()[0] 
-
-                                                const path = pathEl?.getAttribute("d");
-
-                                                if(!path){
-                                                    alert("you can only morph a PATH")
-                                                }
-
-                                                let temp = morphIntermediateShapes;
-                                                temp[i] = pathEl
-                                                setMorphIntermediateShapes(
-                                                    temp
-                                                    ) 
-
-                                                }}
-                                                >pick selected</button>
-
-                                                <p>Inter Path{i}</p>
-                                                <p> : {morphIntermediateShapes[i]?1:0} path </p>
-                                            </div>
-
-                                            
-                                            
-
-
-                                        </li>
-                                    })}
-
-                                    <li className={styles.li3}>
-
-                                        <button onClick={() => {
-                                            let temp = morphIntermediateShapes
-                                            temp.push(canvas.getSelectedElements()[0] )
-                                            setMorphIntermediateShapes([...temp])
-                                        }}> add intermediate path </button>
-
-                                    </li>
-
-                                    <li className={styles.li3}>
-                                        <div className={styles.divMorpth2}>
-                                            
-
-                                            <button onClick={ () => { 
-
-                                            const pathEl = canvas.getSelectedElements()[0] 
-
-                                            const path = pathEl?.getAttribute("d");
-
-                                            if(!path){
-                                                alert("you can only morph a PATH")
-                                            }
-
-                                            setMorphFinalShape( pathEl ) 
-
-                                            }}
-                                            >pick selected</button>
-
-                                            <p>Final Path</p>
-                                            <p> : {morphFinalShape?1:0} path </p>
-
-                                        </div>
-
-                                        
-                                    </li>
-
-                                    <li className={styles.li3}>
-                                        <button onClick={ () => {
-
-                                            let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
-                                            myAni.setAttribute('attributeName', 'd')
-                                            myAni.setAttribute('values',  
-                                                morphInitialShape.getAttribute("d") + ";"+
-                                                morphIntermediateShapes.map((e)=> e.getAttribute("d") ).reduce((p,c) => p+";"+c)+";"+
-                                                morphFinalShape.getAttribute("d") 
-                                                
-                                                )
-                                            myAni.setAttribute('dur', animationDur)
-                                            myAni.setAttribute('repeatCount', animationReplay)
-
-                                            morphInitialShape.appendChild(myAni)
-
-
-                                         }}>Create Animation</button>
-                                    </li>
-
-                                    {animationTimingGlobals()}
-                                    
-                                
-                                </ul>
-
                             </li>
 
                             <li className={styles.li2}>
-                                <button onClick={ () => { } }> 
-
+                                <button onClick={() => {clickOnAnimBtn("AnimLineFill")}}> 
                                 <div>Line fill</div> 
                                 </button>
-
-                                <ul className={styles.ul3} >
-
-                                    <li className={styles.li3}>
-                                        <button onClick={() => {
-
-                                            canvas.getSelectedElements().forEach( (elem) => {
-
-                                                let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
-                                                myAni.setAttribute('attributeName', 'stroke-dashoffset')
-                                                
-                                                const pathLenght = elem.getTotalLength()
-
-                                                myAni.setAttribute('from', pathLenght )
-                                                myAni.setAttribute('to', 0 ) 
-                                                myAni.setAttribute('dur', animationDur)
-                                                myAni.setAttribute('repeatCount', animationReplay)
-                                                elem.appendChild(myAni)
-
-                                                elem.setAttribute("stroke-dasharray" , pathLenght)
-                                                //elem.setAttribute("stroke-dashoffset" , "100")
-
-                                                //console.log(elem);
-
-                                                //alert("been here")
-                                            })
-
-
-                                        }}>Animate</button>
-                                    </li>
-
-                                    {animationTimingGlobals()}
-
-                                </ul>
+ 
                             </li>
 
                             <li className={styles.li2}>
-                                <button onClick={ () => { } }> 
-
-                                <div>TODO : Rotation</div> 
+                                <button onClick={ () => {clickOnAnimBtn("AnimRotation")} }> 
+                                <div>Rotation</div> 
                                 </button>
-
-                                <ul className={styles.ul3} >
-
-                                    <li className={styles.li3}>
-                                        <button onClick={() => {}}>Animate</button>
-                                    </li>
-
-                                    {animationTimingGlobals()}
-
-                                </ul>
-
                             </li>
 
                             <li className={styles.li2}>
-                                <button onClick={ () => { } }> 
-
-                                <div>TODO : Zoom</div> 
+                                <button onClick={ () => {clickOnAnimBtn("AnimZoom")}}> 
+                                <div>Zoom</div> 
                                 </button>
-
-                                <ul className={styles.ul3} >
-
-                                    <li className={styles.li3}>
-                                        <button onClick={() => {}}>Animate</button>
-                                    </li>
-
-                                    {animationTimingGlobals()}
-
-                                </ul>
-
                             </li>
                             
                         </ul>
@@ -1047,21 +575,10 @@ export const SVGedit = () => {
                                 <div className={styles.strokeStyle}>
                                    <p>size</p> 
                                    <input value={ strokeWidth } onChange={ (e) => {
-
                                        setStrokeWidth(w => e.target.value)
-
-                                       //console.log(strokeWidth);
-
                                         canvas.getSelectedElements().forEach( (elem) => {
-
-                                            //console.log(elem);
-
                                             elem.setAttribute('stroke-width' , e.target.value)
-
-                                            //console.log(elem);
-
                                         })
-                                       
                                    }
                                    }/>
                                 </div>
@@ -1090,17 +607,10 @@ export const SVGedit = () => {
                                 <div className={styles.strokeStyle}>
                                     <p> ending</p>
                                     <select onChange={ (e) => {
-
-                                        
-
                                         canvas.getSelectedElements().forEach( (elem) => {
-
                                             elem.setAttribute('stroke-linecap' , e.target.value)
 
                                         })
-
-
-
                                         } }>
                                         <option value="butt">butt</option>
                                         <option value="square">square</option>
@@ -1114,16 +624,9 @@ export const SVGedit = () => {
                                 <div className={styles.strokeStyle}>
                                     <p> angles</p>
                                     <select onChange={ (e) => {
-
-                                       
-
                                         canvas.getSelectedElements().forEach( (elem) => {
-
                                             elem.setAttribute('stroke-linejoin' , e.target.value)
-
                                         })
-
-
                                     } }>
                                         <option value="miter">miter</option>
                                         <option value="round">round</option>
@@ -1149,15 +652,9 @@ export const SVGedit = () => {
                             <div>Result</div>
                         </button>
                     </li>
-                
-
-                
-
                 </ul>
-
                 
                 <input id="text" style={{width:0,height:0,opacity: 0}}/>
-
 
                 <div>
                     <div id="editorContainer" className={styles.editor}></div> 
