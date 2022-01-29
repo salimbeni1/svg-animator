@@ -117,11 +117,13 @@ const getDivAnimMorph = () => {
 
                                         let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
                                         myAni.setAttribute('attributeName', 'd')
-                                        myAni.setAttribute('values',  
-                                            morphInitialShape.getAttribute("d") + ";"+
-                                            morphIntermediateShapes.map((e)=> e.getAttribute("d") ).reduce((p,c) => p+";"+c)+";"+
-                                            morphFinalShape.getAttribute("d") 
-                                            
+                                        const values = morphInitialShape.getAttribute("d") + ";"+
+                                            (morphIntermediateShapes.length === 0 ?"": (morphIntermediateShapes.map((e)=> e.getAttribute("d") ).reduce((p,c) => p+";"+c))+";") +
+                                            morphFinalShape.getAttribute("d") ;
+
+                                        console.log(values);
+                                        console.log(morphInitialShape.getAttribute("d"));
+                                        myAni.setAttribute('values', values
                                             )
                                         myAni.setAttribute('dur', animationTiming.animationDur)
                                         myAni.setAttribute('repeatCount', animationTiming.animationReplay)

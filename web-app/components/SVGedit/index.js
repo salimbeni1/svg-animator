@@ -667,7 +667,7 @@ export const SVGedit = () => {
                 <div className={styles.resultAnimation}>
 
                 <div>
-                    <div key={rerenderres} style={{width: width, height: height}} className={styles.result}>
+                    <div key={rerenderres} style={{width: width, height: height , overflow:"hidden"}} className={styles.result}>
                         { result }
                     </div>
                     <div className={styles.subtitle}>RESULT ANIMATION</div>
