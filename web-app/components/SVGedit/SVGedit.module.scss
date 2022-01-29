@@ -1,5 +1,7 @@
 .divAnimationTimingGlobals{
 
+    font-family: 'Exo 2', sans-serif;
+
     display: flex;
     flex-direction: column;
     place-items: center;
@@ -30,6 +32,8 @@
 }
 
 .animationBoard{
+
+    font-family: 'Exo 2', sans-serif;
 
     background-color: white;
     border: 4px solid black;
@@ -237,6 +241,9 @@
 
 
 .timingMainDiv{
+
+    font-family: 'Exo 2', sans-serif;
+
     min-width: 70vw;
     display: flex;
     flex-direction: column;
@@ -316,6 +323,8 @@
 }
 
 .contextMenu{
+
+    font-family: 'Exo 2', sans-serif;
 
     position: absolute;
     background-color: white;
