@@ -95,14 +95,14 @@ export const Library = () => {
             
             <svg viewBox="0 0 500 500" width="100%"  xmlns="http://www.w3.org/2000/svg" >
             
-            <g class="layer">
+            <g >
             <path d="m188.4,99c-52,-45 -117,-29 -116,43c1,72 124,186 75,234c-49,48 -110,-89 -66,-118" fill="#FFFFFF" id="svg_1" stroke="#000000" strokeDasharray="606.2749" strokeLinecap="round" strokeWidth="20">
             <animate attributeName="stroke-dashoffset" begin="0" dur="5" end="5" from="606.2749" repeatCount="1" to="0"/>
             </path>
             <path d="m178.4,162c51,-105 2,208 66,203c64,-5 -8,-333 60.6,-248" fill="#FFFFFF" id="svg_3" stroke="#000000" strokeDasharray="571.5365" strokeLinecap="round" strokeWidth="20">
             <animate attributeName="stroke-dashoffset" begin="0" dur="5" end="5" from="571.5365" repeatCount="1" to="0"/>
             </path>
-            <path d="m402.73058,198.75392c64.88505,38.13354 69.9542,-91.09679 -12.16595,-84.7412c-82.12015,6.35559 -102.39673,131.34886 -71.98186,193.84549c30.41487,62.49663 116.59033,-23.30383 83.13398,-23.30383c-33.45636,0 48.66379,117.57841 5.06914,94.27458c-43.59465,-23.30383 13.17978,-45.54839 27.37338,-46.60766" fill="#FFFFFF" id="svg_6" stroke="#000000" stroke-dasharray="731.71869" stroke-linecap="round" stroke-width="20" transform="rotate(9.02306 378.495 247.836)">
+            <path d="m402.73058,198.75392c64.88505,38.13354 69.9542,-91.09679 -12.16595,-84.7412c-82.12015,6.35559 -102.39673,131.34886 -71.98186,193.84549c30.41487,62.49663 116.59033,-23.30383 83.13398,-23.30383c-33.45636,0 48.66379,117.57841 5.06914,94.27458c-43.59465,-23.30383 13.17978,-45.54839 27.37338,-46.60766" fill="#FFFFFF" id="svg_6" stroke="#000000" strokeDasharray="731.71869" strokeLinecap="round" strokeWidth="20" transform="rotate(9.02306 378.495 247.836)">
             <animate attributeName="stroke-dashoffset" begin="0" dur="5" end="5" from="731.71869" repeatCount="1" to="0"/>
             </path>
             </g>
@@ -117,7 +117,7 @@ export const Library = () => {
             
             <svg viewBox="0 0 500 500" width="100%"  xmlns="http://www.w3.org/2000/svg" >
                 
-                <g class="layer">
+                <g >
                 <title>Layer 1</title>
                 <circle cx="124.4" cy="50.5" fill="#FFFFFF" id="svg_1" r="58.92695" stroke="#000000" transform="matrix(1 0 0 1 0 0)">
                 <animate attributeName="fill" begin="0" dur="50" repeatCount="indefinite" values="#0fd;#0ad;#0fd"/>
@@ -231,7 +231,7 @@ export const Library = () => {
             
             <svg  viewBox="0 0 500 500" width="100%" xmlns="http://www.w3.org/2000/svg" >
             
-            <g class="layer">
+            <g >
             <title>Layer 1</title>
             <path d="m123.8154,257.94382l-26.39539,126.17735l54.0378,73.43108l-8.31351,-73.43108l14.54864,-98.25286l32.21484,79.63653l108.0756,75.49956l-67.54725,-77.56805l-17.6662,-81.70501l69.62563,89.97893l145.48639,95.15014l-120.54587,-110.66374l-46.76348,-85.84197l86.25265,51.71203l101.84047,-42.40386l-90.4094,8.27392l-67.54725,-47.57507l5.19594,-94.11589l69.62563,51.71203l-9.3527,57.91747l63.3905,-54.81475l-104.95804,-89.97893l-82.09589,-29.99298l-14.54864,-47.57507l-163.1526,-1.03424l47.80267,92.04741l-12.47026,77.56805l33.66971,55.84899z" fill="red" id="svg_6" stroke="#000000" strokeLinejoin="round" strokeWidth="10">
             <animate attributeName="d" begin="0" dur="10" end="10" repeatCount="1" values="M 100.39999999999998 236 L 75 358 L 127 429 L 119 358 L 133 263 L 164 340 L 268 413 L 203 338 L 186 259 L 253 346 L 393 438 L 277 331 L 232 248 L 315 298 L 413 257 L 326 265 L 261 219 L 266 128 L 333 178 L 324 234 L 385 181 L 284 94 L 205 65 L 191 19 L 34 18 L 80 107 L 68 182 L 100.39999999999998 236 z;M91.39999999999998,245 L57,358 L73,443 L84,358 L132,263 L139,339 L260,455 L177,335 L194,257 L229,344 L370,462 L261,331 L239,244 L306,321 L417,306 L327,295 L260,216 L265,128 L374,181 L347,248 L417,171 L282,81 L205,60 L190,19 L33,18 L74,106 L59,182 L91.39999999999998,245 z;M 100.39999999999998 236 L 75 358 L 127 429 L 119 358 L 133 263 L 164 340 L 268 413 L 203 338 L 186 259 L 253 346 L 393 438 L 277 331 L 232 248 L 315 298 L 413 257 L 326 265 L 261 219 L 266 128 L 333 178 L 324 234 L 385 181 L 284 94 L 205 65 L 191 19 L 34 18 L 80 107 L 68 182 L 100.39999999999998 236 z"/>
