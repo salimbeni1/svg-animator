@@ -11,7 +11,7 @@ import { deleteSelectedElementAnimation , importImage } from './utils';
 
 
 
-import { IoChevronUp ,IoAlarmOutline, IoCloseSharp,  IoChevronDown , IoImageOutline , IoReorderFourOutline, IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
+import { IoChevronUp , IoCutSharp , IoArchiveOutline ,IoAlarmOutline, IoCloseSharp,  IoChevronDown , IoImageOutline , IoReorderFourOutline, IoPulseSharp , IoMoveOutline, IoLayersOutline , IoShapesOutline , IoArrowDownCircleOutline, IoCopyOutline , IoColorFillOutline , IoFlashOutline, IoCodeDownload,  IoAnalyticsOutline , IoEnterOutline , IoEyedropOutline , IoScanSharp,  IoEllipseOutline , IoStopOutline , IoSparklesOutline , IoTrashBinOutline,  IoTextSharp} from "react-icons/io5";
 import { AnimColor } from './animations/AnimColor';
 import { AnimeMorph } from './animations/AnimeMorph';
 import { AnimDashArray } from './animations/AnimDashArray';
@@ -372,15 +372,17 @@ export const SVGedit = () => {
                         <button onClick={() => {canvas.ungroupSelectedElement()} } >Ungroup</button>
                     </li>
                     <hr/>
-                    <li>
-                        <button onClick={() => {canvas.copySelectedElements()} } >Copy</button>
+                    
+                    <li className={styles.cpypstcut}> 
+
+                        <IoCopyOutline onClick={() => {canvas.copySelectedElements()} } />
+                        <IoCutSharp onClick={() => {canvas.cutSelectedElements()} } />
+                        <IoArchiveOutline onClick={() => {canvas.pasteElements()} } />
                     </li>
-                    <li>
-                        <button onClick={() => {canvas.cutSelectedElements()} } >Cut</button>
-                    </li>
-                    <li>
-                        <button onClick={() => {canvas.pasteElements()} } >Paste</button>
-                    </li>
+
+                   
+                    
+                   
                 </ul>
                 
             </div>

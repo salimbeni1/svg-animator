@@ -378,6 +378,19 @@
             margin: 0;
             padding: 0;
         }
+        
+        .cpypstcut{
+                width: 100%;
+                display: flex;
+                place-items: center;
+                justify-content: center;
+                
+                svg{
+                    width: 23px;
+                    height: 23px;
+                    cursor: pointer;
+                }
+         }
 
         li{
 
