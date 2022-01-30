@@ -132,6 +132,9 @@ export const SVGedit = () => {
                         if(repeat === "indefinite"){
                             repeat = 200;
                         }
+                        if(typeof repeat === "string"){
+                            repeat = 1;
+                        }
                         return <>
 
                         <div style={{margin:"3px" , position:'relative'}} key={"el"+i+"-"+cni}>
