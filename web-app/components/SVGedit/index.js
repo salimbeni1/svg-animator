@@ -128,6 +128,9 @@ export const SVGedit = () => {
                         const start = cn.getAttribute('begin')? cn.getAttribute('begin'): 0
                         const end = cn.getAttribute('end')? cn.getAttribute('end'): start + dur
                         return <>
+
+                        
+
                         <div style={{margin:"3px"}} key={"el"+i+"-"+cni}>
                             <div style={{
                                 position:'relative',
@@ -139,6 +142,9 @@ export const SVGedit = () => {
                                 backgroundColor:color
                             }} ></div>
                         </div>
+
+
+
                         </>
                     } 
                 } )

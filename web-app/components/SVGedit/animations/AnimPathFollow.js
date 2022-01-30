@@ -60,15 +60,17 @@ export const AnimPathFollow = ( {animationTiming}) => {
                     pathFollowEl.forEach(
                         (el) => {
                             el.appendChild(myAni)
-                            
                             console.log(el);   
-                        }
-                        
-                        );
-
+                        });
                     setPathFollowEl([])
-
                 }}>Animate Path Follow</button>
+            </li>
+
+            <li className={styles.li3}>
+                <button onClick={() => {
+                    setPathFollowEl([])
+                    setPathFollowPath(undefined)
+                }}> reset </button>
             </li>
             
             {

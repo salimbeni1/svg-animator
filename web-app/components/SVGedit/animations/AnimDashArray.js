@@ -69,6 +69,16 @@ export const AnimDashArray = ( {animationTiming}) => {
 
             </li>
 
+            <li className={styles.li3}>
+                <button onClick={() => {
+                    setStrokeDashAnim(20)
+                    setStrokeOfsetStart(0)
+                    setStrokeOfsetEnd(2000)
+                }}>
+                    reset
+                </button>
+            </li>
+
             {
             //animationTimingGlobals()
             }

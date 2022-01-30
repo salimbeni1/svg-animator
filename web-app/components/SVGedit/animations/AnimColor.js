@@ -75,6 +75,16 @@ export const AnimColor = ( {animationTiming} ) => {
             </button>
         
         </li>
+
+        <li className={styles.li3}>
+            <button onClick={() => {
+                setInitalColor("green")
+                setIntermediateColors([])
+                setFinalColor("red")
+            }}>
+                reset
+            </button>
+        </li>
     </ul>
     </div>
     }
