@@ -127,11 +127,14 @@ export const SVGedit = () => {
                         const dur = cn.getAttribute('dur')         
                         const start = cn.getAttribute('begin')? cn.getAttribute('begin'): 0
                         const end = cn.getAttribute('end')? cn.getAttribute('end'): start + dur
+
+                        const repeat = cn.getAttribute('repeatCount')? cn.getAttribute('repeatCount') : 1
+                        if(repeat === "indefinite"){
+                            repeat = 200;
+                        }
                         return <>
 
-                        
-
-                        <div style={{margin:"3px"}} key={"el"+i+"-"+cni}>
+                        <div style={{margin:"3px" , position:'relative'}} key={"el"+i+"-"+cni}>
                             <div style={{
                                 position:'relative',
                                 left: start*10,
@@ -141,6 +144,26 @@ export const SVGedit = () => {
                                 borderRadius:3,
                                 backgroundColor:color
                             }} ></div>
+
+                            {
+                            Array(...Array(repeat-1).keys()).map( (e , indx2) => {
+
+                                const offset_ = ((indx2+1)*(dur*10)) + (start*10)
+
+                                return <div key={"timeline-el"+offset_} style={{
+                                position:'absolute',
+                                top:0,
+                                left: offset_ ,
+                                width: dur*10,
+                                height:1,
+                                border: '5px solid '+color,
+                                borderRadius:3,
+                                backgroundColor:color
+                                }} ></div>
+                            })
+                            
+                            }
+
                         </div>
 
 
