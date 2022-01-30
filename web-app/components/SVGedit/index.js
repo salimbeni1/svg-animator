@@ -83,7 +83,20 @@ export const SVGedit = () => {
                         }/>
 
                     <p> Replay </p>
-                    <input value={animationReplay} onChange={ (e) => setAnimationReplay(e.target.value)}/>
+                    <input value={animationReplay} onChange={ (e) => {
+                        
+                        if( e.target.value.match("([0-9]+)|(indefinite)") )  {
+                            setAnimationReplay(e.target.value)
+                            setAnimationEnd("")
+                        } else{
+                            setAnimationReplay(e.target.value)
+
+                            //setAnimationReplay("indefinite")
+                            //setAnimationEnd("")
+                            ;
+                         }
+                        }
+                        }/>
 
                     <p> Begin </p>
                     <input value={animationBegin} onChange={ (e) =>{
@@ -127,14 +140,14 @@ export const SVGedit = () => {
                         const dur = cn.getAttribute('dur')         
                         const start = cn.getAttribute('begin')? cn.getAttribute('begin'): 0
                         const end = cn.getAttribute('end')? cn.getAttribute('end'): start + dur
-
+                        
                         const repeat = cn.getAttribute('repeatCount')? cn.getAttribute('repeatCount') : 1
                         if(repeat === "indefinite"){
-                            repeat = 200;
+                            repeat = 200
+                        } else if (repeat.match("^[0-9]+$") === null) {
+                            repeat = 1
                         }
-                        if(typeof repeat === "string"){
-                            repeat = 1;
-                        }
+
                         return <>
 
                         <div style={{margin:"3px" , position:'relative'}} key={"el"+i+"-"+cni}>
@@ -149,6 +162,7 @@ export const SVGedit = () => {
                             }} ></div>
 
                             {
+
                             Array(...Array(repeat-1).keys()).map( (e , indx2) => {
 
                                 const offset_ = ((indx2+1)*(dur*10)) + (start*10)
