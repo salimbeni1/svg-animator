@@ -9,7 +9,7 @@ export const AnimLineFill = ({animationTiming}) => {
             <ul className={styles.ul3} >
 
                 <li className={styles.li3}>
-                    <button onClick={() => {
+                    <button className={styles.animateBtn} onClick={() => {
 
                         canvas.getSelectedElements().forEach( (elem) => {
 

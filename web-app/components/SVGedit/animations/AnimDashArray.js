@@ -43,7 +43,7 @@ export const AnimDashArray = ( {animationTiming}) => {
 
             <li className={styles.li3}>
 
-                <button onClick={ () => 
+                <button className={styles.animateBtn} onClick={ () => 
 
                 canvas.getSelectedElements().forEach( (elem) => {
 

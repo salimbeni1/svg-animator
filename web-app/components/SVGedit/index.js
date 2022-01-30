@@ -68,13 +68,13 @@ export const SVGedit = () => {
 
     const animationTimingGlobals = () => {
         return <>
-            <li className={styles.li3}>
+            
 
                 <div className={styles.divAnimationTimingGlobals}>
 
                     <p className={styles.title} onClick={() => setAnimationToggleStatus(e => !e)} >Animation Timing  {!animationToggleStatus?<IoChevronUp/>:<IoChevronDown/>} </p>
 
-                    <div className={styles.options} style={ {display:animationToggleStatus?"none":"block"} }> 
+                    <div className={styles.options} style={ {display:animationToggleStatus?"none":"grid"} }> 
                     <p> Duration </p>
                     <input value={animationDur} onChange={ (e) => setAnimationDur(e.target.value)}/>
 
@@ -85,7 +85,7 @@ export const SVGedit = () => {
                 </div>
                 
 
-            </li>
+            
         </>
     }
 
@@ -367,6 +367,10 @@ export const SVGedit = () => {
                         {animationBoardSet.includes("AnimZoom")?<AnimZoom animationTiming={animationTiming}/>:<></>}
 
                         {animationBoardSet.includes("AnimRotation")?<AnimRotation animationTiming={animationTiming}/>:<></>}
+
+                        
+                        <div style={{borderTop:"4px solid black" , width:"100%"}}></div>
+                        {animationTimingGlobals()}
 
                 </div>
             </Draggable>

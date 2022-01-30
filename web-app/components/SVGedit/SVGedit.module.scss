@@ -7,14 +7,19 @@
     place-items: center;
     width: 100%;
     .title{
-        margin: 0;
-        border-top: 1px solid black;
-        margin-top: 15px;
+        margin: 5px;
+        //border-top: 1px solid black;
+        //margin-top: 15px;
         display: flex;
         flex-direction: row;
         align-items: center;
         width:max-content;
         cursor: pointer;
+
+        svg{
+            width: 30px;
+            height: 30px;
+        }
     }
 
     .options{
@@ -47,6 +52,27 @@
     align-items: center;
 
     display: none;
+
+    .animateBtn{
+        padding: 10px;
+        border: 2px solid black;
+        border-radius: 3px;
+        margin: 2px 5px;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    button{
+        font-family: 'Exo 2', sans-serif;
+        background-color: white;
+        color: black;
+        cursor: pointer;
+        border: none;
+    }
+    button:hover{
+        background-color: black;
+        color: white;
+    }
 
     .animationBoardTitle{
 

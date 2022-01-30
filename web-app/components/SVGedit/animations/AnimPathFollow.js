@@ -41,7 +41,7 @@ export const AnimPathFollow = ( {animationTiming}) => {
             </li>
 
             <li className={styles.li3}>
-                <button onClick={() => {
+                <button className={styles.animateBtn} onClick={() => {
 
                     let myAni = document.createElement('animateMotion')
                     myAni.setAttribute('dur', animationTiming.animationDur)

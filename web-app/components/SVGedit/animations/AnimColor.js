@@ -58,7 +58,7 @@ export const AnimColor = ( {animationTiming} ) => {
         </div>
         </li>
         <li className={styles.li3}> 
-            <button onClick={ () => {canvas.getSelectedElements().forEach( (elem) => {
+            <button className={styles.animateBtn} onClick={ () => {canvas.getSelectedElements().forEach( (elem) => {
 
             let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
             myAni.setAttribute('attributeName', 'fill')

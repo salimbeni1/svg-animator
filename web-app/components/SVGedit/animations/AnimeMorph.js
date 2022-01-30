@@ -113,7 +113,7 @@ const getDivAnimMorph = () => {
                                 </li>
 
                                 <li className={styles.li3}>
-                                    <button onClick={ () => {
+                                    <button className={styles.animateBtn} onClick={ () => {
 
                                         let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
                                         myAni.setAttribute('attributeName', 'd')
