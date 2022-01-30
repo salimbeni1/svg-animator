@@ -76,16 +76,25 @@ export const SVGedit = () => {
 
                     <div className={styles.options} style={ {display:animationToggleStatus?"none":"grid"} }> 
                     <p> Duration </p>
-                    <input value={animationDur} onChange={ (e) => setAnimationDur(e.target.value)}/>
+                    <input value={animationDur} onChange={ (e) => {
+                        setAnimationDur(e.target.value)
+                        setAnimationEnd(Number(animationBegin) + Number(e.target.value))
+                    }
+                        }/>
 
                     <p> Replay </p>
                     <input value={animationReplay} onChange={ (e) => setAnimationReplay(e.target.value)}/>
 
                     <p> Begin </p>
-                    <input value={animationBegin} onChange={ (e) => setAnimationBegin(e.target.value)}/>
+                    <input value={animationBegin} onChange={ (e) =>{
+                        setAnimationBegin(e.target.value)
+                        setAnimationEnd(Number(animationDur) + Number(e.target.value))
+                    } }/>
 
                     <p> End </p>
-                    <input value={animationEnd} onChange={ (e) => setAnimationEnd(e.target.value)}/>
+                    <input value={animationEnd} onChange={ (e) => 
+                        setAnimationEnd(e.target.value)
+                        }/>
                     </div>
 
                 </div>
