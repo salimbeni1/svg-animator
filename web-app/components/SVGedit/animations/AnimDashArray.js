@@ -53,6 +53,8 @@ export const AnimDashArray = ( {animationTiming}) => {
                     myAni.setAttribute('to', strokeOfsetEnd) 
                     myAni.setAttribute('dur', animationTiming.animationDur)
                     myAni.setAttribute('repeatCount', animationTiming.animationReplay)
+                    myAni.setAttribute('begin', animationTiming.animationBegin)
+                    myAni.setAttribute('end', animationTiming.animationEnd)
                     elem.appendChild(myAni)
 
                     elem.setAttribute("stroke-dasharray" , strokeDashAnim)
@@ -62,7 +64,7 @@ export const AnimDashArray = ( {animationTiming}) => {
 
                     //alert("been here")
                 })}>
-                    Animate
+                    Animate Dash
                 </button>
 
             </li>

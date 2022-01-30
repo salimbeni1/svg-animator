@@ -60,7 +60,7 @@ export const SVGedit = () => {
 
     // -> Timing Globals
     const [animationDur, setAnimationDur] = useState(10);
-    const [animationBegin, setanimationBegin] = useState(0);
+    const [animationBegin, setAnimationBegin] = useState(0);
     const [animationEnd, setAnimationEnd] = useState(10);
     const [animationReplay, setAnimationReplay] = useState(1);
     const [animationToggleStatus, setAnimationToggleStatus] = useState(true);
@@ -80,6 +80,12 @@ export const SVGedit = () => {
 
                     <p> Replay </p>
                     <input value={animationReplay} onChange={ (e) => setAnimationReplay(e.target.value)}/>
+
+                    <p> Begin </p>
+                    <input value={animationBegin} onChange={ (e) => setAnimationBegin(e.target.value)}/>
+
+                    <p> End </p>
+                    <input value={animationEnd} onChange={ (e) => setAnimationEnd(e.target.value)}/>
                     </div>
 
                 </div>

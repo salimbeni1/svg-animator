@@ -134,7 +134,10 @@
                 .divMorpth2{
 
                     display: grid;
-                    grid-template-columns: 1fr 1fr 1fr;
+                    grid-template-columns: 2fr 1fr 1fr;
+
+                    align-items: center;
+
                     margin: 0px 2px;
                     gap: 5px;
                     width: 100%;
@@ -143,6 +146,7 @@
                     width: max-content;
                     }
                     button{
+                        padding: 10px 10px;
                         width: max-content;
                     }
                 }

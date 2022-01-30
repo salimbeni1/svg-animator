@@ -22,6 +22,8 @@ export const AnimLineFill = ({animationTiming}) => {
                             myAni.setAttribute('to', 0 ) 
                             myAni.setAttribute('dur', animationTiming.animationDur)
                             myAni.setAttribute('repeatCount', animationTiming.animationReplay)
+                            myAni.setAttribute('begin', animationTiming.animationBegin)
+                            myAni.setAttribute('end', animationTiming.animationEnd)
                             elem.appendChild(myAni)
 
                             elem.setAttribute("stroke-dasharray" , pathLenght)
@@ -33,7 +35,7 @@ export const AnimLineFill = ({animationTiming}) => {
                         })
 
 
-                    }}>Animate</button>
+                    }}>Animate Line</button>
                 </li>
 
                 {

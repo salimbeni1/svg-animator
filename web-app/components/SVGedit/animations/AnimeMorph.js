@@ -6,6 +6,17 @@ import styles from './../SVGedit.module.scss'
 
 export const AnimeMorph = ( {animationTiming}) => {
 
+
+const getRedSquare = () => {
+    return <rect fill="white" stroke="red" strokeDasharray="null" strokeLinejoin="round" strokeLinecap="round" strokeOpacity="null" fillOpacity="null" opacity="1" x="22" y="20.000005960464478" width="457.00000762939453" height="459.9999940395355"  strokeWidth="30" transform="matrix(1 0 0 1 0 0)"></rect>
+     
+    /** 
+    <path fill="transparent" stroke="red" strokeDasharray="null" strokeLinejoin="round" strokeLinecap="round" strokeOpacity="null" fillOpacity="null" style="pointer-events:inherit" d="M 26 25 C 26 25 476 476 476 476 C 476 476 26 25 26 25 z"  strokeWidth="30" transform="matrix(1 0 0 1 0 0)"></path>
+   <path fill="transparent" stroke="red" strokeDasharray="null" strokeLinejoin="round" strokeLinecap="round" strokeOpacity="null" fillOpacity="null" d="M 475 22 C 475 22 28 477 28 477 C 28 477 475 22 475 22 z"  strokeWidth="30"></path>
+    */
+    
+}
+
 // -> Morph
 const [morphInitialShape, setMorphInitialShape] = useState(undefined);
 const [morphIntermediateShapes, setMorphIntermediateShapes] = useState([]);
@@ -26,14 +37,29 @@ const getDivAnimMorph = () => {
 
                                             if(!path){
                                                 alert("you can only morph a PATH")
+                                                return;
                                             }
+
+                                            console.log(typeof pathEl , pathEl);
 
                                             setMorphInitialShape( pathEl ) 
 
+                                            const mis = document.getElementById("morphInitialShape")
+                                            while (mis.childNodes.length > 1) {
+                                                mis.removeChild(mis.lastChild);
+                                            }
+                                            mis.appendChild(pathEl.cloneNode(true))
+                                            mis.firstChild.setAttribute("stroke" , "lime")
+
                                         }
                                         } >pick selected</button>
-                                        <p>Initial Path</p>
-                                        <p> : {morphInitialShape?1:0} path </p>
+                                        <p>Initial</p>
+                                        
+                                        
+                                        <svg preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" id="morphInitialShape" width="50px" height="50px" viewBox='0 0 500 500' >{getRedSquare()}</svg>
+                                        
+                                        
+
                                     </div>
 
                                     
@@ -47,25 +73,36 @@ const getDivAnimMorph = () => {
                                             
                                             <button onClick={ () => { 
 
-                                            const pathEl = canvas.getSelectedElements()[0] 
+                                                const pathEl = canvas.getSelectedElements()[0] 
 
-                                            const path = pathEl?.getAttribute("d");
+                                                const path = pathEl?.getAttribute("d");
 
-                                            if(!path){
-                                                alert("you can only morph a PATH")
+                                                if(!path){
+                                                    alert("you can only morph a PATH")
+                                                }
+
+                                                let temp = morphIntermediateShapes;
+                                                temp[i] = pathEl
+                                                setMorphIntermediateShapes(
+                                                    temp
+                                                    ) 
+                                                const mid = document.getElementById("morphIntermediateShapes"+i)
+                                                while (mid.childNodes.length > 1) {
+                                                    mid.removeChild(mid.lastChild);
+                                                }
+                                                mid.appendChild(pathEl.cloneNode(true))  
+                                                mid.firstChild.setAttribute("stroke" , "lime")
+                                            
                                             }
-
-                                            let temp = morphIntermediateShapes;
-                                            temp[i] = pathEl
-                                            setMorphIntermediateShapes(
-                                                temp
-                                                ) 
-
-                                            }}
+                                            
+                                            }
                                             >pick selected</button>
 
-                                            <p>Inter Path{i}</p>
-                                            <p> : {morphIntermediateShapes[i]?1:0} path </p>
+                                            <p>Inter{i}</p>
+                                       
+
+                                            <svg preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" id={"morphIntermediateShapes"+i} width="50px" height="50px" viewBox='0 0 500 500' >{getRedSquare()}</svg>
+
                                         </div>
 
                                         
@@ -97,15 +134,28 @@ const getDivAnimMorph = () => {
 
                                         if(!path){
                                             alert("you can only morph a PATH")
+                                            return;
                                         }
 
                                         setMorphFinalShape( pathEl ) 
+                                        const mfs = document.getElementById("morphFinalShape")
+                                        while (mfs.childNodes.length > 1) {
+                                            mfs.removeChild(mfs.lastChild);
+                                        }                                        
+                                        mfs.appendChild(pathEl.cloneNode(true))
+                                        mfs.firstChild.setAttribute("stroke" , "lime")
 
                                         }}
                                         >pick selected</button>
 
-                                        <p>Final Path</p>
-                                        <p> : {morphFinalShape?1:0} path </p>
+                                        <p>Final</p>
+                                        
+
+                                        <svg preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" id="morphFinalShape" width="50px" height="50px" viewBox='0 0 500 500' >
+                                            {
+                                            getRedSquare()
+                                            }
+                                        </svg>
 
                                     </div>
 
@@ -127,11 +177,35 @@ const getDivAnimMorph = () => {
                                             )
                                         myAni.setAttribute('dur', animationTiming.animationDur)
                                         myAni.setAttribute('repeatCount', animationTiming.animationReplay)
-
+                                        myAni.setAttribute('begin', animationTiming.animationBegin)
+                                        myAni.setAttribute('end', animationTiming.animationEnd)
                                         morphInitialShape.appendChild(myAni)
 
 
-                                     }}>Create Animation</button>
+                                     }}>Animate Morph</button>
+                                </li>
+
+                                <li className={styles.li3}>
+
+                                    <button onClick={() => {
+                                        setMorphInitialShape(undefined)
+                                        setMorphIntermediateShapes([])
+                                        setMorphFinalShape(undefined)
+                                        const mfs = document.getElementById("morphFinalShape")
+                                        while (mfs.childNodes.length > 1) {
+                                            mfs.removeChild(mfs.lastChild);
+                                        }
+                                        mfs.firstChild.setAttribute("stroke" , "red")
+                                        const mis = document.getElementById("morphInitialShape")
+                                        while (mis.childNodes.length > 1) {
+                                            mis.removeChild(mis.lastChild);
+                                        } 
+                                        mis.firstChild.setAttribute("stroke" , "red")
+
+
+                                    }}>
+                                        reset
+                                    </button>
                                 </li>
 
                                 {

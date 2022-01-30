@@ -66,10 +66,12 @@ export const AnimColor = ( {animationTiming} ) => {
             [initalColor,...intermediateColors,finalColor].reduce((p,c)=>p+";"+c) )
             myAni.setAttribute('dur', animationTiming.animationDur)
             myAni.setAttribute('repeatCount', animationTiming.animationReplay)
+            myAni.setAttribute('begin', animationTiming.animationBegin)
+            myAni.setAttribute('end', animationTiming.animationEnd)
             elem.appendChild(myAni)
             
 
-            } ) } }> Animate Selected
+            } ) } }> Animate Color
             </button>
         
         </li>

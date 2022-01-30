@@ -48,6 +48,8 @@ export const AnimPathFollow = ( {animationTiming}) => {
                     myAni.setAttribute('fill', 'freeze')
                     myAni.setAttribute('rotate', 'auto')
                     myAni.setAttribute("repeatCount",animationTiming.animationReplay)
+                    myAni.setAttribute('begin', animationTiming.animationBegin)
+                    myAni.setAttribute('end', animationTiming.animationEnd)
 
                     //myAni.setAttribute("path", "M-25,-12.5 L25,-12.5 L 0,-87.5 z" )
 
@@ -66,7 +68,7 @@ export const AnimPathFollow = ( {animationTiming}) => {
 
                     setPathFollowEl([])
 
-                }}>Animate</button>
+                }}>Animate Path Follow</button>
             </li>
             
             {
