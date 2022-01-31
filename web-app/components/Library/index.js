@@ -256,7 +256,9 @@ export const Library = () => {
         },
         {
             _renderID: 0,
-            svg:<></>,
+            svg:<>
+            
+            </>,
             tags:[]
         },
 
@@ -317,8 +319,6 @@ export const Library = () => {
             }
 
         </div>
-        
-        
         </div>
     )
 }

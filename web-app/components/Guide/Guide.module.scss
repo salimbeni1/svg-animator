@@ -46,3 +46,61 @@
 
 
 }
+
+
+.im1{
+    position: relative;
+
+    //width: 80%;
+    height: 80vh;
+}
+
+
+.animationG{
+
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .animationim{
+        position: relative;
+
+    }
+
+    .animationtext{
+
+    }
+
+    .animationexample{
+
+    }
+
+
+}
+
+
+.editorG{
+
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    .editortext{
+        position: relative;
+
+        
+        
+
+    }
+
+    .editorim{
+        position: relative;
+
+        border: 4px solid black;
+        border-radius: 3px;
+
+        width: 100%;
+        aspect-ratio: 1;
+
+    }
+}
