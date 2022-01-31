@@ -280,7 +280,7 @@ export const Guide = () => {
                             <h1>Color</h1>
                             <p> pick a color clicking on the default ones.
                                 Or write your color in the text input.
-                                The color : "transparent" is valid </p>
+                                The color : transparent is valid </p>
                         </div>
 
                         <div className={styles.editorim}>
