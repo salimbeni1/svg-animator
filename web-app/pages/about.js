@@ -47,7 +47,7 @@ const about = () => {
 
                 <div className={styles.im2}>
 
-                    work in progess ...
+                    
 
                 </div>
 
@@ -58,7 +58,7 @@ const about = () => {
                 
 
                 <div className={styles.im2}>
-                work in progess ...
+                
                 </div>
 
                 <div className={styles.cnt2}>
@@ -125,7 +125,7 @@ const about = () => {
                 </div>
 
                 <div className={styles.im2}>
-                work in progess ...
+                
                 </div>
 
             </div>
