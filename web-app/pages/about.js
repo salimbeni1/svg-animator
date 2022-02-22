@@ -19,16 +19,14 @@ const about = () => {
                         Design interactive animations for the web
                         to bring your site to life !!! 
                         This app is a simple svg animation editor that allows you
-                        to create the fanciest graphical effects.
-                        It also inlude a stock of animation if you do not have time to design them ;)
-
+                        to create the fanciest graphical effects :P
                     </p>
 
                     What is offered :
                     <ul>
                         <li><b>support</b> on all modern browsers</li>
                         <li>a <b>wide range of animations</b>, and even more to come !</li>
-                        <li>a library of <b>premade animations</b>, constantly updated</li>
+                        <li>a library of some <b>premade animations</b></li>
                         <li><b>import your images</b> of any format in your animations</li>
                         <li><b>convenient export</b> to your site</li>
                         <li><b>easy to use</b> editor</li>
@@ -38,9 +36,8 @@ const about = () => {
                     <h1>Who is it for ?</h1>
 
                     <p>
-                        Pretty much everyone. There are already some well build svg animators, but they unfortunately are not free :/
-                        Thus if you just want build an animation fast without too much overhead, this app is the 
-                        right one for you {"<3"} 
+                        Pretty much everyone. I made this for myself but feel free to do whatever you want with it. There are already some well build svg animators, but they unfortunately are not free :/
+                        Thus if you just want build an animation fast without too much overhead{"<3"} 
                     </p>
 
                 </div>
@@ -77,7 +74,7 @@ const about = () => {
                     </p>
 
                     <p>
-                        And now that it has a resonable set of tools ... why not share it to the world :)
+                        
                     </p>
 
                 </div>

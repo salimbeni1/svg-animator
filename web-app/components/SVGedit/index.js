@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useEffect , useState } from 'react'
+import { useEffect , useLayoutEffect, useState } from 'react'
 import styles from './SVGedit.module.scss'
 import Draggable from "react-draggable";
 
@@ -198,7 +198,7 @@ export const SVGedit = () => {
     const [rerenderres, setRerenderres] = useState(0)
 
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         
         const container = document.querySelector('#editorContainer')
 
