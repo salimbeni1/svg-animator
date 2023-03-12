@@ -29,3 +29,7 @@ cd web-app
 yarn
 yarn dev
 ```
+
+## TODO
+- insert video tutorial link
+- gradient colors and animations
