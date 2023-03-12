@@ -37,7 +37,7 @@ export const Guide = () => {
 
                 <div className={styles.blockContent} style={guideOpen["Quick Guide"] ? { display: "block", height: 'auto', padding: '20px 20px' } : { display: "none" }}>
                     <div className={styles.flexrows}>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/_fCoc1XGReg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/_fCoc1XGReg" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                         <div >
                             <p> 
                                 Use the left buttons to draw on the editor window, add animations to the svg elements with Anime,
