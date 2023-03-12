@@ -32,6 +32,17 @@
         place-items: center;
         padding: 10px;
 
+        .sublogo{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+        .sublogo:hover{
+            color: rgb(120, 120, 120);
+            cursor: pointer;
+        }
+
     }
 
     .menu{
@@ -48,15 +59,11 @@
         }
 
         li:hover{
-            color: blue;
+            color: rgb(120, 120, 120);
             cursor: pointer;
         }
         
     }
-
-    
-
-
 
 
 }
@@ -112,7 +119,7 @@
         }
 
         li:hover{
-            color: blue;
+            color: rgb(120, 120, 120);
             cursor: pointer;
         }
         

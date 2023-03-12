@@ -28,7 +28,7 @@
                 flex-direction: row;
                 align-items: center;
 
-                justify-content: space-around;
+                gap : 10px;
 
                 svg{
                     width: 30px;
@@ -44,7 +44,7 @@
 
         .im2{
 
-            background-color: blue;
+           
             width: 30vw;
             height: 30vw;
             padding: 20px;

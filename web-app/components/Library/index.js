@@ -247,21 +247,6 @@ export const Library = () => {
             </>,
             tags:["wierd stuff" , "morph"]
         },
-        {
-            _renderID: 0,
-            svg:<>
-           
-            </>,
-            tags:[]
-        },
-        {
-            _renderID: 0,
-            svg:<>
-            
-            </>,
-            tags:[]
-        },
-
 
     ]
 
@@ -271,7 +256,13 @@ export const Library = () => {
     return (
         <div >
         
-        <div className={styles.header}> <h2> <IoGridOutline/> Animation Stock Library  </h2> <div className={styles.search}> <input value="search an animation here ..." /> <IoSearch/>  </div> </div>
+            <div className={styles.header}> <h2> <IoGridOutline/> Animation Stock Library  </h2> 
+            {/**
+             * <div className={styles.search}> <input value="search an animation here ..." /> <IoSearch/>  </div> 
+             */}
+            
+        
+        </div>
 
 
         <div className={styles.ctn} >

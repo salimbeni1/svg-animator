@@ -3,6 +3,9 @@ import styles from './Header.module.scss'
 import Link from 'next/link'
 import { useState } from 'react'
 import { IoMenu } from "react-icons/io5";
+import { MdOutlineAnimation } from "react-icons/md";
+
+
 
 
 export const Header = () => {
@@ -16,7 +19,8 @@ export const Header = () => {
 
         <div className={styles.logo}>
         <Link href="/">
-        <a> logo </a> 
+        
+        <a> <div className={styles.sublogo}> <MdOutlineAnimation/> SVG-ANIMATOR</div> </a>
         </Link>
         </div>
 
@@ -25,22 +29,22 @@ export const Header = () => {
         <ul className={styles.btns}>
             <li> 
             <Link href="/app">
-            <a>make ur animation</a> 
+            <a>Animate</a> 
             </Link>
             </li>
             <li> 
             <Link href='/library'>
-            <a  >library</a> 
+            <a >Library</a> 
             </Link>
             </li>
             <li>
             <Link href='/guide'>
-            <a>how to use</a>  
+            <a>Guide</a>  
             </Link>
             </li>
             <li> 
             <Link href='/about'>
-            <a >about</a> 
+            <a >About</a> 
             </Link>
             </li> 
         </ul>

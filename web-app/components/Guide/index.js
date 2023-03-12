@@ -12,8 +12,8 @@ export const Guide = () => {
 
     const [guideOpen, setGuideOpen] = useState({
         "Quick Guide": true,
-        "Types of Animations": true,
-        "Editor Guide": true,
+        "Types of Animations": false,
+        "Editor Guide": false,
         "Library Guide": false
     })
 
@@ -36,19 +36,22 @@ export const Guide = () => {
                 </header>
 
                 <div className={styles.blockContent} style={guideOpen["Quick Guide"] ? { display: "block", height: 'auto', padding: '20px 20px' } : { display: "none" }}>
-                    
-                    <p> 
-                        Use the left buttons to draw on the editor window, add animations to the svg elements with Anime,
-                        and use the Result button to see the animation on the result window.    
-                    
-                        When the resulting animation is completed , you can on the right buttons , rerun the animation with Run , get the plaintext svg animation with Raw , download the svg with SVG  
-                        or copy on your clipboard the raw svg animation , to copy paste it on your app.
-                    </p>
-
-                    <p> 
-                        More information on the editor tools and animation tools below
-                    </p>
-
+                    <div className={styles.flexrows}>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/_fCoc1XGReg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <div >
+                            <p> 
+                                Use the left buttons to draw on the editor window, add animations to the svg elements with Anime,
+                                and use the Result button to see the animation on the result window.    
+                            
+                                When the resulting animation is completed , you can on the right buttons , rerun the animation with Run , get the plaintext svg animation with Raw , download the svg with SVG  
+                                or copy on your clipboard the raw svg animation , to copy paste it on your app.
+                            </p>
+                            <p> 
+                                More information on the editor tools and animation tools below
+                            </p>
+                        </div>
+                    </div>
+                        
                     <div className={styles.im1}>
                         <Image 
                         src={"/guide/im1.png"}
@@ -56,10 +59,7 @@ export const Guide = () => {
                         objectFit='contain'
                         />
                     </div>
-
-
                 </div>
-
             </div>
 
             <div className={styles.block}>

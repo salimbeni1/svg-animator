@@ -47,6 +47,11 @@
 
 }
 
+.flexrows {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 
 .im1{
     position: relative;
