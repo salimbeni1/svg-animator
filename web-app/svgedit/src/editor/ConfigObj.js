@@ -8,7 +8,7 @@ import { mergeDeep } from './components/jgraduate/Util.js'
 */
 export const regexEscape = function (str) {
   // Originally from: http://phpjs.org/functions
-  return String(str).replace(/[.\\+*?[^\]$(){}=!<>|:-]/g, '\\$&')
+  return String(str).replace(/[.\\+*?[^\]$(){}=!<>|:-]/g, '\\$&');
 }
 /**
  * @class configObj
@@ -266,7 +266,7 @@ export default class ConfigObj {
       if (this.urldata.extensions) {
         // For security reasons, disallow cross-domain or cross-folder
         //  extensions via URL
-        this.urldata.extensions = (/[:/\\]/).test(this.urldata.extensions)
+        this.urldata.extensions = ((/[:/\\]/)).test(this.urldata.extensions)
           ? ''
           : this.urldata.extensions.split(',')
       }
@@ -334,7 +334,7 @@ export default class ConfigObj {
   loadContentAndPrefs () {
     if (!this.curConfig.forceStorage &&
       (this.curConfig.noStorageOnLoad ||
-          !(/(?:^|;\s*)svgeditstore=(?:prefsAndContent|prefsOnly)/).test(document.cookie)
+          !((/(?:^|;\s*)svgeditstore=(?:prefsAndContent|prefsOnly)/)).test(document.cookie)
       )
     ) {
       return
@@ -344,7 +344,7 @@ export default class ConfigObj {
     if (this.editor.storage && // Cookies do not have enough available memory to hold large documents
       (this.curConfig.forceStorage ||
         (!this.curConfig.noStorageOnLoad &&
-          (/(?:^|;\s*)svgeditstore=prefsAndContent/).test(document.cookie))
+          ((/(?:^|;\s*)svgeditstore=prefsAndContent/)).test(document.cookie))
       )
     ) {
       const name = 'svgedit-' + this.curConfig.canvasName

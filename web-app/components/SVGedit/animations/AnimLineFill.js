@@ -5,8 +5,6 @@ import styles from './../SVGedit.module.scss'
 export const AnimLineFill = ({animationTiming}) => {
 
     const animate_line = ( elem ) => {
-        console.log("hello",elem)
-
         if (elem.getTotalLength) {
 
             const pathLenght = elem.getTotalLength()

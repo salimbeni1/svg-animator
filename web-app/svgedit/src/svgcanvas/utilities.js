@@ -93,7 +93,7 @@ export const init = (canvas) => {
  * @todo This might be needed in other places `parseFromString` is used even without LGTM flagging
  */
 export const dropXMLInternalSubset = (str) => {
-  return str.replace(/(<!DOCTYPE\s+\w*\s*\[).*(\?]>)/, '$1$2')
+  return str.replace(/(<!DOCTYPE\s+\w*\s*\[).*(\?]>)/, '$1$2');
   // return str.replace(/(?<doctypeOpen><!DOCTYPE\s+\w*\s*\[).*(?<doctypeClose>\?\]>)/, '$<doctypeOpen>$<doctypeClose>');
 }
 
@@ -112,7 +112,7 @@ export const toXml = (str) => {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;') // Note: `&apos;` is XML only
+    .replace(/'/g, '&#x27;'); // Note: `&apos;` is XML only
 }
 
 // This code was written by Tyler Akins and has been placed in the

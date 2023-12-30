@@ -1,6 +1,3 @@
-
-
-
 export const importImage = (e) => {
         e.stopPropagation()
         e.preventDefault()

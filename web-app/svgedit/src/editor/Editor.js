@@ -1099,7 +1099,7 @@ class Editor extends EditorStartup {
       }
       const src = str.slice(pre.length)
       return this.loadSvgString(base64 ? decode64(src) : decodeURIComponent(src), { noAlert })
-    })
+    });
   }
 
   /**

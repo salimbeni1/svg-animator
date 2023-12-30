@@ -4,8 +4,13 @@ import { useEffect , useLayoutEffect, useState } from 'react'
 import styles from './SVGedit.module.scss'
 import Draggable from "react-draggable";
 
-
-import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
+/*
+import dynamic from 'next/dynamic';
+const SvgCanvas = dynamic(
+    () => import('../../svgedit/src/svgcanvas/svgcanvas.js'),
+    { ssr: false }
+  );*/
+// import SvgCanvas from '../../svgedit/src/svgcanvas/svgcanvas.js'
 
 import { deleteSelectedElementAnimation , importImage } from './utils';
 
@@ -141,7 +146,7 @@ export const SVGedit = () => {
                         const start = cn.getAttribute('begin')? cn.getAttribute('begin'): 0
                         const end = cn.getAttribute('end')? cn.getAttribute('end'): start + dur
                         
-                        const repeat = cn.getAttribute('repeatCount')? cn.getAttribute('repeatCount') : 1
+                        let repeat = cn.getAttribute('repeatCount')? cn.getAttribute('repeatCount') : 1
                         if(repeat === "indefinite"){
                             repeat = 200
                         } else if (repeat.match("^[0-9]+$") === null) {
@@ -227,115 +232,107 @@ export const SVGedit = () => {
             baseUnit: 'px'
         }
 
-        window.canvas = new SvgCanvas(container, config)
-        canvas.updateCanvas(width_, height_)
+        const fetchData = async () => {
+            const SvgCanvas = (await import('../../svgedit/src/svgcanvas/svgcanvas.js')).default
+            window.canvas = new SvgCanvas(container, config)
+            
 
-        window.fill = function (colour) {
-                canvas.getSelectedElements().forEach((el) => {
-                el.setAttribute('fill', colour)
+            canvas.updateCanvas(width_, height_)
+
+            window.fill = function (colour) {
+                    canvas.getSelectedElements().forEach((el) => {
+                    el.setAttribute('fill', colour)
+                })
+            }
+    
+            const hiddenTextTag = window.canvas.$id(hiddenTextTagId)
+            window.canvas.textActions.setInputElem(hiddenTextTag)
+    
+            const addListenerMulti = (element, eventNames, listener) => {
+                eventNames.split(' ').forEach((eventName) => element.addEventListener(eventName, listener, false))
+            }
+    
+            addListenerMulti(hiddenTextTag, 'keyup input', (evt) => {
+                window.canvas.setTextContent(evt.currentTarget.value)
             })
-        }
-
-        const hiddenTextTag = window.canvas.$id(hiddenTextTagId)
-        window.canvas.textActions.setInputElem(hiddenTextTag)
-
-        const addListenerMulti = (element, eventNames, listener) => {
-            eventNames.split(' ').forEach((eventName) => element.addEventListener(eventName, listener, false))
-        }
-
-        addListenerMulti(hiddenTextTag, 'keyup input', (evt) => {
-            window.canvas.setTextContent(evt.currentTarget.value)
-        })
-
-        document.onclick = function(e) {
-            const el = document.getElementById("contextMenu")
-            //console.log(el);
-            if(el){
-                document.getElementById("contextMenu").style.display = 'none';
+    
+            document.onclick = function(e) {
+                const el = document.getElementById("contextMenu")
+                //console.log(el);
+                if(el){
+                    document.getElementById("contextMenu").style.display = 'none';
+                }
             }
-        }
+    
+            const contectMenu = (event) => {
+                    event.preventDefault();
+                    var menu = document.getElementById("contextMenu")      
+                    menu.style.display = 'block'; 
+                    menu.style.left = event.pageX + "px"; 
+                    menu.style.top = event.pageY + "px"; 
+                }
+    
+            document.querySelector('#editorContainer').addEventListener("mouseover",function() {
+                document.addEventListener('contextmenu', contectMenu)
+            });
+            
+            document.querySelector('#editorContainer').addEventListener("mouseout",function() {
+                document.removeEventListener("contextmenu", contectMenu, false);
+            });
+    
+            document.addEventListener( "keydown" , 
+                (e) => {
+                    // Ctrl+C or Cmd+C pressed?
+                    if ((e.ctrlKey || e.metaKey) && e.key == "c") {
+                        canvas.copySelectedElements()
+                     }
+                     // Ctrl+V or Cmd+V pressed?
+                     if ((e.ctrlKey || e.metaKey) && e.key === "v") {
+                        canvas.pasteElements()
+                     }
+                     // Ctrl+X or Cmd+X pressed?
+                     if ((e.ctrlKey || e.metaKey) && e.key === "x" ) {
+                        // Do stuff.
+                     } 
+                     // Delete key
+                     if ((e.key === "Backspace")) {
+                        //canvas.deleteSelectedElements()  
+                     } 
+                }
+                );
 
-        const contectMenu = (event) => {
+                // white layer around editor
+                const editorContainerRect =  document.querySelector('#editorContainer').getBoundingClientRect()
+                let editorOutCanvas1 = document.querySelector('#editorOutCanvas1')
+                let editorOutCanvas2 = document.querySelector('#editorOutCanvas2')
+                let editorOutCanvas3 = document.querySelector('#editorOutCanvas3')
+                let editorOutCanvas4 = document.querySelector('#editorOutCanvas4')
 
-                event.preventDefault();
-                var menu = document.getElementById("contextMenu")      
-                menu.style.display = 'block'; 
-                menu.style.left = event.pageX + "px"; 
-                menu.style.top = event.pageY + "px"; 
-            }
+                editorOutCanvas1.style.width = "100vw"
+                editorOutCanvas1.style.height = editorContainerRect.top+"px"
+                
+                editorOutCanvas2.style.height = editorContainerRect.height+"px"
+                editorOutCanvas2.style.width = editorContainerRect.left+"px"
+                editorOutCanvas2.style.top = editorContainerRect.top+"px"
 
+                editorOutCanvas3.style.top = editorContainerRect.top+"px"
+                editorOutCanvas3.style.left = (editorContainerRect.left + editorContainerRect.width)+"px"
+                editorOutCanvas3.style.height = editorContainerRect.height+"px"
+                editorOutCanvas3.style.width = (document.body.clientWidth - (editorContainerRect.left + editorContainerRect.width) ) +"px"
 
-        document.querySelector('#editorContainer').addEventListener("mouseover",function() {
-            document.addEventListener('contextmenu', contectMenu)
-        });
-        
-        document.querySelector('#editorContainer').addEventListener("mouseout",function() {
-            document.removeEventListener("contextmenu", contectMenu, false);
-        });
+                editorOutCanvas4.style.top = (editorContainerRect.top + editorContainerRect.height)+"px"
+                editorOutCanvas4.style.width = "100vw"
+                editorOutCanvas4.style.height = (window.innerHeight - (editorContainerRect.top + editorContainerRect.height)) + "px"
 
-        
-
-        document.addEventListener( "keydown" , 
-
-            (e) => {
-                // Ctrl+C or Cmd+C pressed?
-                if ((e.ctrlKey || e.metaKey) && e.key == "c") {
-                    canvas.copySelectedElements()
-                 }
-           
-                 // Ctrl+V or Cmd+V pressed?
-                 if ((e.ctrlKey || e.metaKey) && e.key === "v") {
-                    canvas.pasteElements()
-                 }
-           
-                 // Ctrl+X or Cmd+X pressed?
-                 if ((e.ctrlKey || e.metaKey) && e.key === "x" ) {
-                    // Do stuff.
-                 } 
-
-                 //console.log(e.key);
-
-                 // Delete key
-                 if ((e.key === "Backspace")) {
-
-                    //canvas.deleteSelectedElements()
-                    
-                 } 
-            }
-        );
-
-
-        // white layer around editor
-        const editorContainerRect =  document.querySelector('#editorContainer').getBoundingClientRect()
-        let editorOutCanvas1 = document.querySelector('#editorOutCanvas1')
-        let editorOutCanvas2 = document.querySelector('#editorOutCanvas2')
-        let editorOutCanvas3 = document.querySelector('#editorOutCanvas3')
-        let editorOutCanvas4 = document.querySelector('#editorOutCanvas4')
-
-        editorOutCanvas1.style.width = "100vw"
-        editorOutCanvas1.style.height = editorContainerRect.top+"px"
-        
-        editorOutCanvas2.style.height = editorContainerRect.height+"px"
-        editorOutCanvas2.style.width = editorContainerRect.left+"px"
-        editorOutCanvas2.style.top = editorContainerRect.top+"px"
-
-        editorOutCanvas3.style.top = editorContainerRect.top+"px"
-        editorOutCanvas3.style.left = (editorContainerRect.left + editorContainerRect.width)+"px"
-        editorOutCanvas3.style.height = editorContainerRect.height+"px"
-        editorOutCanvas3.style.width = (document.body.clientWidth - (editorContainerRect.left + editorContainerRect.width) ) +"px"
-
-        editorOutCanvas4.style.top = (editorContainerRect.top + editorContainerRect.height)+"px"
-        editorOutCanvas4.style.width = "100vw"
-        editorOutCanvas4.style.height = (window.innerHeight - (editorContainerRect.top + editorContainerRect.height)) + "px"
-
-        let editorINCanvas1 = document.querySelector('#editorINCanvas1')
-        editorINCanvas1.style.backgroundColor = "transparent"
-        editorINCanvas1.style.border = "1px solid black"
-        editorINCanvas1.style.top = editorContainerRect.top+"px"
-        editorINCanvas1.style.left = editorContainerRect.left+"px"
-        editorINCanvas1.style.height = editorContainerRect.height+"px"
-        editorINCanvas1.style.width = editorContainerRect.width+"px"
-
+                let editorINCanvas1 = document.querySelector('#editorINCanvas1')
+                editorINCanvas1.style.backgroundColor = "transparent"
+                editorINCanvas1.style.border = "1px solid black"
+                editorINCanvas1.style.top = editorContainerRect.top+"px"
+                editorINCanvas1.style.left = editorContainerRect.left+"px"
+                editorINCanvas1.style.height = editorContainerRect.height+"px"
+                editorINCanvas1.style.width = editorContainerRect.width+"px"
+          }
+        fetchData().catch(console.error);
     }, [])
 
 

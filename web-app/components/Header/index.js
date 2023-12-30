@@ -13,69 +13,66 @@ export const Header = () => {
 
     const [btnSmallClass, setBtnSmallClass] = useState(false)
     
-    return (
-        <>
-        <header className={styles.header}>
+    return <>
+    <header className={styles.header}>
 
-        <div className={styles.logo}>
-        <Link href="/">
-        
-        <a> <div className={styles.sublogo}> <MdOutlineAnimation/> SVG-ANIMATOR</div> </a>
+    <div className={styles.logo}>
+    <Link href="/">
+         <div className={styles.sublogo}> <MdOutlineAnimation/> SVG-ANIMATOR</div> 
+    </Link>
+    </div>
+
+    <div className={styles.menu} onClick={() => {setBtnSmallClass(!btnSmallClass)} } ><IoMenu/></div>
+
+    <ul className={styles.btns}>
+        <li> 
+        <Link href="/app">
+        Animate 
         </Link>
-        </div>
+        </li>
+        <li> 
+        <Link href='/library'>
+        Library 
+        </Link>
+        </li>
+        <li>
+        <Link href='/guide'>
+        Guide  
+        </Link>
+        </li>
+        <li> 
+        <Link href='/about'>
+        About 
+        </Link>
+        </li> 
+    </ul>
 
-        <div className={styles.menu} onClick={() => {setBtnSmallClass(!btnSmallClass)} } ><IoMenu/></div>
-
-        <ul className={styles.btns}>
-            <li> 
-            <Link href="/app">
-            <a>Animate</a> 
-            </Link>
-            </li>
-            <li> 
-            <Link href='/library'>
-            <a >Library</a> 
-            </Link>
-            </li>
-            <li>
-            <Link href='/guide'>
-            <a>Guide</a>  
-            </Link>
-            </li>
-            <li> 
-            <Link href='/about'>
-            <a >About</a> 
-            </Link>
-            </li> 
-        </ul>
-
-        </header>
+    </header>
 
 
-        <ul className={!btnSmallClass?styles.btnsSmallH:styles.btnsSmallV}>
-            <li> 
-            <Link href="/app">
-            <a>make ur animation</a> 
-            </Link>
-            </li>
-            <li> 
-            <Link href='/library'>
-            <a  >library</a> 
-            </Link>
-            </li>
-            <li>
-            <Link href='/guide'>
-            <a>how to use</a>  
-            </Link>
-            </li>
-            <li> 
-            <Link href='/about'>
-            <a >about</a> 
-            </Link>
-            </li> 
-        </ul>
+    <ul className={!btnSmallClass?styles.btnsSmallH:styles.btnsSmallV}>
+        <li> 
+        <Link href="/app">
+        make ur animation 
+        </Link>
+        </li>
+        <li> 
+        <Link href='/library'>
+        library 
+        </Link>
+        </li>
+        <li>
+        <Link href='/guide'>
+        how to use  
+        </Link>
+        </li>
+        <li> 
+        <Link href='/about'>
+        about 
+        </Link>
+        </li> 
+    </ul>
 
 
-        </>
-    )
+    </>;
 }

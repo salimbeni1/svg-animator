@@ -171,7 +171,7 @@ export const changeSelectedAttributeNoUndoMethod = function (attr, newValue, ele
         elem.textContent = newValue
 
         // FF bug occurs on on rotated elements
-        if ((/rotate/).test(elem.getAttribute('transform'))) {
+        if (((/rotate/)).test(elem.getAttribute('transform'))) {
           elem = ffClone(elem)
         }
         // Hoped to solve the issue of moving text with text-anchor="start",
@@ -214,7 +214,7 @@ export const changeSelectedAttributeNoUndoMethod = function (attr, newValue, ele
       // where other text attributes are changed.
       if (isGecko() &&
         elem.nodeName === 'text' &&
-        (/rotate/).test(elem.getAttribute('transform')) &&
+        ((/rotate/)).test(elem.getAttribute('transform')) &&
         (String(newValue).startsWith('url') || (['font-size', 'font-family', 'x', 'y'].includes(attr) && elem.textContent))) {
         elem = ffClone(elem)
       }
