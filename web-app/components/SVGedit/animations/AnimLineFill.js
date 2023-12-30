@@ -4,6 +4,45 @@ import styles from './../SVGedit.module.scss'
 
 export const AnimLineFill = ({animationTiming}) => {
 
+    const animate_line = ( elem ) => {
+        console.log("hello",elem)
+
+        if (elem.getTotalLength) {
+
+            const pathLenght = elem.getTotalLength()
+
+            let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
+            myAni.setAttribute('attributeName', 'stroke-dashoffset')
+            
+            myAni.setAttribute('from', pathLenght )
+            myAni.setAttribute('to', 0 ) 
+            myAni.setAttribute('dur', animationTiming.animationDur)
+            myAni.setAttribute('repeatCount', animationTiming.animationReplay)
+            myAni.setAttribute('begin', animationTiming.animationBegin)
+            myAni.setAttribute('end', animationTiming.animationEnd)
+            elem.appendChild(myAni)
+
+            elem.setAttribute("stroke-dasharray" , pathLenght)
+
+        }
+        
+        if (elem.children){
+            for (let child of elem.children) {
+                animate_line(child)
+            }
+        }
+
+        if (elem.tagName === 'use') {
+            const href = elem.getAttribute('href') || elem.getAttribute('xlink:href');
+            if (href) {
+                let new_element = document.querySelector(href);
+                if (new_element) {
+                    animate_line(new_element)
+                }
+            }
+        }
+    }
+
     const getAnimLineFill = () =>{
         return <div className={styles.divAnimLineFill}>
             <ul className={styles.ul3} >
@@ -12,28 +51,8 @@ export const AnimLineFill = ({animationTiming}) => {
                     <button className={styles.animateBtn} onClick={() => {
 
                         canvas.getSelectedElements().forEach( (elem) => {
-
-                            let myAni = document.createElementNS('http://www.w3.org/2000/svg', 'animate')
-                            myAni.setAttribute('attributeName', 'stroke-dashoffset')
-                            
-                            const pathLenght = elem.getTotalLength()
-
-                            myAni.setAttribute('from', pathLenght )
-                            myAni.setAttribute('to', 0 ) 
-                            myAni.setAttribute('dur', animationTiming.animationDur)
-                            myAni.setAttribute('repeatCount', animationTiming.animationReplay)
-                            myAni.setAttribute('begin', animationTiming.animationBegin)
-                            myAni.setAttribute('end', animationTiming.animationEnd)
-                            elem.appendChild(myAni)
-
-                            elem.setAttribute("stroke-dasharray" , pathLenght)
-                            //elem.setAttribute("stroke-dashoffset" , "100")
-
-                            //console.log(elem);
-
-                            //alert("been here")
+                            animate_line(elem)
                         })
-
 
                     }}>Animate Line</button>
                 </li>
